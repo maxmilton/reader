@@ -11,7 +11,7 @@ const pkg = require('./package.json');
 /** @type {chrome.runtime.Manifest} */
 const manifest = {
   manifest_version: 3,
-  name: 'READER',
+  name: 'Reader',
   description: 'Experimental web page speed reader.',
   version: pkg.version,
   version_name: process.env.GITHUB_REF ? undefined : gitRef().replace(/^v/, ''),

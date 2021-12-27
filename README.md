@@ -3,7 +3,7 @@
 [![Chrome Web Store version](https://img.shields.io/chrome-web-store/v/obfgebngemlbebjdbnccgapomejkfckj.svg)](https://chrome.google.com/webstore/detail/reader/obfgebngemlbebjdbnccgapomejkfckj)
 [![Licence](https://img.shields.io/github/license/maxmilton/reader.svg)](https://github.com/maxmilton/reader/blob/master/LICENSE)
 
-# READER
+# Reader
 
 Experimental web page speed reader.
 
