@@ -1,7 +1,7 @@
 {
   "name": "reader",
   "version": "0.0.1",
-  "description": "Experimental web page speed reader",
+  "description": "Web page speed reader browser extension",
   "repository": "maxmilton/reader",
   "homepage": "https://github.com/maxmilton/reader",
   "author": "Max Milton <max@happycode.ltd>",

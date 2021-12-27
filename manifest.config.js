@@ -12,7 +12,7 @@ const pkg = require('./package.json');
 const manifest = {
   manifest_version: 3,
   name: 'Reader',
-  description: 'Experimental web page speed reader.',
+  description: '🔍 Web page speed reader.',
   version: pkg.version,
   version_name: process.env.GITHUB_REF ? undefined : gitRef().replace(/^v/, ''),
   icons: {
@@ -42,7 +42,7 @@ const manifest = {
   },
 
   // FIXME: Update to real webstore ID and key once it's published
-  // https://chrome.google.com/webstore/detail/reader/obfgebngemlbebjdbnccgapomejkfckj
+  // https://chrome.google.com/webstore/detail/reader/ollcdfepbkpopcfilmheonkfbbnnmkbj
   // key: '',
 };
 
