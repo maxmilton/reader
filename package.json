@@ -1,0 +1,84 @@
+{
+  "name": "reader",
+  "version": "0.0.0",
+  "description": "Experimental web page speed reader",
+  "repository": "maxmilton/reader",
+  "homepage": "https://github.com/maxmilton/reader",
+  "author": "Max Milton <max@happycode.ltd>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "pnpm run prebuild && NODE_ENV=production node build.mjs",
+    "dev": "NODE_ENV=development node build.mjs",
+    "lint": "pnpm run lint:css && pnpm run lint:js && pnpm run lint:ts",
+    "lint:css": "stylelint --ignore-path .gitignore '**/*.{css,xcss}'",
+    "lint:js": "eslint --ignore-path .gitignore --ext .ts,.js,.mjs,.cjs .",
+    "lint:ts": "tsc --project test",
+    "prebuild": "rm -rf dist; cp -r static dist",
+    "test": "c8 --all --include=src --reporter=text --reporter=lcovonly uvu -r tsm test '\\.test\\.ts$'",
+    "test-e2e": "node -r tsm test/e2e/index.ts",
+    "zip": "sh -c 'test -z \"$(git status --porcelain)\"' && pnpm run lint && pnpm run test && pnpm run build && cd dist && zip ../chrome-extension.zip *"
+  },
+  "dependencies": {
+    "@ekscss/framework": "0.0.39",
+    "html5parser": "2.0.2",
+    "stage1": "0.3.0",
+    "trackx": "0.2.1"
+  },
+  "devDependencies": {
+    "@maxmilton/stylelint-config": "0.0.9",
+    "@types/chrome": "0.0.173",
+    "@types/csso": "5.0.0",
+    "@types/jsdom": "16.2.14",
+    "@types/node": "17.0.5",
+    "@typescript-eslint/eslint-plugin": "5.8.0",
+    "@typescript-eslint/parser": "5.8.0",
+    "c8": "7.10.0",
+    "csso": "5.0.2",
+    "ekscss": "0.0.12",
+    "esbuild": "0.14.8",
+    "esbuild-minify-templates": "0.7.2",
+    "esbuild-plugin-ekscss": "0.0.10",
+    "eslint": "8.5.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-config-airbnb-typescript": "16.1.0",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-unicorn": "39.0.0",
+    "git-ref": "0.3.1",
+    "jsdom": "19.0.0",
+    "kleur": "4.1.4",
+    "pirates": "4.0.4",
+    "playwright-chromium": "1.17.1",
+    "prettier": "2.5.1",
+    "prettier-plugin-pkg": "0.11.1",
+    "prettier-plugin-sh": "0.8.1",
+    "purgecss": "4.1.3",
+    "stylelint": "14.2.0",
+    "stylelint-config-standard": "24.0.0",
+    "tsm": "2.2.1",
+    "typescript": "4.5.4",
+    "uvu": "0.5.2"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "endOfLine": "lf",
+    "singleQuote": true,
+    "trailingComma": "all",
+    "plugins": [
+      "./node_modules/prettier-plugin-pkg",
+      "./node_modules/prettier-plugin-sh"
+    ]
+  },
+  "stylelint": {
+    "reportInvalidScopeDisables": true,
+    "reportNeedlessDisables": true,
+    "extends": [
+      "stylelint-config-standard",
+      "@maxmilton/stylelint-config"
+    ],
+    "ignoreFiles": [
+      "**/dist/**",
+      "**/node_modules/**"
+    ]
+  }
+}
