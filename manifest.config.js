@@ -31,13 +31,14 @@ const manifest = {
   offline_enabled: true,
   incognito: 'spanning',
   content_security_policy: {
-    extension_pages:
-      "default-src 'none';"
-      + "script-src 'self';"
-      + "style-src 'self';"
-      + "font-src 'self';"
-      + 'connect-src https://api.trackx.app;'
-      + 'report-uri https://api.trackx.app/v1/9lbe1l9le4x/report;',
+    extension_pages: [
+      "default-src 'none'",
+      "script-src-elem 'self'",
+      "style-src-elem 'self'",
+      "font-src 'self'",
+      'connect-src https://api.trackx.app',
+      'report-uri https://api.trackx.app/v1/9lbe1l9le4x/report',
+    ].join(';'),
   },
 
   // FIXME: Update to real webstore ID and key once it's published
