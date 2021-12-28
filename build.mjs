@@ -185,7 +185,7 @@ await esbuild.build({
   ],
   banner: { js: '"use strict";' },
   bundle: true,
-  // XXX: Do no minify here because it breaks \n in strings after minifyJS
+  // XXX: Do not minifySyntax here, it breaks \n in strings after minifyJS
   // minify: !dev,
   sourcemap: dev,
   watch: dev,

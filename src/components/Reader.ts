@@ -20,12 +20,32 @@ const wordList = (async () => {
     return document.documentElement.outerHTML;
   });
   // eslint-disable-next-line prefer-template
-  const text = ' 3. 2. 1. ' + extractText(html);
+  const text = ' 3. 2. 1. ' + extractText(html) + '\n';
   performance.measure('Extract', 'Extract:start');
   return text.split(' ');
 })();
 
-// wordList.then(console.log);
+// https://github.com/cameron/squirt/blob/03cf7bf103652857bd54fa7960a39fc27e306b31/squirt.js#L168-L187
+const WAIT_AFTER_SHORT_WORD = 1.2;
+const WAIT_AFTER_LONG_WORD = 1.5;
+const WAIT_AFTER_COMMA = 2;
+const WAIT_AFTER_PERIOD = 3;
+const WAIT_AFTER_PARAGRAPH = 3.5;
+
+function timeoutMultiplier(word: string, jumped?: boolean) {
+  if (jumped) return WAIT_AFTER_PERIOD;
+  // if (word === 'Dr.' || word === 'Mr.' || word === 'Mrs.' || word === 'Ms.') return 1;
+
+  let lastChar = word[word.length - 1];
+  if (/["”]/.test(lastChar)) lastChar = word[word.length - 2];
+
+  if (lastChar === '\n') return WAIT_AFTER_PARAGRAPH;
+  if ('.!?…'.includes(lastChar)) return WAIT_AFTER_PERIOD;
+  if (',;:–'.includes(lastChar)) return WAIT_AFTER_COMMA;
+  if (word.length < 4) return WAIT_AFTER_SHORT_WORD;
+  if (word.length > 11) return WAIT_AFTER_LONG_WORD;
+  return 1;
+}
 
 interface UserSettings {
   /** Words Per Minute. */
@@ -47,7 +67,9 @@ type RefNodes = {
 
 const view = h(`
   <div>
-    <div id=progress #progress></div>
+    <div id=progress>
+      <div id=bar #progress></div>
+    </div>
 
     <div id=controls>
       <button class=button #rewind>Rewind</button>
@@ -74,41 +96,44 @@ export function Reader(): ReaderComponent {
 
   wordList.catch((error) => {
     timer = -1;
-    w.innerHTML = `<div class="summary tc">${String(error)}</div>`;
-    w.style.transform = 'translateX(-50%)';
-    (w.firstChild as HTMLDivElement).style.opacity = '1';
+    w.innerHTML = `<div id=summary>${String(error)}</div>`;
+    w.style.cssText = '';
     // eslint-disable-next-line no-console
     console.error(error);
   });
 
-  async function next(timeout?: number) {
+  function end(words: string[]) {
+    const time = (Date.now() - startTime) / 1000;
+    const mins = Math.trunc(time / 60);
+    stop();
+
+    w.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
+      // exclude intro countdown
+      words.length - 4
+    } words in ${
+      time < 60
+        ? `${Math.trunc(time)} seconds`
+        : `${mins} minute${mins === 1 ? '' : 's'}`
+    }.</div>`;
+
+    w.style.cssText = '';
+    progress.style.transform = 'translateX(0)';
+    focus.className = '';
+    play.textContent = 'Play again';
+    index = 0;
+    startTime = 0;
+
+    (w.firstChild as HTMLDivElement).style.opacity = '0';
+    window.setTimeout(() => {
+      (w.firstChild as HTMLDivElement).style.opacity = '1';
+    });
+  }
+
+  async function next(timeout?: number, jumped?: boolean) {
     const words = await wordList;
 
     if (++index >= words.length) {
-      const time = (Date.now() - startTime) / 1000;
-      const mins = Math.trunc(time / 60);
-      stop();
-
-      w.innerHTML = `<div class="summary tc"><em>ﬁn.</em><br>You read ${
-        // exclude intro and final space
-        words.length - 5
-      } words in ${
-        time < 60
-          ? `${Math.trunc(time)} seconds`
-          : `${mins} minute${mins === 1 ? '' : 's'}`
-      }.</div>`;
-
-      w.style.transform = 'translateX(-50%)';
-      progress.style.transform = 'translateX(0)';
-      focus.className = '';
-      play.textContent = 'Play again';
-      index = 0;
-      startTime = 0;
-
-      window.setTimeout(() => {
-        (w.firstChild as HTMLDivElement).style.opacity = '1';
-      });
-
+      end(words);
       return;
     }
 
@@ -125,39 +150,26 @@ export function Reader(): ReaderComponent {
     frag.normalize();
     w.replaceChildren(frag);
 
-    if (orp) {
-      w.style.transform = `translateX(-${
-        orp.offsetLeft + orp.offsetWidth / 2
-      }px)`;
-    }
+    w.style.transform = `translateX(-${
+      orp!.offsetLeft + orp!.offsetWidth / 2
+    }px)`;
     progress.style.transform = `translateX(${
       (index / words.length - 1) * 100
     }%)`;
 
     if (timeout) {
-      let delay = 0;
-
-      // Adjust delay under certain conditions
-      if (word === '') {
-        delay = timeout * 0.8;
-      } else if (/[!.?…‽⁈]$/.test(word)) {
-        delay = timeout * 1.15;
-      } else if (word.length > 10 || /(^["'(—‘“])|(["'),:;—’”]$)/.test(word)) {
-        delay = timeout / 2;
-      }
-
       timer = window.setTimeout(() => {
         void next(timeout);
-      }, timeout + delay);
+      }, timeout * timeoutMultiplier(word, jumped));
     }
   }
 
-  function start() {
+  function start(jumped?: boolean) {
     if (!startTime) {
       startTime = Date.now();
     }
 
-    void next(60_000 / rate);
+    void next(60_000 / rate, jumped);
     focus.className = 'show';
     play.textContent = 'Pause';
   }
@@ -188,7 +200,6 @@ export function Reader(): ReaderComponent {
   };
 
   rewind.__click = async () => {
-    const wasPlaying = !!timer;
     const words = await wordList;
     stop();
 
@@ -199,14 +210,10 @@ export function Reader(): ReaderComponent {
       index = 0;
     } else {
       // Set index to start of the sentence
-      while (index-- && !/[!.?…‽⁈]$/.test(words[index]));
+      while (index-- && !/[!.?…]$/.test(words[index]));
     }
 
-    await next();
-
-    if (wasPlaying) {
-      start();
-    }
+    start(true);
   };
 
   slower.__click = () => {
@@ -236,7 +243,7 @@ export function Reader(): ReaderComponent {
       faster.disabled = true;
     }
 
-    // Delay start, otherwise it feels like play begins too early
+    // Delay auto-play, otherwise it feels like it starts too early
     // eslint-disable-next-line @typescript-eslint/unbound-method
     window.setTimeout(play.__click, 160);
   });

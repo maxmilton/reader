@@ -1,6 +1,16 @@
-#progress {
+#progress,
+#focus,
+#word {
+  contain: strict;
+}
+
+#progress,
+#bar {
   width: ${x.app.width};
   height: 4px;
+}
+
+#bar {
   background-color: ${x.fn.color(x.color.rose1).mix(x.fn.color(x.color.background), 0.5)};
   transform: translateX(-100%);
   transition: transform 0.3s ease-out;
@@ -16,17 +26,6 @@
 #play {
   width: 10rem;
   margin-left: 0.5rem;
-}
-
-#word {
-  position: relative;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  height: 134px;
-  font-family: ${x.fontStack};
-  font-size: 48px;
-  white-space: nowrap;
 }
 
 #focus {
@@ -46,7 +45,6 @@
     );
   opacity: 0;
   transition: opacity 0.3s;
-  will-change: opacity;
 
   &.show {
     opacity: 1;
@@ -54,11 +52,23 @@
   }
 }
 
-.summary {
+#word {
+  position: relative;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  height: 134px;
+  font-family: ${x.fontStack};
+  font-size: 48px;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+#summary {
   width: 100%;
   font-size: 26px;
+  text-align: center;
   white-space: initial; // allow long error text to wrap
-  opacity: 0;
   transition: opacity 0.8s;
 
   & > em {

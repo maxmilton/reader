@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-for-loop */
+/* eslint-disable unicorn/prefer-includes, unicorn/no-for-loop */
 
 // Import html5parser from source directly to avoid tslib in their dist
 import {
@@ -35,8 +35,9 @@ const EXTRANEOUS_ELEMENTS = [
 ];
 // FIXME: Needs more real-world testing as false positives are possible
 //  ↳ Might need some kind of scoring logic to determine confidence
-//  ↳ Issues with: ad, comment
-const EXTRANEOUS_CLASSES = /community|contact|disqus|extra|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|tweet|twitter|widget/i;
+//  ↳ What if the user wants to read comments? Should the matching be different
+//    if the input is the user selection?
+const EXTRANEOUS_CLASSES = /comment|communit|contact|disqus|donat|extra|fundrais|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|widget/i;
 const BLOCK_ELEMENTS = [
   'address',
   'article',
@@ -75,6 +76,13 @@ const BLOCK_ELEMENTS = [
 ];
 const SKIP = true;
 
+const textarea = create('textarea');
+
+function decodeHTMLEntities(html: string) {
+  textarea.innerHTML = html;
+  return textarea.value;
+}
+
 function buildAttributeMap(node: ITag | Tag): asserts node is Tag {
   // eslint-disable-next-line no-param-reassign
   node.attributeMap = {};
@@ -107,12 +115,6 @@ function walk2(
   }
 }
 
-function decodeHTMLEntities(html: string) {
-  const textarea = create('textarea');
-  textarea.innerHTML = html;
-  return textarea.value;
-}
-
 /**
  * Attempt to extract the main content of a given HTML document.
  *
@@ -127,9 +129,6 @@ export function extractText(html: string): string {
   const articles: ITag[] = [];
   const mains: ITag[] = [];
   let body: ITag;
-
-  // TODO: Experiment: Save the H1 and use that as the starting point (but not
-  // necessarily the root)
 
   // First pass; populate attribute maps and collect references
   walk(ast, {
@@ -186,7 +185,7 @@ export function extractText(html: string): string {
     (node, parent) => {
       if (node.type === SyntaxKind.Tag) {
         if (
-          EXTRANEOUS_ELEMENTS.includes(node.name)
+          EXTRANEOUS_ELEMENTS.indexOf(node.name) !== -1
           || (node.name === 'footer' && parent.name !== 'blockquote')
           // TODO: Fix types
           || ((node as unknown as Tag).attributeMap.class
@@ -197,12 +196,21 @@ export function extractText(html: string): string {
           return SKIP;
         }
       } else {
-        text += node.value;
+        // Add text with consecutive whitespace collapsed
+        text += (
+          node.value.indexOf('&') !== -1
+            ? decodeHTMLEntities(node.value)
+            : node.value
+        ).replace(/\s+/g, ' ');
       }
     },
     (node) => {
-      if (node.type === SyntaxKind.Tag && BLOCK_ELEMENTS.includes(node.name)) {
-        text += '\n';
+      if (
+        node.type === SyntaxKind.Tag
+        && BLOCK_ELEMENTS.indexOf(node.name) !== -1
+      ) {
+        // Add double space (which is turned into a newline later)
+        text += '  ';
       }
     },
   );
@@ -211,17 +219,12 @@ export function extractText(html: string): string {
   // console.log(root);
 
   return (
-    decodeHTMLEntities(text)
-      // mark new lines
-      .replace(/\n/g, '%LF%')
-      // collapse consecutive whitespace to single space
-      .replace(/\s+/g, ' ')
-      // replace marker with double space
-      .replace(/%LF%/g, '  ')
-      // no more than two consecutive spaces
-      .replace(/ {3,}/g, '  ')
-      // single final space
-      .replace(/ *$/, ' ')
+    text
+      .trim()
+      // ensure single consecutive \n padded with space
+      .replace(/[\n ]{2,}/g, ' \n ')
+      // fix missing space around em dashes
+      .replace(/(\S)—(\S)/g, '$1 — $2')
   );
 }
 

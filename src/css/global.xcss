@@ -8,10 +8,16 @@
 
 html,
 body {
+  overflow: hidden;
   width: ${x.app.width};
 }
 
+// Override font styles chrome injects for extensions
 body {
-  // Override font styles chrome injects for extensions
   font-size: ${x.textSize};
+}
+
+// Override @ekscss/framework/level2/button.xcss to prevent browser repaints
+.button {
+  z-index: initial;
 }
