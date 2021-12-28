@@ -72,7 +72,7 @@ for (const filename of [
 test('renders reader app', async (context) => {
   const { page } = await renderPage(
     context,
-    'chrome-extension://obfgebngemlbebjdbnccgapomejkfckj/reader.html',
+    'chrome-extension://ollcdfepbkpopcfilmheonkfbbnnmkbj/reader.html',
   );
   // TODO: Better and more assertions
   // eslint-disable-next-line unicorn/no-await-expression-member

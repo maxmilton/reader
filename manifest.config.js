@@ -9,7 +9,7 @@ const { gitRef } = require('git-ref');
 const pkg = require('./package.json');
 
 /** @type {chrome.runtime.Manifest} */
-const manifest = {
+module.exports = {
   manifest_version: 3,
   name: 'Reader',
   description: '🔍 Web page speed reader.',
@@ -41,9 +41,6 @@ const manifest = {
     ].join(';'),
   },
 
-  // FIXME: Update to real webstore ID and key once it's published
   // https://chrome.google.com/webstore/detail/reader/ollcdfepbkpopcfilmheonkfbbnnmkbj
-  // key: '',
+  key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3xP4vEWKRlRR3tFGidLLBGM2PjvisNNH6NSJPEbXSU7PNzogC+GPXW9qN5SEyfVOY7er+SkedCp9RTydfCzGOEaZfsbc11Wt9VV5C+oPhQTx+RBJMUJjJdwn3z1x7t4ufNqNObvNEjwPKLz4OfVbMsy97Q1Rmu/Wt77STonJj0JP7+xCTpFZLNKDslRh/Ceardh6r5S42GnZnlILrQiAVFxBYSh4lmQoAFbYu2D4LS2ZBdAIBA7FqgMpYVVSVSrlffVfM2lGLRcMHzjQ9jS30hVs2othn1LctbwXaRT2VpKchAE2zX8yaOxZ4F72Kf+Y2yC6VcRJ24u4VkVcIgrkvwIDAQAB',
 };
-
-module.exports = manifest;
