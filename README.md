@@ -61,4 +61,4 @@ The [magnifying glass icon](https://github.com/twitter/twemoji/blob/master/asset
 
 ---
 
-© 2021 [Max Milton](https://maxmilton.com)
+© 2022 [Max Milton](https://maxmilton.com)
