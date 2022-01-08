@@ -23,7 +23,7 @@
     "@ekscss/framework": "0.0.39",
     "html5parser": "2.0.2",
     "stage1": "0.3.0",
-    "trackx": "0.2.1"
+    "trackx": "0.3.0"
   },
   "devDependencies": {
     "@maxmilton/stylelint-config": "0.0.9",
