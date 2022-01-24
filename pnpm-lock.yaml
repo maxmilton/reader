@@ -24,7 +24,7 @@ specifiers:
   html5parser: 2.0.2
   jsdom: 19.0.0
   kleur: 4.1.4
-  pirates: 4.0.4
+  pirates: 4.0.5
   playwright-chromium: 1.18.0
   prettier: 2.5.1
   prettier-plugin-pkg: 0.11.1
@@ -66,7 +66,7 @@ devDependencies:
   git-ref: 0.3.1
   jsdom: 19.0.0
   kleur: 4.1.4
-  pirates: 4.0.4
+  pirates: 4.0.5
   playwright-chromium: 1.18.0
   prettier: 2.5.1
   prettier-plugin-pkg: 0.11.1_prettier@2.5.1
@@ -2521,8 +2521,8 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
-  /pirates/4.0.4:
-    resolution: {integrity: sha512-ZIrVPH+A52Dw84R0L3/VS9Op04PuQ2SEoJL6bkshmiTic/HldyW9Tf7oH5mhJZBK7NmDx27vSMrYEXPXclpDKw==}
+  /pirates/4.0.5:
+    resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
     engines: {node: '>= 6'}
     dev: true
 
