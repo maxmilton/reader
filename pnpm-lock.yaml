@@ -25,7 +25,7 @@ specifiers:
   jsdom: 19.0.0
   kleur: 4.1.4
   pirates: 4.0.5
-  playwright-chromium: 1.18.0
+  playwright-chromium: 1.18.1
   prettier: 2.5.1
   prettier-plugin-pkg: 0.11.1
   prettier-plugin-sh: 0.8.1
@@ -67,7 +67,7 @@ devDependencies:
   jsdom: 19.0.0
   kleur: 4.1.4
   pirates: 4.0.5
-  playwright-chromium: 1.18.0
+  playwright-chromium: 1.18.1
   prettier: 2.5.1
   prettier-plugin-pkg: 0.11.1_prettier@2.5.1
   prettier-plugin-sh: 0.8.1_prettier@2.5.1
@@ -2526,21 +2526,21 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /playwright-chromium/1.18.0:
-    resolution: {integrity: sha512-GVmwsw47nyMxvnUcqswvJCFgdR3wEX4YUoz0Rrr9DRuh1zXvVac0QpJyrQp0kRvZlaV9BO95ru6Q1Hni+pz+xg==}
+  /playwright-chromium/1.18.1:
+    resolution: {integrity: sha512-DHAOdzZhhu4pMe9yg2zL49JSGXLHTO+DL76duukoy807o+ccu1tEbqyUId46ogLYk7rOjblVK6o7YG/vyVCasQ==}
     engines: {node: '>=12'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      playwright-core: 1.18.0
+      playwright-core: 1.18.1
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
     dev: true
 
-  /playwright-core/1.18.0:
-    resolution: {integrity: sha512-JTRlCVpfAFcC1nth+XIE07w6M5m6C8PaEoClv7wGWF97cyDMcHIij0xIVEKMKli7IG5N0mqjLDFc/akXSbMZ1g==}
+  /playwright-core/1.18.1:
+    resolution: {integrity: sha512-NALGl8R1GHzGLlhUApmpmfh6M1rrrPcDTygWvhTbprxwGB9qd/j9DRwyn4HTQcUB6o0/VOpo46fH9ez3+D/Rog==}
     engines: {node: '>=12'}
     hasBin: true
     dependencies:
