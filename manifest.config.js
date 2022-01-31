@@ -38,6 +38,7 @@ module.exports = {
       "font-src 'self'",
       'connect-src https://api.trackx.app',
       'report-uri https://api.trackx.app/v1/9lbe1l9le4x/report',
+      '',
     ].join(';'),
   },
 
