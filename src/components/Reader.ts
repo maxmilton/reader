@@ -245,7 +245,7 @@ export function Reader(): ReaderComponent {
 
     // Delay auto-play, otherwise it feels like it starts too early
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    window.setTimeout(play.__click, 160);
+    window.setTimeout(play.__click!, 160);
   });
 
   return root;
