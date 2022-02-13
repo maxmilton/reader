@@ -25,7 +25,7 @@ specifiers:
   jsdom: 19.0.0
   kleur: 4.1.4
   pirates: 4.0.5
-  playwright-chromium: 1.18.1
+  playwright-chromium: 1.19.0
   prettier: 2.5.1
   prettier-plugin-pkg: 0.11.1
   prettier-plugin-sh: 0.8.1
@@ -67,7 +67,7 @@ devDependencies:
   jsdom: 19.0.0
   kleur: 4.1.4
   pirates: 4.0.5
-  playwright-chromium: 1.18.1
+  playwright-chromium: 1.19.0
   prettier: 2.5.1
   prettier-plugin-pkg: 0.11.1_prettier@2.5.1
   prettier-plugin-sh: 0.8.1_prettier@2.5.1
@@ -2295,9 +2295,9 @@ packages:
       mime-db: 1.51.0
     dev: true
 
-  /mime/2.6.0:
-    resolution: {integrity: sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg==}
-    engines: {node: '>=4.0.0'}
+  /mime/3.0.0:
+    resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
+    engines: {node: '>=10.0.0'}
     hasBin: true
     dev: true
 
@@ -2575,21 +2575,21 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /playwright-chromium/1.18.1:
-    resolution: {integrity: sha512-DHAOdzZhhu4pMe9yg2zL49JSGXLHTO+DL76duukoy807o+ccu1tEbqyUId46ogLYk7rOjblVK6o7YG/vyVCasQ==}
+  /playwright-chromium/1.19.0:
+    resolution: {integrity: sha512-KmqJRTRFJqwvIny0XNjQV/PTjUszvjO2E9Rpe/WOljOgnFH3TKRSf0ShFcP8YrPirVF2GOXYtyw+Ip0z2Y+7Xg==}
     engines: {node: '>=12'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      playwright-core: 1.18.1
+      playwright-core: 1.19.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
     dev: true
 
-  /playwright-core/1.18.1:
-    resolution: {integrity: sha512-NALGl8R1GHzGLlhUApmpmfh6M1rrrPcDTygWvhTbprxwGB9qd/j9DRwyn4HTQcUB6o0/VOpo46fH9ez3+D/Rog==}
+  /playwright-core/1.19.0:
+    resolution: {integrity: sha512-mlT/2pHUQbcZumVIKD4iwIKtO2k/BFHYmOAwOepdEvHLgqJrmsCgHvDgpehM6wDh5chksh2sJZIp8dZQ6158Yw==}
     engines: {node: '>=12'}
     hasBin: true
     dependencies:
@@ -2598,15 +2598,15 @@ packages:
       extract-zip: 2.0.1
       https-proxy-agent: 5.0.0
       jpeg-js: 0.4.3
-      mime: 2.6.0
-      pngjs: 5.0.0
+      mime: 3.0.0
+      pngjs: 6.0.0
       progress: 2.0.3
       proper-lockfile: 4.1.2
       proxy-from-env: 1.1.0
       rimraf: 3.0.2
       socks-proxy-agent: 6.1.1
       stack-utils: 2.0.5
-      ws: 7.5.7
+      ws: 8.4.2
       yauzl: 2.10.0
       yazl: 2.5.1
     transitivePeerDependencies:
@@ -2620,9 +2620,9 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /pngjs/5.0.0:
-    resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
-    engines: {node: '>=10.13.0'}
+  /pngjs/6.0.0:
+    resolution: {integrity: sha512-TRzzuFRRmEoSW/p1KVAmiOgPco2Irlah+bGFCeNfJXxxYGwSw7YwAOAcd7X28K/m5bjBWKsC29KyoMfHbypayg==}
+    engines: {node: '>=12.13.0'}
     dev: true
 
   /postcss-ekscss/0.0.5:
@@ -3476,9 +3476,9 @@ packages:
       typedarray-to-buffer: 4.0.0
     dev: true
 
-  /ws/7.5.7:
-    resolution: {integrity: sha512-KMvVuFzpKBuiIXW3E4u3mySRO2/mCHSyZDJQM5NQ9Q9KHWHWh0NHgfbRMLLrceUK5qAL4ytALJbpRMjixFZh8A==}
-    engines: {node: '>=8.3.0'}
+  /ws/8.4.2:
+    resolution: {integrity: sha512-Kbk4Nxyq7/ZWqr/tarI9yIt/+iNNFOjBXEWgTb4ydaNHBNGgvf2QHbS9fdfsndfjFlFwEd4Al+mw83YkaD10ZA==}
+    engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
       utf-8-validate: ^5.0.2
