@@ -16,6 +16,10 @@ if (process.env.NODE_ENV !== 'production') {
   trackx.meta.NODE_ENV = process.env.NODE_ENV;
 }
 
+void chrome.tabs.query({ active: true, currentWindow: true }).then(([tab]) => {
+  trackx.meta.url = tab.url;
+});
+
 void fetch('https://api.trackx.app/v1/9lbe1l9le4x/ping', {
   method: 'POST',
   keepalive: true,
