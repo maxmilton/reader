@@ -191,13 +191,15 @@ export function Reader(): ReaderComponent {
     void chrome.storage.sync.set({ wpm });
   }
 
-  play.__click = () => {
+  function togglePlay() {
     if (timer) {
       stop();
     } else {
       start();
     }
-  };
+  }
+
+  play.__click = togglePlay;
 
   rewind.__click = async () => {
     const words = await wordList;
@@ -244,8 +246,7 @@ export function Reader(): ReaderComponent {
     }
 
     // Delay auto-play, otherwise it feels like it starts too early
-    // eslint-disable-next-line @typescript-eslint/unbound-method
-    window.setTimeout(play.__click!, 160);
+    window.setTimeout(togglePlay, 160);
   });
 
   return root;
