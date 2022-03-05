@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@ekscss/framework': 0.0.39
-  '@maxmilton/stylelint-config': 0.0.9
+  '@maxmilton/stylelint-config': 0.0.10
   '@types/chrome': 0.0.179
   '@types/csso': 5.0.0
   '@types/jsdom': 16.2.14
@@ -45,7 +45,7 @@ dependencies:
   trackx: 0.4.0
 
 devDependencies:
-  '@maxmilton/stylelint-config': 0.0.9_stylelint@14.5.3
+  '@maxmilton/stylelint-config': 0.0.10_stylelint@14.5.3
   '@types/chrome': 0.0.179
   '@types/csso': 5.0.0
   '@types/jsdom': 16.2.14
@@ -210,8 +210,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.11
     dev: true
 
-  /@maxmilton/stylelint-config/0.0.9_stylelint@14.5.3:
-    resolution: {integrity: sha512-qoJRRhlzXX6qph47mCWKHNpFtZLgF2XMQdV/JVCNIrEykTTTDn6pLvY0+CYmSdU6jsd4qqXJF++OP8jLl4WH1A==}
+  /@maxmilton/stylelint-config/0.0.10_stylelint@14.5.3:
+    resolution: {integrity: sha512-tpYrGewpYvyxeO32K3vlrB5lHCYSr3EBkY3Q5YVWDhrA0KgTZAeg3H0SFFc+Yog33DwZ5IHq8asRJulTSFgUpA==}
     peerDependencies:
       stylelint: ^14.0.0
     dependencies:
