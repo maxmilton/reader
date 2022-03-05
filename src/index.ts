@@ -8,7 +8,7 @@ import './css/index.xcss';
 declare global {
   interface HTMLElement {
     /** `stage1` synthetic click event handler. */
-    __click?(event: MouseEvent): void;
+    __click?(event: MouseEvent): void | Promise<void>;
   }
 }
 
