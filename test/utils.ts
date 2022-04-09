@@ -160,6 +160,7 @@ export function mocksSetup(): void {
     },
     tabs: {
       // @ts-expect-error - FIXME:!
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       query: () => Promise.resolve([{ id: 1 }]),
     },
   };
