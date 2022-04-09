@@ -27,7 +27,7 @@ specifiers:
   pirates: 4.0.5
   playwright-chromium: 1.20.2
   prettier: 2.6.2
-  prettier-plugin-pkg: 0.11.1
+  prettier-plugin-pkg: 0.13.0
   prettier-plugin-sh: 0.8.1
   purgecss: 4.1.3
   stage1: 0.3.0
@@ -69,7 +69,7 @@ devDependencies:
   pirates: 4.0.5
   playwright-chromium: 1.20.2
   prettier: 2.6.2
-  prettier-plugin-pkg: 0.11.1_prettier@2.6.2
+  prettier-plugin-pkg: 0.13.0_prettier@2.6.2
   prettier-plugin-sh: 0.8.1_prettier@2.6.2
   purgecss: 4.1.3
   stylelint: 14.6.0
@@ -2716,8 +2716,9 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-pkg/0.11.1_prettier@2.6.2:
-    resolution: {integrity: sha512-xuSSyiZS1osFVBB5w3fTpUiqGfSS5c0Azh78nWr4Q9viA9nYJyYAiI4FcyltjowsIGMF5IFGtG58DdDkNifoFQ==}
+  /prettier-plugin-pkg/0.13.0_prettier@2.6.2:
+    resolution: {integrity: sha512-0eUQf15kmvcTT7x9L6p0ZX3BDLZMLdO47426e3Huc90rv0HLuiY9GTifVXCoDGaQw4EUjpOllNBEg0WS0xOHCw==}
+    engines: {node: '>=12.20'}
     peerDependencies:
       prettier: ^2.0.0
     dependencies:
