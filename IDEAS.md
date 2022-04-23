@@ -14,3 +14,4 @@
   - Dates and number ranges (e.g., with en dash) can be hard to comprehend
     - Could dates be expanded to a localised written form? "2021-12-25" --> "the 25th of December 2021" (in Australian locale datetime format)
 - Would it be useful when clicking on the word, to jump to its location on the page?
+- Look over ideas in <https://github.com/mozilla/readability>
