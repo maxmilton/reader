@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@ekscss/framework': 0.0.39
+  '@ekscss/framework': 0.0.40
   '@maxmilton/stylelint-config': 0.0.10
   '@types/chrome': 0.0.181
   '@types/csso': 5.0.0
@@ -11,7 +11,7 @@ specifiers:
   '@typescript-eslint/parser': 5.20.0
   c8: 7.11.2
   csso: 5.0.3
-  ekscss: 0.0.12
+  ekscss: 0.0.13
   esbuild: 0.14.38
   esbuild-minify-templates: 0.8.0
   esbuild-plugin-ekscss: 0.0.10
@@ -39,7 +39,7 @@ specifiers:
   uvu: 0.5.3
 
 dependencies:
-  '@ekscss/framework': 0.0.39_ekscss@0.0.12
+  '@ekscss/framework': 0.0.40_ekscss@0.0.13
   html5parser: 2.0.2
   stage1: 0.3.0
   trackx: 0.4.0
@@ -54,10 +54,10 @@ devDependencies:
   '@typescript-eslint/parser': 5.20.0_eslint@8.14.0+typescript@4.6.3
   c8: 7.11.2
   csso: 5.0.3
-  ekscss: 0.0.12
+  ekscss: 0.0.13
   esbuild: 0.14.38
   esbuild-minify-templates: 0.8.0_esbuild@0.14.38
-  esbuild-plugin-ekscss: 0.0.10_ekscss@0.0.12+esbuild@0.14.38
+  esbuild-plugin-ekscss: 0.0.10_ekscss@0.0.13+esbuild@0.14.38
   eslint: 8.14.0
   eslint-config-airbnb-base: 15.0.0_662e1b2e8ef3f6aa5d22c3f7cd670612
   eslint-config-airbnb-typescript: 17.0.0_aa8667a1f5901b7e1384ceaca324281d
@@ -112,49 +112,49 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@ekscss/framework/0.0.39_ekscss@0.0.12:
-    resolution: {integrity: sha512-Hlw1mdM4apVFhb2lGKKVfkegvB7Yo+hL+/+w/aZorBwFOfFwDGqxPo99hKiGkPPjSwSttS8s00G+Au6QDgjisw==}
+  /@ekscss/framework/0.0.40_ekscss@0.0.13:
+    resolution: {integrity: sha512-xQC0CZ2KG1sklQVmwdDNoiG1zWVBQJ/ozloPH2U7+JdM1vAHco3IO8YVg7EX5K68DBKfydQq6D/oNLh/HxFDcA==}
     peerDependencies:
-      ekscss: ^0.0.12
+      ekscss: ^0.0.13
     peerDependenciesMeta:
       ekscss:
         optional: true
     dependencies:
-      '@ekscss/plugin-apply': 0.0.8_ekscss@0.0.12
-      '@ekscss/plugin-import': 0.0.8_ekscss@0.0.12
-      '@ekscss/plugin-prefix': 0.0.7_ekscss@0.0.12
+      '@ekscss/plugin-apply': 0.0.9_ekscss@0.0.13
+      '@ekscss/plugin-import': 0.0.9_ekscss@0.0.13
+      '@ekscss/plugin-prefix': 0.0.8_ekscss@0.0.13
       color: 4.2.3
       cssremedy: github.com/jensimmons/cssremedy/468e31a
       dset: 3.1.1
-      ekscss: 0.0.12
-      stylis: 4.1.0
+      ekscss: 0.0.13
+      stylis: 4.1.1
     dev: false
 
-  /@ekscss/plugin-apply/0.0.8_ekscss@0.0.12:
-    resolution: {integrity: sha512-vuCzcbeaaFeJbaDqyqxUDqAGEFHnLeyD9HU4z9ZdE+j1RYcWhUX542mED/AIRM1FhbtFVyxW5OQSAKvDsw24ng==}
+  /@ekscss/plugin-apply/0.0.9_ekscss@0.0.13:
+    resolution: {integrity: sha512-0xwxtr/58ZxkYcaCs/76cE/qz19eJjazHb7MGV7hvlTJj2vOwI1YN+/63jz1RS8jmcstFjy5Kexhrpswmrq9/A==}
     peerDependencies:
-      ekscss: ^0.0.12
+      ekscss: ^0.0.13
     dependencies:
-      ekscss: 0.0.12
-      stylis: 4.1.0
+      ekscss: 0.0.13
+      stylis: 4.1.1
     dev: false
 
-  /@ekscss/plugin-import/0.0.8_ekscss@0.0.12:
-    resolution: {integrity: sha512-LgoRm6LjvnmhnAtmHFNQvZCFJvXCFmJUp3lystPKchVrWsweEJmUvYRZCF7hCCgAg0g3LLo2DpJYphiPZV/fVA==}
+  /@ekscss/plugin-import/0.0.9_ekscss@0.0.13:
+    resolution: {integrity: sha512-LE3C4YRZfJEj4B++t+uLvAaFoTw9jTrbZ8T5/dDUWOADvMz2lysJIp4eeFYfFEX0Mvj2NFFA0rLqVhJ3iJaPBQ==}
     peerDependencies:
-      ekscss: ^0.0.12
+      ekscss: ^0.0.13
     dependencies:
-      ekscss: 0.0.12
-      stylis: 4.1.0
+      ekscss: 0.0.13
+      stylis: 4.1.1
     dev: false
 
-  /@ekscss/plugin-prefix/0.0.7_ekscss@0.0.12:
-    resolution: {integrity: sha512-llFv/LG75mvbkguqUvws9tDTDqrBjDsjou+CcMzSC5TvGPW+Czt243/HI4WVMLdzwtawMRN2SOfZcf+/t0sekA==}
+  /@ekscss/plugin-prefix/0.0.8_ekscss@0.0.13:
+    resolution: {integrity: sha512-oEU1hSYyE4MgcQK66j0HC3EACZRIqDRVywpljqii1xbzaGq/wsrU2Jpp1juRBpyvHmzqdO1XJD9jL5Uhz0pWHA==}
     peerDependencies:
-      ekscss: ^0.0.12
+      ekscss: ^0.0.13
     dependencies:
-      ekscss: 0.0.12
-      stylis: 4.1.0
+      ekscss: 0.0.13
+      stylis: 4.1.1
     dev: false
 
   /@eslint/eslintrc/1.2.2:
@@ -996,12 +996,12 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /ekscss/0.0.12:
-    resolution: {integrity: sha512-WuTgu9V5mDm+KXSbr7o14FJzm2KZ+D1kUikIwwRKqbS/O246VWnBROkXwar1CwOW6z6/6DVF/+M81rMcjB7BNQ==}
+  /ekscss/0.0.13:
+    resolution: {integrity: sha512-vn04jyRhoC+Q4eCmENJV+XUc8SjpAYZnMgb7eTf2IXeux6Gxq3+vfbEbkfiCHhn8vKKFyVpTD5dN2446PdWIyg==}
     dependencies:
       '@types/stylis': 4.0.2
-      source-map: 0.7.3
-      stylis: 4.1.0
+      source-map: 0.8.0-beta.0
+      stylis: 4.1.1
     dev: true
 
   /emoji-regex/8.0.0:
@@ -1218,13 +1218,13 @@ packages:
     dev: true
     optional: true
 
-  /esbuild-plugin-ekscss/0.0.10_ekscss@0.0.12+esbuild@0.14.38:
+  /esbuild-plugin-ekscss/0.0.10_ekscss@0.0.13+esbuild@0.14.38:
     resolution: {integrity: sha512-jBGZC+Ov2bMRgl+QFYlgtiwuntkShw5XR5u82YclU787J6saZKpwjSXRdQnHUDLS47v8Aim6xZ6lYlpjNNiB/g==}
     peerDependencies:
       ekscss: ^0.0.12
       esbuild: ^0.13.0 || ^0.14.0
     dependencies:
-      ekscss: 0.0.12
+      ekscss: 0.0.13
       esbuild: 0.14.38
       joycon: 3.1.1
     dev: true
@@ -2280,6 +2280,10 @@ packages:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
 
+  /lodash.sortby/4.7.0:
+    resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=}
+    dev: true
+
   /lodash.truncate/4.4.2:
     resolution: {integrity: sha1-WjUNoLERO4N+z//VgSy+WNbq4ZM=}
     dev: true
@@ -3090,9 +3094,11 @@ packages:
     dev: true
     optional: true
 
-  /source-map/0.7.3:
-    resolution: {integrity: sha512-CkCj6giN3S+n9qrYiBTX5gystlENnRW5jZeNLHpe6aue+SrHcG5VYwujhW9s4dY31mEGsxBDrHR6oI69fTXsaQ==}
+  /source-map/0.8.0-beta.0:
+    resolution: {integrity: sha512-2ymg6oRBpebeZi9UUNsgQ89bhx01TcTkmNTGnNO88imTmbSgy4nfujrgVEFKWpMTEGA11EDkTt7mqObTPdigIA==}
     engines: {node: '>= 8'}
+    dependencies:
+      whatwg-url: 7.1.0
     dev: true
 
   /sourcemap-codec/1.4.8:
@@ -3265,8 +3271,8 @@ packages:
       - supports-color
     dev: true
 
-  /stylis/4.1.0:
-    resolution: {integrity: sha512-SrSDzNasOCBTo7C2N9geFwydg/2bmdkWXd4gJirtq82m5JBYtR2+Ialck8czmfBLIdPxCOotlgJESPa8C1RqvA==}
+  /stylis/4.1.1:
+    resolution: {integrity: sha512-lVrM/bNdhVX2OgBFNa2YJ9Lxj7kPzylieHd3TNjuGE0Re9JB7joL5VUKOVH1kdNNJTgGPpT8hmwIAPLaSyEVFQ==}
 
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
@@ -3356,6 +3362,12 @@ packages:
       psl: 1.8.0
       punycode: 2.1.1
       universalify: 0.1.2
+    dev: true
+
+  /tr46/1.0.1:
+    resolution: {integrity: sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=}
+    dependencies:
+      punycode: 2.1.1
     dev: true
 
   /tr46/3.0.0:
@@ -3518,6 +3530,10 @@ packages:
       xml-name-validator: 4.0.0
     dev: true
 
+  /webidl-conversions/4.0.2:
+    resolution: {integrity: sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==}
+    dev: true
+
   /webidl-conversions/7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
     engines: {node: '>=12'}
@@ -3541,6 +3557,14 @@ packages:
     dependencies:
       tr46: 3.0.0
       webidl-conversions: 7.0.0
+    dev: true
+
+  /whatwg-url/7.1.0:
+    resolution: {integrity: sha512-WUu7Rg1DroM7oQvGWfOiAK21n74Gg+T4elXEQYkOhtyLeWiJFoOGLXPKI/9gzIie9CtwVLm8wtw6YJdKyxSjeg==}
+    dependencies:
+      lodash.sortby: 4.7.0
+      tr46: 1.0.1
+      webidl-conversions: 4.0.2
     dev: true
 
   /which-boxed-primitive/1.0.2:
