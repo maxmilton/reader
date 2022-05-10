@@ -48,7 +48,7 @@ function timeoutMultiplier(word: string, jumped?: boolean) {
 }
 
 interface UserSettings {
-  /** Words Per Minute. */
+  /** Targeted words per minute. */
   wpm?: number;
 }
 
@@ -85,7 +85,7 @@ const view = h(`
 `);
 
 export function Reader(): ReaderComponent {
-  const root = view.cloneNode(true) as ReaderComponent;
+  const root = view as ReaderComponent;
   const {
     progress, rewind, play, slower, speed, faster, w, focus,
   } = view.collect<RefNodes>(root);
