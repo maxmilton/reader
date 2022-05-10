@@ -118,8 +118,8 @@ function walk2(
 /**
  * Attempt to extract the main content of a given HTML document.
  *
- * @param html - HTML markup. Since this is coming from the browser after the
- * page was rendered, it will be well-formed and safe.
+ * @param html - HTML markup. This should come from the browser after the page
+ * is rendered to guaranty the markup is well-formed and safe.
  * @returns The main content of the document.
  */
 export function extractText(html: string): string {
@@ -130,9 +130,9 @@ export function extractText(html: string): string {
   const mains: ITag[] = [];
   let body: ITag;
 
-  // First pass; populate attribute maps and collect references
+  // First pass; collect references and populate attribute maps
   walk(ast, {
-    enter: (node) => {
+    enter(node) {
       if (node.type === SyntaxKind.Tag) {
         switch (node.name) {
           case 'article':
