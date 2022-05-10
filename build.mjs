@@ -193,6 +193,8 @@ await esbuild.build({
   metafile: !dev && process.stdout.isTTY,
   logLevel: 'debug',
   legalComments: 'none',
+  // XXX: Comment out to keep performance markers in non-dev builds for debugging
+  pure: ['performance.mark', 'performance.measure'],
 });
 
 // Error tracking
