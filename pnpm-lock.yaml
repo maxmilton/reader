@@ -27,7 +27,7 @@ specifiers:
   pirates: 4.0.5
   playwright-chromium: 1.22.2
   prettier: 2.6.2
-  prettier-plugin-pkg: 0.13.1
+  prettier-plugin-pkg: 0.13.2
   prettier-plugin-sh: 0.11.0
   purgecss: 4.1.3
   stage1: 0.3.0
@@ -69,7 +69,7 @@ devDependencies:
   pirates: 4.0.5
   playwright-chromium: 1.22.2
   prettier: 2.6.2
-  prettier-plugin-pkg: 0.13.1_prettier@2.6.2
+  prettier-plugin-pkg: 0.13.2_prettier@2.6.2
   prettier-plugin-sh: 0.11.0_prettier@2.6.2
   purgecss: 4.1.3
   stylelint: 14.8.3
@@ -341,7 +341,6 @@ packages:
 
   /@types/stylis/4.0.2:
     resolution: {integrity: sha512-wtckGuk1eXUlUz0Qb1eXHG37Z7HWT2GfMdqRf8F/ifddTwadSS9Jwsqi4qtXk7cP7MtoyGVIHPElFCLc6HItbg==}
-    dev: true
 
   /@types/tough-cookie/4.0.2:
     resolution: {integrity: sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==}
@@ -980,7 +979,6 @@ packages:
       '@types/stylis': 4.0.2
       source-map: 0.8.0-beta.0
       stylis: 4.1.1
-    dev: true
 
   /emoji-regex/8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -2225,7 +2223,6 @@ packages:
 
   /lodash.sortby/4.7.0:
     resolution: {integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=}
-    dev: true
 
   /lodash.truncate/4.4.2:
     resolution: {integrity: sha1-WjUNoLERO4N+z//VgSy+WNbq4ZM=}
@@ -2673,8 +2670,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier-plugin-pkg/0.13.1_prettier@2.6.2:
-    resolution: {integrity: sha512-/ZUvdE0lETqsysOMDL8LsK5p+ZGNeTkxZ547hdruxgjBI6vi+fnnfF4XAGv5VBZRnthqMz0KKPjY1NnqIw4B9g==}
+  /prettier-plugin-pkg/0.13.2_prettier@2.6.2:
+    resolution: {integrity: sha512-cdFEc+QHKPYhQ3cjW5qRIuuiS85uIIWL5ihozeLkRgyqow35aVGl7zo8q/RDeGJNX1NISFgPmFax4DEBGLx2Qg==}
     engines: {node: '>=12.20'}
     peerDependencies:
       prettier: ^2.0.0
@@ -2705,7 +2702,6 @@ packages:
   /punycode/2.1.1:
     resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
     engines: {node: '>=6'}
-    dev: true
 
   /purgecss/4.1.3:
     resolution: {integrity: sha512-99cKy4s+VZoXnPxaoM23e5ABcP851nC2y2GROkkjS8eJaJtlciGavd7iYAw2V84WeBqggZ12l8ef44G99HmTaw==}
@@ -2926,7 +2922,6 @@ packages:
     engines: {node: '>= 8'}
     dependencies:
       whatwg-url: 7.1.0
-    dev: true
 
   /sourcemap-codec/1.4.8:
     resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
@@ -3174,7 +3169,6 @@ packages:
     resolution: {integrity: sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=}
     dependencies:
       punycode: 2.1.1
-    dev: true
 
   /tr46/3.0.0:
     resolution: {integrity: sha512-l7FvfAHlcmulp8kr+flpQZmVwtu7nfRV7NZujtN0OqES8EL4O4e0qqzL0DC5gAvx/ZC/9lk6rhcUwYvkBnBnYA==}
@@ -3339,7 +3333,6 @@ packages:
 
   /webidl-conversions/4.0.2:
     resolution: {integrity: sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==}
-    dev: true
 
   /webidl-conversions/7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
@@ -3380,7 +3373,6 @@ packages:
       lodash.sortby: 4.7.0
       tr46: 1.0.1
       webidl-conversions: 4.0.2
-    dev: true
 
   /which-boxed-primitive/1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
