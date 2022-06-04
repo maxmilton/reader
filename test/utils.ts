@@ -107,66 +107,28 @@ export function cleanup(): void {
   }
 }
 
-/* eslint-disable @typescript-eslint/ban-types */
-type DeepPartial<T> = T extends Function
-  ? T
-  : T extends object
-    ? { [P in keyof T]?: DeepPartial<T[P]> }
-    : T;
-/* eslint-enable @typescript-eslint/ban-types */
-type ChromeAPI = DeepPartial<typeof window.chrome>;
-
-type MockFn<T> = T & {
-  calledTimes(): number;
-};
-
 const noop = () => {};
 
-// TODO: See if there's anything worthwhile in https://github.com/therealparmesh/snoop/blob/master/src/index.js
-// @ts-expect-error - FIXME:!
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function mockFn<T extends Function>(imlp: T = noop): MockFn<T> {
-  let callCount = 0;
-
-  // @ts-expect-error - FIXME:!
-  const fn: MockFn<T> = new Proxy(imlp, {
-    apply(target, thisArg, args) {
-      callCount += 1;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return Reflect.apply(target, thisArg, args);
-    },
-  });
-
-  fn.calledTimes = () => callCount;
-
-  return fn;
-}
-
 export function mocksSetup(): void {
-  const mockChrome: ChromeAPI = {
+  // @ts-expect-error - partial mock
+  global.chrome = {
     storage: {
       sync: {
-        // @ts-expect-error - FIXME:!
-        get: (_keys, callback) => {
-          callback({});
-        },
-        // @ts-expect-error - FIXME:!
+        get: noop,
         set: noop,
       },
     },
     scripting: {
-      // @ts-expect-error - FIXME:!
-      executeScript: () => Promise.resolve([{ result: undefined }]),
+      executeScript() {
+        return Promise.resolve([{ result: undefined }]);
+      },
     },
     tabs: {
-      // @ts-expect-error - FIXME:!
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      query: () => Promise.resolve([{ id: 1 }]),
+      query() {
+        return Promise.resolve([{ id: 471 }]);
+      },
     },
-  };
-
-  // @ts-expect-error - just a partial mock
-  global.chrome = mockChrome;
+  } as typeof global.chrome;
 
   global.DocumentFragment = window.DocumentFragment;
   global.localStorage = window.localStorage;
