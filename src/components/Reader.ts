@@ -1,10 +1,11 @@
+import './Reader.xcss';
+
 import {
   append, createFragment, h, S1Node,
 } from 'stage1';
 import { extractText } from '../extractor';
 import { exec, indexOfORP } from '../utils';
 import { ORP } from './ORP';
-import './Reader.xcss';
 
 const wordList = (async () => {
   performance.mark('Extract:start');

@@ -1,9 +1,8 @@
-// FIXME: Must come first; prevent import reordering. DO NOT ORGANIZE IMPORTS.
-//  ↳ https://github.com/microsoft/TypeScript/issues/41494
+import './css/index.xcss';
+
 import { append, createFragment, setupSyntheticEvent } from 'stage1';
 import { Footer } from './components/Footer';
 import { Reader } from './components/Reader';
-import './css/index.xcss';
 
 declare global {
   interface HTMLElement {
