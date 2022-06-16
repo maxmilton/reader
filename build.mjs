@@ -183,7 +183,6 @@ await esbuild.build({
     minifyJS,
     writeFiles(),
   ],
-  banner: { js: '"use strict";' },
   bundle: true,
   // XXX: Do not minifySyntax here, it breaks \n in strings after minifyJS
   // minify: !dev,
@@ -208,7 +207,6 @@ await esbuild.build({
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
   plugins: [analyzeMeta, minifyJS, writeFiles()],
-  banner: { js: '"use strict";' },
   bundle: true,
   minify: !dev,
   sourcemap: dev,
