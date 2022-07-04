@@ -39,6 +39,7 @@ module.exports = {
     'unicorn/prefer-dom-node-append': OFF,
     'unicorn/prefer-module': OFF,
     'unicorn/prefer-node-protocol': OFF,
+    'unicorn/prefer-top-level-await': WARN,
     'unicorn/prefer-query-selector': OFF,
     // not faster
     'unicorn/prefer-set-has': OFF,
