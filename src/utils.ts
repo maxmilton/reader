@@ -25,7 +25,6 @@ export async function exec<T, A extends any[] = []>(
 
   const [{ result }] = await chrome.scripting.executeScript({
     target: { tabId: tab.id! },
-    // @ts-expect-error - types don't flow through when using generics :(
     func,
     args,
   });
