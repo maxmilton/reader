@@ -5,7 +5,7 @@ specifiers:
   '@maxmilton/stylelint-config': 0.0.10
   '@types/chrome': 0.0.193
   '@types/csso': 5.0.0
-  '@types/jsdom': 16.2.14
+  '@types/jsdom': 20.0.0
   '@types/node': 18.0.3
   '@typescript-eslint/eslint-plugin': 5.30.7
   '@typescript-eslint/parser': 5.30.7
@@ -48,7 +48,7 @@ devDependencies:
   '@maxmilton/stylelint-config': 0.0.10_stylelint@14.9.1
   '@types/chrome': 0.0.193
   '@types/csso': 5.0.0
-  '@types/jsdom': 16.2.14
+  '@types/jsdom': 20.0.0
   '@types/node': 18.0.3
   '@typescript-eslint/eslint-plugin': 5.30.7_byr3zhpfsdffnysm4pscdmtitm
   '@typescript-eslint/parser': 5.30.7_qugx7qdu5zevzvxaiqyxfiwquq
@@ -318,12 +318,12 @@ packages:
     resolution: {integrity: sha512-z/QT1XN4K4KYuslS23k62yDIDLwLFkzxOuMplDtObz0+y7VqJCaO2o+SPwHCvLFZh7xazvvoor2tA/hPz9ee7g==}
     dev: true
 
-  /@types/jsdom/16.2.14:
-    resolution: {integrity: sha512-6BAy1xXEmMuHeAJ4Fv4yXKwBDTGTOseExKE3OaHiNycdHdZw59KfYzrt0DkDluvwmik1HRt6QS7bImxUmpSy+w==}
+  /@types/jsdom/20.0.0:
+    resolution: {integrity: sha512-YfAchFs0yM1QPDrLm2VHe+WHGtqms3NXnXAMolrgrVP6fgBHHXy1ozAbo/dFtPNtZC/m66bPiCTWYmqp1F14gA==}
     dependencies:
       '@types/node': 18.0.3
-      '@types/parse5': 7.0.0
       '@types/tough-cookie': 4.0.2
+      parse5: 7.0.0
     dev: true
 
   /@types/json-schema/7.0.11:
@@ -348,13 +348,6 @@ packages:
 
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
-    dev: true
-
-  /@types/parse5/7.0.0:
-    resolution: {integrity: sha512-f2SeAxumolBmhuR62vNGTsSAvdz/Oj0k682xNrcKJ4dmRnTPODB74j6CPoNPzBPTHsu7Y7W7u93Mgp8Ovo8vWw==}
-    deprecated: This is a stub types definition. parse5 provides its own type definitions, so you do not need this installed.
-    dependencies:
-      parse5: 7.0.0
     dev: true
 
   /@types/stylis/4.0.2:
