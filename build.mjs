@@ -9,10 +9,10 @@ import {
   writeFiles,
 } from 'esbuild-minify-templates';
 import { xcss } from 'esbuild-plugin-ekscss';
-import fs from 'fs/promises';
-import path from 'path';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import { PurgeCSS } from 'purgecss';
-import manifest from './manifest.config.js';
+import manifest from './manifest.config.mjs';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
