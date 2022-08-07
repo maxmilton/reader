@@ -186,6 +186,7 @@ await esbuild.build({
   bundle: true,
   // XXX: Do not minifySyntax here, it breaks \n in strings after minifyJS
   // minify: !dev,
+  mangleProps: /_refs|collect/,
   sourcemap: dev,
   watch: dev,
   write: dev,
