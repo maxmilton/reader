@@ -4,8 +4,8 @@
 // TODO: If we want to collect coverage during e2e testing, we might need
 // something custom like https://github.com/bricss/dopant/blob/master/test/fixtures/index.mjs
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { suite } from 'uvu';
 import * as assert from 'uvu/assert';
 import {
