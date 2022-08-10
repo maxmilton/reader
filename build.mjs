@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies, no-console, no-param-reassign */
 
-import * as csso from 'csso';
+import * as pcss from '@parcel/css';
 import esbuild from 'esbuild';
 import {
   decodeUTF8,
@@ -112,12 +112,24 @@ const minifyCSS = {
             'ul',
           ],
         });
-        const { css } = csso.minify(purged[0].css, {
-          restructure: true,
-          forceMediaMerge: true, // unsafe!
+        const minified = pcss.transform({
+          filename: outCSS.file.path,
+          code: Buffer.from(purged[0].css),
+          minify: true,
+          sourceMap: dev,
+          targets: {
+            // eslint-disable-next-line no-bitwise
+            chrome: 104 << 16,
+          },
         });
 
-        result.outputFiles[outCSS.index].contents = encodeUTF8(css);
+        for (const warning of minified.warnings) {
+          console.error('CSS WARNING:', warning.message);
+        }
+
+        result.outputFiles[outCSS.index].contents = encodeUTF8(
+          minified.code.toString(),
+        );
       }
     });
   },
@@ -169,7 +181,7 @@ await esbuild.build({
   entryPoints: ['src/index.ts'],
   outfile: 'dist/reader.js',
   platform: 'browser',
-  // target: ['chrome95'],
+  target: ['chrome104'],
   external: ['literata-ext.woff2', 'literata-italic.woff2', 'literata.woff2'],
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
@@ -202,7 +214,7 @@ await esbuild.build({
   entryPoints: ['src/trackx.ts'],
   outfile: 'dist/trackx.js',
   platform: 'browser',
-  target: ['chrome95'],
+  target: ['chrome104'],
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.NODE_ENV': JSON.stringify(mode),
