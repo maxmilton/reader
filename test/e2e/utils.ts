@@ -1,3 +1,5 @@
+// https://playwright.dev/docs/next/chrome-extensions
+
 /* eslint-disable no-console, no-multi-assign */
 
 import colors from 'kleur';
@@ -105,6 +107,8 @@ export async function renderPage(
     );
     context.consoleMessages.push(msg);
   });
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  await page.route('https://api.trackx.app/**/*', (route) => route.fulfill());
   await page.goto(url);
   return { page };
 }

@@ -24,7 +24,7 @@ export default {
     default_popup: 'reader.html',
   },
   permissions: [
-    'activeTab', // https://developer.chrome.com/docs/extensions/mv2/manifest/activeTab/
+    'activeTab', // https://developer.chrome.com/docs/extensions/mv3/manifest/activeTab/
     'scripting',
     'storage',
   ],
