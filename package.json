@@ -15,7 +15,7 @@
     "lint:js": "eslint --ignore-path .gitignore --ext .ts,.js,.mjs,.cjs .",
     "lint:ts": "tsc --project test",
     "prebuild": "rm -rf dist; cp -r static dist",
-    "test": "c8 --all --include=src --reporter=text --reporter=lcovonly uvu -r tsm test '\\.test\\.ts$'",
+    "test": "c8 --all --include=src --include=manifest.config.mjs --reporter=text --reporter=lcovonly uvu -r tsm -r \"$PWD\"/test/setup.ts test '\\.test\\.ts$'",
     "test-e2e": "node -r tsm test/e2e/index.ts",
     "zip": "sh -c 'test -z \"$(git status --porcelain)\"' && pnpm run lint && pnpm run test && pnpm run build && cd dist && zip ../chrome-extension.zip *"
   },
@@ -29,7 +29,6 @@
     "@maxmilton/stylelint-config": "0.0.10",
     "@parcel/css": "1.12.2",
     "@types/chrome": "0.0.193",
-    "@types/jsdom": "20.0.0",
     "@types/node": "18.7.3",
     "@typescript-eslint/eslint-plugin": "5.33.0",
     "@typescript-eslint/parser": "5.33.0",
@@ -44,8 +43,9 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-unicorn": "43.0.2",
     "git-ref": "0.3.1",
-    "jsdom": "20.0.0",
+    "happy-dom": "6.0.4",
     "kleur": "4.1.5",
+    "nanospy": "0.5.0",
     "pirates": "4.0.5",
     "playwright-chromium": "1.25.0",
     "prettier": "2.7.1",
@@ -57,6 +57,11 @@
     "tsm": "2.2.2",
     "typescript": "4.7.4",
     "uvu": "0.5.6"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "happy-dom@6.0.4": "patches/happy-dom@6.0.4.patch"
+    }
   },
   "prettier": {
     "arrowParens": "always",

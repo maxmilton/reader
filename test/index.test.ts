@@ -1,48 +1,7 @@
-/* eslint-disable no-console, unicorn/no-process-exit */
-
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
-import {
-  mocksSetup, mocksTeardown, setup, sleep, teardown,
-} from './utils';
-
-// FIXME: Use hooks normally once issue is fixed -- https://github.com/lukeed/uvu/issues/80
-// test.before.each(setup);
-// test.before.each(mocksSetup);
-// test.after.each(mocksTeardown);
-// test.after.each(teardown);
-test.before.each(() => {
-  try {
-    setup();
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-});
-test.before.each(() => {
-  try {
-    mocksSetup();
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-});
-test.after.each(() => {
-  try {
-    mocksTeardown();
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-});
-test.after.each(() => {
-  try {
-    teardown();
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
-});
+import { reset } from './setup';
+import { consoleSpy } from './utils';
 
 const basicHTML = `
 <!doctype html>
@@ -66,10 +25,15 @@ test.before.each(() => {
 test.after.each(() => {
   mockHTML = basicHTML;
 });
+test.after(reset);
 
 test('renders entire reader app', async () => {
+  const checkConsoleCalls = consoleSpy();
+
   // eslint-disable-next-line global-require
   require('../dist/reader.js');
+
+  await happyDOM.whenAsyncComplete();
 
   // TODO: Better assertions
   assert.is(document.body.innerHTML.length > 500, true);
@@ -83,8 +47,7 @@ test('renders entire reader app', async () => {
   assert.ok(document.body.querySelector('footer'));
   assert.is(document.body.querySelectorAll('button').length, 4);
 
-  // Wait for timers within the app to finish
-  await sleep(4);
+  checkConsoleCalls(assert);
 });
 
 test.run();

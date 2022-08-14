@@ -1,26 +1,18 @@
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
-// import { ORP } from '../src/components/ORP';
-import {
-  cleanup, render, setup, teardown,
-} from './utils';
+import { ORP } from '../src/components/ORP';
+import { cleanup, render } from './utils';
 
-type ORPComponent = typeof import('../src/components/ORP');
-
-test.before(setup);
-test.after(teardown);
 test.after.each(cleanup);
 
 test('renders correctly', () => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const { ORP } = require('../src/components/ORP') as ORPComponent;
   const rendered = render(ORP('x'));
   assert.fixture(rendered.container.innerHTML, '<span class="orp">x</span>');
 });
 
+// TODO: Remove? Testing framework internals goes against the philosophy of
+// testing user behaviour.
 test('has no node refs', () => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const { ORP } = require('../src/components/ORP') as ORPComponent;
   const rendered = render(ORP('x'));
   // @ts-expect-error - FIXME:!
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -28,8 +20,6 @@ test('has no node refs', () => {
 });
 
 test('returns the same reused node every call', () => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const { ORP } = require('../src/components/ORP') as ORPComponent;
   let node1;
   let node2;
   let node3;
@@ -43,7 +33,7 @@ test('returns the same reused node every call', () => {
   assert.is(rendered1.container.firstChild, null);
   assert.is(rendered2.container.firstChild, null);
   assert.ok(rendered3.container.firstChild);
-  assert.is(node1.constructor.name, 'HTMLSpanElement');
+  assert.is(node1.nodeName, 'SPAN');
   assert.is(node1, node2);
   assert.is(node2, node3);
   assert.is(node3, node1);
