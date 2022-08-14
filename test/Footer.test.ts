@@ -1,21 +1,22 @@
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
-// import { Footer } from '../src/components/Footer';
-import {
-  cleanup, render, setup, teardown,
-} from './utils';
+import { Footer } from '../src/components/Footer';
+import { cleanup, render } from './utils';
 
-type FooterComponent = typeof import('../src/components/Footer');
-
-test.before(setup);
-test.after(teardown);
 test.after.each(cleanup);
 
-test('renders correctly', () => {
+test('renders correctly', async () => {
   process.env.APP_RELEASE = '1.0.0';
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const { Footer } = require('../src/components/Footer') as FooterComponent;
+
+  // Reimport component to recompile view as it contains the release version
+  // interpolated in its template string.
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const { Footer } = (await import(
+    `../src/components/Footer?x=${performance.now()}`
+  )) as typeof import('../src/components/Footer');
+
   const rendered = render(Footer());
+  assert.is(rendered.container.firstChild?.nodeName, 'FOOTER');
   assert.fixture(
     rendered.container.innerHTML,
     `<footer class="mv2 muted fss tc">
@@ -24,9 +25,9 @@ test('renders correctly', () => {
   );
 });
 
+// TODO: Remove? Testing framework internals goes against the philosophy of
+// testing user behaviour.
 test('has no node refs', () => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const { Footer } = require('../src/components/Footer') as FooterComponent;
   const rendered = render(Footer());
   // @ts-expect-error - FIXME:!
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -34,13 +35,9 @@ test('has no node refs', () => {
 });
 
 test('contains a link to Github issues', () => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
-  const { Footer } = require('../src/components/Footer') as FooterComponent;
   const rendered = render(Footer());
   assert.ok(
-    rendered.container.querySelector(
-      'a[href="https://github.com/maxmilton/reader/issues"]',
-    ),
+    rendered.container.querySelector('a[href="https://github.com/maxmilton/reader/issues"]'),
   );
 });
 
