@@ -63,9 +63,18 @@
     "endOfLine": "lf",
     "singleQuote": true,
     "trailingComma": "all",
-    "plugins": [
-      "./node_modules/prettier-plugin-pkg",
-      "./node_modules/prettier-plugin-sh"
+    "pluginSearchDirs": [
+      "."
+    ],
+    "overrides": [
+      {
+        "files": [
+          "*.test.ts"
+        ],
+        "options": {
+          "printWidth": 100
+        }
+      }
     ]
   },
   "stylelint": {
