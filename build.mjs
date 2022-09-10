@@ -1,6 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, no-console, no-param-reassign */
 
-import * as pcss from '@parcel/css';
 import esbuild from 'esbuild';
 import {
   decodeUTF8,
@@ -9,6 +8,7 @@ import {
   writeFiles,
 } from 'esbuild-minify-templates';
 import { xcss } from 'esbuild-plugin-ekscss';
+import * as lightningcss from 'lightningcss';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { PurgeCSS } from 'purgecss';
@@ -112,7 +112,7 @@ const minifyCSS = {
             'ul',
           ],
         });
-        const minified = pcss.transform({
+        const minified = lightningcss.transform({
           filename: outCSS.file.path,
           code: Buffer.from(purged[0].css),
           minify: true,
