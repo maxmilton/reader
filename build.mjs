@@ -71,6 +71,7 @@ const minifyCSS = {
         const purged = await new PurgeCSS().purge({
           content: [{ extension: '.js', raw: decodeUTF8(outJS.file.contents) }],
           css: [{ raw: decodeUTF8(outCSS.file.contents) }],
+          sourceMap: dev,
           safelist: ['html', 'body'],
           blocklist: [
             // XXX: Remember to remove if actually using the element tag
