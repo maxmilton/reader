@@ -29,7 +29,7 @@ specifiers:
   lightningcss: 1.16.0
   nanospy: 0.5.0
   pirates: 4.0.5
-  playwright-chromium: 1.26.0
+  playwright-chromium: 1.26.1
   prettier: 2.7.1
   prettier-plugin-pkg: 0.17.1
   prettier-plugin-sh: 0.12.8
@@ -70,7 +70,7 @@ devDependencies:
   lightningcss: 1.16.0
   nanospy: 0.5.0
   pirates: 4.0.5
-  playwright-chromium: 1.26.0
+  playwright-chromium: 1.26.1
   prettier: 2.7.1
   prettier-plugin-pkg: 0.17.1_prettier@2.7.1
   prettier-plugin-sh: 0.12.8_prettier@2.7.1
@@ -2840,17 +2840,17 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /playwright-chromium/1.26.0:
-    resolution: {integrity: sha512-4hDiVmMKmtuHW5ne11S1HCQTdL+wytprQMhWYecEjMSIKBR1DJ3JLrcUDgqA0L5Jzi/CBKYQQk6TOVlTjXybXQ==}
+  /playwright-chromium/1.26.1:
+    resolution: {integrity: sha512-F38TvJWkrP7aLJ99AeZFSad0FKjOjudhdBsFr91cJkO28sEEy2VEiUJtk3ezu3a55S9Ka/kMJ1gM1msM3hDkGA==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      playwright-core: 1.26.0
+      playwright-core: 1.26.1
     dev: true
 
-  /playwright-core/1.26.0:
-    resolution: {integrity: sha512-p8huU8eU4gD3VkJd3DA1nA7R3XA6rFvFL+1RYS96cSljCF2yJE9CWEHTPF4LqX8KN9MoWCrAfVKP5381X3CZqg==}
+  /playwright-core/1.26.1:
+    resolution: {integrity: sha512-hzFchhhxnEiPc4qVPs9q2ZR+5eKNifY2hQDHtg1HnTTUuphYCBP8ZRb2si+B1TR7BHirgXaPi48LIye5SgrLAA==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
