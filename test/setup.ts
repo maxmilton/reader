@@ -38,7 +38,7 @@ function setupMocks(): void {
     tabs: {
       query: () => Promise.resolve([{ id: 471 }]),
     },
-    // TODO: Remove type cast + update mocks
+    // XXX: Remove type cast to check implementation
   } as typeof window.chrome;
 
   global.console = window.console;
@@ -48,6 +48,7 @@ function setupMocks(): void {
   global.Text = window.Text;
 
   // Force timeout to 0ms
+  // TODO: Handle race conditions if we ever have multiple timers
   window.setTimeout = new Proxy(window.setTimeout, {
     apply(target, thisArg, args) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
