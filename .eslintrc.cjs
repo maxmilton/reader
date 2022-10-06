@@ -1,5 +1,6 @@
 const OFF = 0;
 const WARN = 1;
+const ERROR = 2;
 
 // TODO: Types
 // eslint-disable-next-line max-len
@@ -43,5 +44,7 @@ module.exports = {
     // not faster
     'unicorn/prefer-set-has': OFF,
     'unicorn/prevent-abbreviations': OFF,
+    // byte savings (esbuild minify doesn't currently automatically remove)
+    'unicorn/switch-case-braces': [ERROR, 'avoid'],
   },
 };

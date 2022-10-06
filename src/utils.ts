@@ -44,15 +44,12 @@ export function indexOfORP(word: string): number {
 
   switch (++len) {
     case 0:
-    case 1: {
+    case 1:
       return 0;
-    }
     case 2:
-    case 3: {
+    case 3:
       return 1;
-    }
-    default: {
+    default:
       return Math.floor(len / 2) - 1;
-    }
   }
 }

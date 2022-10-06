@@ -135,21 +135,17 @@ export function extractText(html: string): string {
     enter(node) {
       if (node.type === SyntaxKind.Tag) {
         switch (node.name) {
-          case 'article': {
+          case 'article':
             articles.push(node);
             break;
-          }
-          case 'body': {
+          case 'body':
             body = node;
             break;
-          }
-          case 'main': {
+          case 'main':
             mains.push(node);
             break;
-          }
-          default: {
+          default:
             break;
-          }
         }
 
         buildAttributeMap(node);
