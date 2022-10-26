@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@ekscss/framework': 0.0.41
+  '@ekscss/framework': 0.0.42
   '@maxmilton/stylelint-config': 0.0.10
   '@types/chrome': 0.0.200
   '@types/node': 18.11.7
@@ -38,7 +38,7 @@ specifiers:
   uvu: 0.5.6
 
 dependencies:
-  '@ekscss/framework': 0.0.41_ekscss@0.0.13
+  '@ekscss/framework': 0.0.42_ekscss@0.0.13
   html5parser: 2.0.2
   stage1: 0.4.1
   trackx: 0.5.0
@@ -122,8 +122,8 @@ packages:
       postcss-selector-parser: 6.0.10
     dev: true
 
-  /@ekscss/framework/0.0.41_ekscss@0.0.13:
-    resolution: {integrity: sha512-uWdGyYp2S1WXdUfLVOosN7V4ZKxz5Cl3JZKUMoR9kMn2oeWLv/xhEy8Rf5qWvmgyOtvo/C/3z2ly3uGgoTmEhA==}
+  /@ekscss/framework/0.0.42_ekscss@0.0.13:
+    resolution: {integrity: sha512-8kh+rmckDHzNNauBpCHj/sE+vyBt0eOmFi77qFl+FDQMODyk3b28t0AhmjTRSivpkOVQyfj0MqezkM/eCVtY4w==}
     peerDependencies:
       ekscss: ^0.0.13
     peerDependenciesMeta:
@@ -134,7 +134,7 @@ packages:
       '@ekscss/plugin-import': 0.0.9_ekscss@0.0.13
       '@ekscss/plugin-prefix': 0.0.8_ekscss@0.0.13
       color: 4.2.3
-      cssremedy: github.com/jensimmons/cssremedy/468e31a
+      cssremedy: github.com/jensimmons/cssremedy/af14bf3
       dset: 3.1.2
       ekscss: 0.0.13
       stylis: 4.1.2
@@ -3736,8 +3736,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/jensimmons/cssremedy/468e31a:
-    resolution: {tarball: https://codeload.github.com/jensimmons/cssremedy/tar.gz/468e31a}
+  github.com/jensimmons/cssremedy/af14bf3:
+    resolution: {tarball: https://codeload.github.com/jensimmons/cssremedy/tar.gz/af14bf3}
     name: cssremedy
     version: 0.1.0-beta.2
     dev: false
