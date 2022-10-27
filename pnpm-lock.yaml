@@ -32,7 +32,7 @@ specifiers:
   stage1: 0.4.1
   stylelint: 14.14.0
   stylelint-config-standard: 29.0.0
-  trackx: 0.5.0
+  trackx: 0.6.0
   tsm: 2.2.2
   typescript: 4.8.4
   uvu: 0.5.6
@@ -41,7 +41,7 @@ dependencies:
   '@ekscss/framework': 0.0.42_ekscss@0.0.13
   html5parser: 2.0.2
   stage1: 0.4.1
-  trackx: 0.5.0
+  trackx: 0.6.0
 
 devDependencies:
   '@maxmilton/stylelint-config': 0.0.10_stylelint@14.14.0
@@ -3484,8 +3484,8 @@ packages:
     dependencies:
       punycode: 2.1.1
 
-  /trackx/0.5.0:
-    resolution: {integrity: sha512-DhuCnuuwOrHmCfk+9XzwO26ksVWTZ8pydJ7fzDkYyOQQGbS3MyTfhodZZDXuAxxZJzaaD3AlanP8EEVxeEIjOA==}
+  /trackx/0.6.0:
+    resolution: {integrity: sha512-R4Y94Jy38CH0lAvlEmHxC8GRs3bRLFVbn3m9j8WeyUk7o7LKLbm1jQkB1qTGfoZIPTDHxv5ma7BvyR4lBrSjBQ==}
     dependencies:
       '@ungap/global-this': 0.4.4
     dev: false
