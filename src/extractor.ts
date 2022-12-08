@@ -198,9 +198,9 @@ export function extractText(html: string): string {
       } else {
         // Add text with consecutive whitespace collapsed
         text += (
-          node.value.indexOf('&') !== -1
-            ? decodeHTMLEntities(node.value)
-            : node.value
+          node.value.indexOf('&') === -1
+            ? node.value
+            : decodeHTMLEntities(node.value)
         ).replace(/\s+/g, ' ');
       }
     },
