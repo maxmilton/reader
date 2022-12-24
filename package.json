@@ -47,7 +47,7 @@
     "lightningcss": "1.17.1",
     "nanospy": "0.5.0",
     "pirates": "4.0.5",
-    "playwright-chromium": "1.28.1",
+    "playwright-chromium": "1.29.1",
     "prettier": "2.8.1",
     "prettier-plugin-pkg": "0.17.1",
     "prettier-plugin-sh": "0.12.8",
