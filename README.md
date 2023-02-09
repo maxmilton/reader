@@ -1,4 +1,4 @@
-[![Build status](https://img.shields.io/github/workflow/status/maxmilton/reader/ci)](https://github.com/maxmilton/reader/actions)
+[![Build status](https://img.shields.io/github/actions/workflow/status/maxmilton/reader/ci.yml?branch=master)](https://github.com/maxmilton/reader/actions)
 [![Coverage status](https://img.shields.io/codeclimate/coverage/maxmilton/reader)](https://codeclimate.com/github/maxmilton/reader)
 [![Chrome Web Store version](https://img.shields.io/chrome-web-store/v/ollcdfepbkpopcfilmheonkfbbnnmkbj.svg)](https://chrome.google.com/webstore/detail/reader/ollcdfepbkpopcfilmheonkfbbnnmkbj)
 [![Licence](https://img.shields.io/github/license/maxmilton/reader.svg)](https://github.com/maxmilton/reader/blob/master/LICENSE)
