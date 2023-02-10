@@ -185,7 +185,8 @@ await fs.writeFile(
 );
 
 // Reader app
-await esbuild.build({
+/** @type {esbuild.BuildOptions} */
+const esbuildConfig1 = {
   entryPoints: ['src/index.ts'],
   outfile: 'dist/reader.js',
   platform: 'browser',
@@ -208,17 +209,17 @@ await esbuild.build({
   // minify: !dev,
   mangleProps: /_refs|collect/,
   sourcemap: dev,
-  watch: dev,
   write: dev,
   metafile: !dev && process.stdout.isTTY,
   logLevel: 'debug',
   legalComments: 'none',
   // XXX: Comment out to keep performance markers in non-dev builds for debugging
   pure: ['performance.mark', 'performance.measure'],
-});
+};
 
 // Error tracking
-await esbuild.build({
+/** @type {esbuild.BuildOptions} */
+const esbuildConfig2 = {
   entryPoints: ['src/trackx.ts'],
   outfile: 'dist/trackx.js',
   platform: 'browser',
@@ -231,8 +232,16 @@ await esbuild.build({
   bundle: true,
   minify: !dev,
   sourcemap: dev,
-  watch: dev,
   write: dev,
   metafile: !dev && process.stdout.isTTY,
   logLevel: 'debug',
-});
+};
+
+if (dev) {
+  const context1 = await esbuild.context(esbuildConfig1);
+  const context2 = await esbuild.context(esbuildConfig2);
+  await Promise.all([context1.watch(), context2.watch()]);
+} else {
+  await esbuild.build(esbuildConfig1);
+  await esbuild.build(esbuildConfig2);
+}
