@@ -31,7 +31,6 @@
 #focus {
   position: absolute;
   top: 74px;
-  // stylelint-disable-next-line function-name-case
   left: ${Number.parseInt(x.app.width) / 2 - 2}px;
   width: 4px;
   height: 92px;
