@@ -47,13 +47,17 @@ const analyzeMeta = {
  * @param {string} cssPath
  */
 function makeHTML(jsPath, cssPath) {
-  return `<!doctype html>
-<meta charset=utf-8>
-<meta name=google value=notranslate>
-<link href=literata.woff2 rel=preload as=font type=font/woff2 crossorigin>
-<link href=${cssPath} rel=stylesheet>
-<script src=trackx.js defer></script>
-<script src=${jsPath} defer></script>`;
+  return `
+    <!doctype html>
+    <meta charset=utf-8>
+    <meta name=google value=notranslate>
+    <link href=literata.woff2 rel=preload as=font type=font/woff2 crossorigin>
+    <link href=${cssPath} rel=stylesheet>
+    <script src=trackx.js defer></script>
+    <script src=${jsPath} defer></script>
+  `
+    .trim()
+    .replace(/\n\s+/g, '\n'); // remove leading whitespace
 }
 
 /** @type {esbuild.Plugin} */
