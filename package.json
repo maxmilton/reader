@@ -33,7 +33,7 @@
     "@typescript-eslint/parser": "5.54.1",
     "c8": "7.13.0",
     "ekscss": "0.0.13",
-    "esbuild": "0.17.8",
+    "esbuild": "0.17.11",
     "esbuild-minify-templates": "0.10.0",
     "esbuild-plugin-ekscss": "0.0.13",
     "eslint": "8.35.0",
