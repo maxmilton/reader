@@ -25,7 +25,9 @@ const release = manifest.version_name || manifest.version;
  * @returns {{ file: esbuild.OutputFile; index: number; }}
  */
 function findOutputFile(outputFiles, ext) {
-  const index = outputFiles.findIndex((outputFile) => outputFile.path.endsWith(ext));
+  const index = outputFiles.findIndex((outputFile) =>
+    outputFile.path.endsWith(ext),
+  );
   return { file: outputFiles[index], index };
 }
 
@@ -36,8 +38,9 @@ const analyzeMeta = {
     if (!build.initialOptions.metafile) return;
 
     build.onEnd(
-      (result) => result.metafile
-        && build.esbuild.analyzeMetafile(result.metafile).then(console.log),
+      (result) =>
+        result.metafile &&
+        build.esbuild.analyzeMetafile(result.metafile).then(console.log),
     );
   },
 };

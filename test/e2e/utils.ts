@@ -7,10 +7,10 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {
-  BrowserContext,
   chromium,
-  ConsoleMessage,
-  Page,
+  type BrowserContext,
+  type ConsoleMessage,
+  type Page,
 } from 'playwright-chromium';
 
 export interface E2ETestContext {
@@ -107,7 +107,6 @@ export async function renderPage(
     );
     context.consoleMessages.push(msg);
   });
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   await page.route('https://api.trackx.app/**/*', (route) => route.fulfill());
   await page.goto(url);
   return { page };

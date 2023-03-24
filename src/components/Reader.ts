@@ -1,8 +1,6 @@
 import './Reader.xcss';
 
-import {
-  append, createFragment, h, S1Node,
-} from 'stage1';
+import { append, createFragment, h, type S1Node } from 'stage1';
 import { extractText } from '../extractor';
 import { exec, indexOfORP } from '../utils';
 import { ORP } from './ORP';
@@ -87,9 +85,8 @@ const view = h(`
 
 export function Reader(): ReaderComponent {
   const root = view as ReaderComponent;
-  const {
-    progress, rewind, play, slower, speed, faster, w, focus,
-  } = view.collect<RefNodes>(root);
+  const { progress, rewind, play, slower, speed, faster, w, focus } =
+    view.collect<RefNodes>(root);
   let index = 0;
   let rate = 0; // wpm; words per minute
   let startTime = 0;

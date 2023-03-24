@@ -2,8 +2,8 @@
 
 // Import html5parser from source directly to avoid tslib in their dist
 import {
-  parse,
   SyntaxKind,
+  parse,
   walk,
   type INode,
   type ITag,
@@ -37,7 +37,8 @@ const EXTRANEOUS_ELEMENTS = [
 //  ↳ Might need some kind of scoring logic to determine confidence
 //  ↳ What if the user wants to read comments? Should the matching be different
 //    if the input is the user selection?
-const EXTRANEOUS_CLASSES = /comment|communit|contact|disqus|donat|extra|fundrais|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|widget/i;
+const EXTRANEOUS_CLASSES =
+  /comment|communit|contact|disqus|donat|extra|fundrais|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|widget/i;
 const BLOCK_ELEMENTS = [
   'address',
   'article',
@@ -168,13 +169,14 @@ export function extractText(html: string): string {
   //  7. Element with id = app
   //  8. Element with id = root
   //  9. <body> element (always defined)
-  const root = articles.length === 1
-    ? articles[0]
-    : idMap.article
-        || idMap.post
-        || idMap.content
-        || idMap.main
-        || (mains.length === 1 ? mains[0] : idMap.app || idMap.root || body!);
+  const root =
+    articles.length === 1
+      ? articles[0]
+      : idMap.article ||
+        idMap.post ||
+        idMap.content ||
+        idMap.main ||
+        (mains.length === 1 ? mains[0] : idMap.app || idMap.root || body!);
   let text = '';
 
   // Second pass; clean up superfluous nodes and extract meaningful text
@@ -185,11 +187,11 @@ export function extractText(html: string): string {
     (node, parent) => {
       if (node.type === SyntaxKind.Tag) {
         if (
-          EXTRANEOUS_ELEMENTS.indexOf(node.name) !== -1
-          || (node.name === 'footer' && parent.name !== 'blockquote')
+          EXTRANEOUS_ELEMENTS.indexOf(node.name) !== -1 ||
+          (node.name === 'footer' && parent.name !== 'blockquote') ||
           // TODO: Fix types
-          || ((node as unknown as Tag).attributeMap.class
-            && EXTRANEOUS_CLASSES.test(
+          ((node as unknown as Tag).attributeMap.class &&
+            EXTRANEOUS_CLASSES.test(
               (node as unknown as Tag).attributeMap.class!,
             ))
         ) {
@@ -206,8 +208,8 @@ export function extractText(html: string): string {
     },
     (node) => {
       if (
-        node.type === SyntaxKind.Tag
-        && BLOCK_ELEMENTS.indexOf(node.name) !== -1
+        node.type === SyntaxKind.Tag &&
+        BLOCK_ELEMENTS.indexOf(node.name) !== -1
       ) {
         // Add double space (which is turned into a newline later)
         text += '  ';

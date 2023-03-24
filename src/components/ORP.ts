@@ -1,6 +1,6 @@
 import './ORP.xcss';
 
-import { h, S1Node } from 'stage1';
+import { h, type S1Node } from 'stage1';
 
 type ORPComponent = S1Node & HTMLSpanElement;
 

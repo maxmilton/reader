@@ -1,7 +1,6 @@
-// x eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// x @ts-nocheck - FIXME: Fix ekscss types
-/* x eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-var-requires, import/no-extraneous-dependencies, strict */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck - FIXME: Fix ekscss types
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-var-requires, import/no-extraneous-dependencies, strict */
 
 'use strict';
 
