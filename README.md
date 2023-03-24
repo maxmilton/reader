@@ -16,7 +16,7 @@ The recommended use is for content that takes under 5 minutes to speed read or a
 - Extracts the most meaningful text on any page or from your selection.
 - Shows one word at a time in quick succession with a highlighted focus point.
 - Simple, distraction-free, no-nonsense user interface.
-- Still works when JavaScript is disabled or when you're offline.
+- Still works when JavaScript is disabled or you're offline.
 - Far smaller, faster, and less intrusive than similar tools.
 - No user tracking, tight security, and no unexpected nastiness.
 
@@ -56,6 +56,8 @@ Report any bugs you encounter on the [GitHub issue tracker](https://github.com/m
 ## License
 
 MIT license. See [LICENSE](https://github.com/maxmilton/reader/blob/master/LICENSE).
+
+The [Literata web font](https://fonts.google.com/specimen/Literata) is from [googlefonts/literata](https://github.com/googlefonts/literata) which is licensed OFL-1.1.
 
 The [magnifying glass icon](https://github.com/twitter/twemoji/blob/master/assets/svg/1f50d.svg) is from [twitter/twemoji](https://github.com/twitter/twemoji) which is licensed CC-BY 4.0.
 
