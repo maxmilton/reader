@@ -19,7 +19,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "useDefineForClassFields": true,
-    "verbatimModuleSyntax": true,
+    // "verbatimModuleSyntax": true, // FIXME: Breaks linting with html5parser
 
     // TODO: Remove when lightningcss fix their package.json#exports
     "resolvePackageJsonExports": false
