@@ -19,8 +19,8 @@ devDependencies:
     specifier: 0.0.12
     version: 0.0.12(postcss@8.4.21)(stylelint@15.4.0)
   '@types/chrome':
-    specifier: 0.0.231
-    version: 0.0.231
+    specifier: 0.0.234
+    version: 0.0.234
   '@types/node':
     specifier: 18.16.3
     version: 18.16.3
@@ -586,8 +586,8 @@ packages:
       tslib: 2.5.0
     dev: true
 
-  /@types/chrome@0.0.231:
-    resolution: {integrity: sha512-K3dSpeorWAj2UA/1GRUbny34+PARsH/k8bj8dRZQusSqNE323QEGils9ty1LaVyR1DnfLMD9PX8cV5Q+EhwAvQ==}
+  /@types/chrome@0.0.234:
+    resolution: {integrity: sha512-4JofeJBUPFf8Qy9ZiOif5jp5V4tG/WaFVPyb11E6Zmvx1q5j+X7LR/zWmj3lhbliaFxTMY/51GjMdpZOiUWjqQ==}
     dependencies:
       '@types/filesystem': 0.0.32
       '@types/har-format': 1.2.10
