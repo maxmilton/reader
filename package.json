@@ -54,7 +54,7 @@
     "prettier-plugin-pkg": "0.17.1",
     "prettier-plugin-sh": "0.12.8",
     "purgecss": "5.0.0",
-    "stylelint": "15.4.0",
+    "stylelint": "15.6.0",
     "stylelint-config-standard": "32.0.0",
     "tsm": "2.3.0",
     "typescript": "5.0.4",
