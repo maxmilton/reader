@@ -22,7 +22,7 @@ The recommended use is for content that takes under 5 minutes to speed read or a
 
 ### Technology
 
-- [html5parser](https://github.com/acrazing/html5parser) HTML parser
+- [@maxmilton/html-parser](https://github.com/maxmilton/html-parser) HTML parser (fork of [html5parser](https://github.com/acrazing/html5parser))
 - [ekscss](https://github.com/maxmilton/ekscss) style preprocessor
 - [stage1](https://github.com/maxmilton/stage1) JavaScript framework
 - [esbuild](https://github.com/evanw/esbuild) JavaScript bundler
