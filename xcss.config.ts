@@ -4,7 +4,7 @@
 
 import framework from '@ekscss/framework/config';
 import { extend, preloadApply } from '@ekscss/framework/utils';
-import { ctx, onBeforeBuild } from 'ekscss';
+import { ctx, onBeforeBuild, xcss } from 'ekscss';
 
 // Generate references so #apply can be used in any file
 onBeforeBuild(preloadApply);
@@ -29,7 +29,9 @@ const config = extend(framework, {
 
     input: {
       textColor: (x) => x.color.light2,
+      backgroundColor: 'transparent',
       outlineSize: '2px',
+      border: (x) => xcss`1px solid ${x.color.gray1}`,
       hoverBorderColor: (x) => x.color.gray4,
       disabledBackgroundColor: 'transparent',
       disabledBorder: (x) => x.color.dark3,
