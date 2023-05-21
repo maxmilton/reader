@@ -17,7 +17,7 @@ export async function getCurrentTab(): Promise<chrome.tabs.Tab> {
  * @see https://developer.chrome.com/docs/extensions/reference/scripting/#type-ScriptInjection
  * @see https://developer.chrome.com/en/blog/crx-scripting-api/#injecting-a-function-with-arguments
  */
-export async function exec<T, A extends any[] = []>(
+export async function exec<T, A extends unknown[] = []>(
   func: (..._args: A) => T,
   args?: A,
 ): Promise<T> {
@@ -30,26 +30,4 @@ export async function exec<T, A extends any[] = []>(
   });
 
   return result as T;
-}
-
-/**
- * Get the Optimal Recognition Point (OPR) index for a given word phrase.
- */
-export function indexOfORP(word: string): number {
-  let len = word.length;
-
-  while (/\W/.test(word[--len]));
-
-  if (/\W/.test(word[0])) len++;
-
-  switch (++len) {
-    case 0:
-    case 1:
-      return 0;
-    case 2:
-    case 3:
-      return 1;
-    default:
-      return Math.floor(len / 2) - 1;
-  }
 }

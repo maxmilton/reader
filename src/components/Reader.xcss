@@ -19,13 +19,19 @@
 
 #controls {
   display: flex;
+  gap: 0.5rem;
   align-items: center;
   margin: 0.5rem 0.5rem 0;
+
+  // TODO: Messure holistic performance impact of this vs adding classes to the buttons
+  & > button:nth-child(n+3) {
+    #apply: .bold;
+  }
 }
 
 #play {
   width: 10rem;
-  margin-left: 0.5rem;
+  margin-right: auto;
 }
 
 #focus {
@@ -43,11 +49,10 @@
       ${x.color.rose1} 100%
     );
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity 1s;
 
   &.show {
     opacity: 1;
-    transition: opacity 1s;
   }
 }
 
@@ -63,12 +68,17 @@
   transform: translateX(-50%);
 }
 
+@keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 #summary {
   width: 100%;
   font-size: 26px;
   text-align: center;
   white-space: initial; // allow long error text to wrap
-  transition: opacity 0.8s;
+  animation: fade 1s;
 
   & > em {
     font-size: 48px;

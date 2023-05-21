@@ -17,7 +17,30 @@ body {
   font-size: ${x.textSize};
 }
 
-// Override @ekscss/framework/level2/button.xcss to prevent browser repaints
-.button {
+
+button {
+  #apply: .button;
+  // Override @ekscss/framework/level2/button.xcss to prevent browser repaints
   z-index: initial;
+
+  &:hover { #apply: '.button:hover'; }
+
+  &:focus,
+  &:active { #apply: '.button:focus'; }
+
+  // &[disabled],
+  // &[disabled]:hover,
+  // &[disabled]:focus,
+  // &:disabled { #apply: .button[disabled]; }
+  &[disabled] { #apply: .button[disabled]; }
 }
+
+// svg {
+//   width: 24px;
+//   height: 24px;
+//   // fill: none;
+//   // stroke: currentcolor;
+//   // stroke-linecap: round;
+//   // stroke-width: 2px;
+//   fill: currentcolor;
+// }

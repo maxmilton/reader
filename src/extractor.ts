@@ -5,12 +5,12 @@ import {
   SyntaxKind,
   parse,
   walk,
-  type INode,
-  type ITag,
-} from 'html5parser/src';
+  type Node,
+  type Tag as Tag_,
+} from '@maxmilton/html-parser/src';
 import { create } from 'stage1';
 
-interface Tag extends Omit<ITag, 'attributeMap'> {
+interface Tag extends Omit<Tag_, 'attributeMap'> {
   attributeMap: Record<string, string | undefined>;
 }
 
@@ -84,7 +84,7 @@ function decodeHTMLEntities(html: string) {
   return textarea.value;
 }
 
-function buildAttributeMap(node: ITag | Tag): asserts node is Tag {
+function buildAttributeMap(node: Tag_ | Tag): asserts node is Tag {
   // eslint-disable-next-line no-param-reassign
   node.attributeMap = {};
 
@@ -98,10 +98,10 @@ function buildAttributeMap(node: ITag | Tag): asserts node is Tag {
 // Custom AST walker that can skip over subtrees
 // https://github.com/lukeed/astray/blob/017484ce67402224304836e7d1a2fe2e116c3ae9/src/index.js
 function walk2(
-  node: INode[] | INode,
-  parent: ITag,
-  enter: (node: INode, parent: ITag) => void | typeof SKIP,
-  leave: (node: INode) => void,
+  node: Node[] | Node,
+  parent: Tag_,
+  enter: (node: Node, parent: Tag_) => void | typeof SKIP,
+  leave: (node: Node) => void,
 ) {
   if (Array.isArray(node)) {
     for (let index = 0; index < node.length; index++) {
@@ -126,10 +126,10 @@ function walk2(
 export function extractText(html: string): string {
   const ast = parse(html);
 
-  const idMap: Record<string, ITag> = {};
-  const articles: ITag[] = [];
-  const mains: ITag[] = [];
-  let body: ITag;
+  const idMap: Record<string, Tag_> = {};
+  const articles: Tag_[] = [];
+  const mains: Tag_[] = [];
+  let body: Tag_;
 
   // First pass; collect references and populate attribute maps
   walk(ast, {
@@ -203,7 +203,7 @@ export function extractText(html: string): string {
           node.value.indexOf('&') === -1
             ? node.value
             : decodeHTMLEntities(node.value)
-        ).replace(/\s+/g, ' ');
+        ).replaceAll(/\s+/g, ' ');
       }
     },
     (node) => {
@@ -224,14 +224,14 @@ export function extractText(html: string): string {
     text
       .trim()
       // ensure single consecutive \n padded with space
-      .replace(/[\n ]{2,}/g, ' \n ')
+      .replaceAll(/[\n ]{2,}/g, ' \n ')
       // fix missing space around em dashes
-      .replace(/(\S)—(\S)/g, '$1 — $2')
+      .replaceAll(/(\S)—(\S)/g, '$1 — $2')
   );
 }
 
 // // Simple stringify AST to prettified HTML-like structure for debugging
-// function stringify(node: INode, html: string, level = 1): string {
+// function stringify(node: Node, html: string, level = 1): string {
 //   if (node.type === SyntaxKind.Text) return node.value.replace(/\s+/g, ' ');
 //   if (node.name === '!--') return html.slice(node.start, node.end);
 
