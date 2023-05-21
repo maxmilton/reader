@@ -3,26 +3,33 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "bundler",
-    "esModuleInterop": true,
+    "esModuleInterop": false,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "allowJs": true,
-    "checkJs": true,
-    "noEmit": true,
+    "allowJs": false,
 
     "strict": true,
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": false, // covered by eslint
     "noImplicitOverride": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "useDefineForClassFields": true,
-    // "verbatimModuleSyntax": true, // FIXME: Breaks linting with html5parser
+    "noUnusedLocals": false, // covered by eslint
+    "noUnusedParameters": false, // covered by eslint
+    "verbatimModuleSyntax": true,
 
-    // TODO: Remove when lightningcss fix their package.json#exports
-    "resolvePackageJsonExports": false
+    "types": [
+      "bun-types",
+      "chrome",
+      "./node_modules/typescript/lib/lib.esnext.full.d.ts" // workaround for bun-types breaking dom types
+    ]
   },
-  "exclude": ["coverage", "dist", "node_modules", "test"]
+  "include": [
+    "src",
+    "test",
+    "build.ts",
+    "manifest.config.ts",
+    "xcss.config.ts"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -25,7 +25,8 @@ The recommended use is for content that takes under 5 minutes to speed read or a
 - [html5parser](https://github.com/acrazing/html5parser) HTML parser
 - [ekscss](https://github.com/maxmilton/ekscss) style preprocessor
 - [stage1](https://github.com/maxmilton/stage1) JavaScript framework
-- [esbuild](https://esbuild.github.io/) JavaScript bundler
+- [esbuild](https://github.com/evanw/esbuild) JavaScript bundler
+- [bun](https://github.com/oven-sh/bun) JavaScript bundler and runtime
 
 ## Browser support
 

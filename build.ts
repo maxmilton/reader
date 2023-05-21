@@ -1,5 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies, no-console, no-param-reassign */
+/* eslint-disable no-console, no-param-reassign */
 
+import * as csso from 'csso';
 import esbuild from 'esbuild';
 import {
   decodeUTF8,
@@ -9,30 +10,38 @@ import {
 } from 'esbuild-minify-templates';
 import { xcss } from 'esbuild-plugin-ekscss';
 import * as lightningcss from 'lightningcss';
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import { extname } from 'node:path';
 import { PurgeCSS } from 'purgecss';
-import manifest from './manifest.config.mjs';
+import { makeManifest } from './manifest.config';
+import xcssConfig from './xcss.config';
 
-const mode = process.env.NODE_ENV;
+const mode = Bun.env.NODE_ENV;
 const dev = mode === 'development';
-const dir = path.resolve(); // loose alternative to __dirname in node ESM
+const manifest = makeManifest();
 const release = manifest.version_name || manifest.version;
 
-/**
- * @param {esbuild.OutputFile[]} outputFiles
- * @param {string} ext - File extension to match.
- * @returns {{ file: esbuild.OutputFile; index: number; }}
- */
-function findOutputFile(outputFiles, ext) {
+function findOutputFile(outputFiles: esbuild.OutputFile[], ext: string) {
   const index = outputFiles.findIndex((outputFile) =>
     outputFile.path.endsWith(ext),
   );
   return { file: outputFiles[index], index };
 }
 
-/** @type {esbuild.Plugin} */
-const analyzeMeta = {
+function makeHTML(jsPath: string, cssPath: string) {
+  return `
+    <!doctype html>
+    <meta charset=utf-8>
+    <meta name=google value=notranslate>
+    <link href=literata.woff2 rel=preload as=font type=font/woff2 crossorigin>
+    <link href=${cssPath} rel=stylesheet>
+    <script src=trackx.js defer></script>
+    <script src=${jsPath} defer></script>
+  `
+    .trim()
+    .replaceAll(/\n\s+/g, '\n'); // remove leading whitespace
+}
+
+const analyzeMeta: esbuild.Plugin = {
   name: 'analyze-meta',
   setup(build) {
     if (!build.initialOptions.metafile) return;
@@ -45,26 +54,7 @@ const analyzeMeta = {
   },
 };
 
-/**
- * @param {string} jsPath
- * @param {string} cssPath
- */
-function makeHTML(jsPath, cssPath) {
-  return `
-    <!doctype html>
-    <meta charset=utf-8>
-    <meta name=google value=notranslate>
-    <link href=literata.woff2 rel=preload as=font type=font/woff2 crossorigin>
-    <link href=${cssPath} rel=stylesheet>
-    <script src=trackx.js defer></script>
-    <script src=${jsPath} defer></script>
-  `
-    .trim()
-    .replace(/\n\s+/g, '\n'); // remove leading whitespace
-}
-
-/** @type {esbuild.Plugin} */
-const minifyCSS = {
+const minifyCSS: esbuild.Plugin = {
   name: 'minify-css',
   setup(build) {
     // if (!build.initialOptions.minify) return;
@@ -88,7 +78,7 @@ const minifyCSS = {
             'break',
             'canvas',
             'dd',
-            'disabled',
+            // 'disabled',
             'dt',
             'embed',
             'figcaption',
@@ -127,7 +117,7 @@ const minifyCSS = {
           sourceMap: dev,
           targets: {
             // eslint-disable-next-line no-bitwise
-            chrome: 104 << 16,
+            chrome: 110 << 16,
           },
         });
 
@@ -135,14 +125,25 @@ const minifyCSS = {
           console.error('CSS WARNING:', warning.message);
         }
 
-        result.outputFiles[outCSS.index].contents = encodeUTF8(
-          minified.code.toString(),
-        );
+        const minified2 = csso.minify(minified.code.toString(), {
+          filename: outCSS.file.path,
+          sourceMap: dev,
+          usage: {
+            blacklist: {
+              classes: [
+                'button', // #apply mapped to 'button'
+                'disabled', // not actually used
+              ],
+            },
+          },
+        });
 
-        if (minified.map) {
+        result.outputFiles[outCSS.index].contents = encodeUTF8(minified2.css);
+
+        if (minified2.map) {
           const outCSSMap = findOutputFile(result.outputFiles, '.css.map');
           result.outputFiles[outCSSMap.index].contents = encodeUTF8(
-            minified.map.toString(),
+            minified2.map.toString(),
           );
         }
       }
@@ -150,8 +151,7 @@ const minifyCSS = {
   },
 };
 
-/** @type {esbuild.Plugin} */
-const minifyJS = {
+const minifyJS: esbuild.Plugin = {
   name: 'minify-js',
   setup(build) {
     // if (!build.initialOptions.minify) return;
@@ -162,7 +162,7 @@ const minifyJS = {
         for (let index = 0; index < result.outputFiles.length; index++) {
           const file = result.outputFiles[index];
 
-          if (path.extname(file.path) !== '.js') return;
+          if (extname(file.path) !== '.js') return;
 
           // eslint-disable-next-line no-await-in-loop
           const out = await build.esbuild.transform(decodeUTF8(file.contents), {
@@ -179,32 +179,24 @@ const minifyJS = {
 };
 
 // Extension manifest
-await fs.writeFile(
-  path.join(dir, 'dist', 'manifest.json'),
-  JSON.stringify(manifest),
-);
+await Bun.write('dist/manifest.json', JSON.stringify(manifest));
 
 // Reader app HTML
-await fs.writeFile(
-  path.join(dir, 'dist/reader.html'),
-  makeHTML('reader.js', 'reader.css'),
-  'utf8',
-);
+await Bun.write('dist/reader.html', makeHTML('reader.js', 'reader.css'));
 
 // Reader app
-/** @type {esbuild.BuildOptions} */
-const esbuildConfig1 = {
+const esbuildConfig1: esbuild.BuildOptions = {
   entryPoints: ['src/index.ts'],
   outfile: 'dist/reader.js',
   platform: 'browser',
-  target: ['chrome104'],
+  target: ['chrome110'],
   external: ['literata-ext.woff2', 'literata-italic.woff2', 'literata.woff2'],
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
   plugins: [
-    xcss(),
+    xcss(xcssConfig),
     analyzeMeta,
     minifyTemplates(),
     minifyCSS,
@@ -225,12 +217,11 @@ const esbuildConfig1 = {
 };
 
 // Error tracking
-/** @type {esbuild.BuildOptions} */
-const esbuildConfig2 = {
+const esbuildConfig2: esbuild.BuildOptions = {
   entryPoints: ['src/trackx.ts'],
   outfile: 'dist/trackx.js',
   platform: 'browser',
-  target: ['chrome104'],
+  target: ['chrome110'],
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.NODE_ENV': JSON.stringify(mode),
