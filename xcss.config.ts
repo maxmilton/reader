@@ -1,12 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck - FIXME: Fix ekscss types
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-var-requires, import/no-extraneous-dependencies, strict */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 
-'use strict';
-
-const framework = require('@ekscss/framework/config');
-const { extend, preloadApply } = require('@ekscss/framework/utils');
-const { ctx, onBeforeBuild, xcss } = require('ekscss');
+import framework from '@ekscss/framework/config';
+import { extend, preloadApply } from '@ekscss/framework/utils';
+import { ctx, onBeforeBuild, xcss } from 'ekscss';
 
 // Generate references so #apply can be used in any file
 onBeforeBuild(preloadApply);
@@ -53,4 +51,4 @@ const config = extend(framework, {
 // XXX: This may break when @ekscss/framework is updated!
 config.plugins.pop();
 
-module.exports = config;
+export default config;

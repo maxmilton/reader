@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+
+    "allowJs": true,
+    "checkJs": true
+  },
+  "include": [
+    ".eslintrc.cjs",
+    "package.json" // imported in manifest.config.ts
+  ]
+}

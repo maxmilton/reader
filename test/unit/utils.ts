@@ -1,16 +1,5 @@
+import type { expect as _expect } from 'bun:test';
 import { spyOn } from 'nanospy';
-import { suite, type Context, type Test } from 'uvu';
-import type * as _assert from 'uvu/assert';
-
-// https://github.com/lukeed/uvu/issues/43#issuecomment-740817223
-export function describe<T = Context>(
-  name: string,
-  fn: (test: Test<T>) => void,
-): void {
-  const test = suite<T>(name);
-  fn(test);
-  test.run();
-}
 
 export interface RenderResult {
   /** A wrapper DIV which contains your mounted component. */
@@ -39,8 +28,8 @@ export function render(component: Node): RenderResult {
   return {
     container,
     debug(el = container) {
-      // eslint-disable-next-line no-console
-      console.log('DEBUG:\n', el.innerHTML);
+      /* prettier-ignore */ // eslint-disable-next-line
+      console.log('DEBUG:\n' + require('prettier').format(el.innerHTML, { parser: 'html' }));
     },
     unmount() {
       // eslint-disable-next-line unicorn/prefer-dom-node-remove
@@ -65,7 +54,7 @@ export function cleanup(): void {
   }
 }
 
-export function consoleSpy(): (assert: typeof _assert) => void {
+export function consoleSpy(): (expect: typeof _expect) => void {
   const errorSpy = spyOn(window.console, 'error');
   const warnSpy = spyOn(window.console, 'warn');
   const infoSpy = spyOn(window.console, 'info');
@@ -73,13 +62,13 @@ export function consoleSpy(): (assert: typeof _assert) => void {
   const debugSpy = spyOn(window.console, 'debug');
   const traceSpy = spyOn(window.console, 'trace');
 
-  return (assert) => {
-    assert.is(errorSpy.callCount, 0, 'calls to console.error');
-    assert.is(warnSpy.callCount, 0, 'calls to console.warn');
-    assert.is(infoSpy.callCount, 0, 'calls to console.info');
-    assert.is(logSpy.callCount, 0, 'calls to console.log');
-    assert.is(debugSpy.callCount, 0, 'calls to console.debug');
-    assert.is(traceSpy.callCount, 0, 'calls to console.trace');
+  return (expect) => {
+    expect(errorSpy.callCount).toBe(0);
+    expect(warnSpy.callCount).toBe(0);
+    expect(infoSpy.callCount).toBe(0);
+    expect(logSpy.callCount).toBe(0);
+    expect(debugSpy.callCount).toBe(0);
+    expect(traceSpy.callCount).toBe(0);
     errorSpy.restore();
     warnSpy.restore();
     infoSpy.restore();

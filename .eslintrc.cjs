@@ -9,7 +9,7 @@ module.exports = {
   reportUnusedDisableDirectives: true,
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['./test/tsconfig.json'],
+    project: ['tsconfig.json', 'tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
   extends: [
@@ -27,7 +27,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': WARN,
     '@typescript-eslint/no-use-before-define': WARN,
     '@typescript-eslint/restrict-template-expressions': WARN,
-    'import/extensions': OFF,
+    'import/extensions': WARN,
     'import/prefer-default-export': OFF,
     'no-plusplus': OFF,
     'no-restricted-syntax': OFF,
@@ -40,7 +40,7 @@ module.exports = {
     'unicorn/no-null': OFF,
     'unicorn/prefer-add-event-listener': OFF,
     'unicorn/prefer-dom-node-append': OFF,
-    'unicorn/prefer-module': OFF,
+    'unicorn/prefer-module': WARN,
     'unicorn/prefer-top-level-await': WARN,
     'unicorn/prefer-query-selector': OFF,
     // not faster
@@ -49,4 +49,12 @@ module.exports = {
     // byte savings (esbuild minify doesn't currently automatically remove)
     'unicorn/switch-case-braces': [ERROR, 'avoid'],
   },
+  overrides: [
+    {
+      files: ['build.ts', 'manifest.config.ts', 'xcss.config.ts'],
+      rules: {
+        'import/no-extraneous-dependencies': OFF,
+      },
+    },
+  ],
 };
