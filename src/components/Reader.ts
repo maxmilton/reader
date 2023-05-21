@@ -1,11 +1,12 @@
 import './Reader.xcss';
 
-import { append, createFragment, h, type S1Node } from 'stage1';
+import { h, type S1Node } from 'stage1';
 import { extractText } from '../extractor';
-import { exec, indexOfORP } from '../utils';
-import { ORP } from './ORP';
+import { exec } from '../utils';
+import { indexOfORP, ORP } from './ORP';
 
-const wordList = (async () => {
+// eslint-disable-next-line unicorn/prefer-top-level-await
+const extractedWords = (async () => {
   performance.mark('Extract:start');
   const html = await exec(() => {
     const selection = window.getSelection();
@@ -31,11 +32,13 @@ const WAIT_AFTER_COMMA = 2;
 const WAIT_AFTER_PERIOD = 3;
 const WAIT_AFTER_PARAGRAPH = 3.5;
 
-function timeoutMultiplier(word: string, jumped?: boolean) {
-  if (jumped) return WAIT_AFTER_PERIOD;
+function waitMultiplier(word: string, forceWait?: boolean) {
+  if (forceWait) return WAIT_AFTER_PERIOD;
   // if (word === 'Dr.' || word === 'Mr.' || word === 'Mrs.' || word === 'Ms.') return 1;
 
+  // eslint-disable-next-line unicorn/prefer-at
   let lastChar = word[word.length - 1];
+  // eslint-disable-next-line unicorn/prefer-at
   if (/["”]/.test(lastChar)) lastChar = word[word.length - 2];
 
   if (lastChar === '\n') return WAIT_AFTER_PARAGRAPH;
@@ -47,21 +50,21 @@ function timeoutMultiplier(word: string, jumped?: boolean) {
 }
 
 interface UserSettings {
-  /** Targeted words per minute. */
+  /** Target words per minute. */
   wpm?: number;
 }
 
 type ReaderComponent = S1Node & HTMLDivElement;
 
-type RefNodes = {
+type Refs = {
   progress: HTMLDivElement;
   rewind: HTMLButtonElement;
   play: HTMLButtonElement;
   slower: HTMLButtonElement;
-  speed: HTMLSpanElement;
+  speed: Text;
   faster: HTMLButtonElement;
-  w: HTMLDivElement;
   focus: HTMLDivElement;
+  w: HTMLDivElement;
 };
 
 const view = h(`
@@ -71,11 +74,11 @@ const view = h(`
     </div>
 
     <div id=controls>
-      <button class=button #rewind>Rewind</button>
-      <button class=button id=play #play>Play</button>
-      <button class="button ml-auto" #slower>Slower</button>
-      <span class="mh2 bold" #speed>180 wpm</span>
-      <button class=button #faster>Faster</button>
+      <button #rewind>Rewind</button>
+      <button id=play #play>Play</button>
+      #speed
+      <button #slower>−</button>
+      <button #faster>+</button>
     </div>
 
     <div id=focus #focus></div>
@@ -85,167 +88,142 @@ const view = h(`
 
 export function Reader(): ReaderComponent {
   const root = view as ReaderComponent;
-  const { progress, rewind, play, slower, speed, faster, w, focus } =
-    view.collect<RefNodes>(root);
-  let index = 0;
-  let rate = 0; // wpm; words per minute
+  const refs = view.collect<Refs>(root);
+  const wordref = refs.w;
+  let words: string[] = [];
+  let wordsIndex = 0;
+  /** Current target words per minute. */
+  let wpm = 0;
+  /** Current timing base rate; ms per word. */
+  let rate = 0;
   let startTime = 0;
   let timer: number | undefined;
 
-  wordList.catch((error) => {
-    timer = -1;
-    w.innerHTML = `<div id=summary>${String(error)}</div>`;
-    w.style.cssText = '';
-    // eslint-disable-next-line no-console
-    console.error(error);
-  });
+  function stop() {
+    clearTimeout(timer);
+    timer = undefined;
+    refs.play.textContent = 'Play';
+  }
 
-  function end(words: string[]) {
+  function end() {
     const time = (Date.now() - startTime) / 1000;
-    const mins = Math.trunc(time / 60);
     stop();
 
-    w.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
+    wordref.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
       // exclude intro countdown
       words.length - 4
     } words in ${
       time < 60
         ? `${Math.trunc(time)} seconds`
-        : `${mins} minute${mins === 1 ? '' : 's'}`
+        : `${Math.trunc(time / 60)} minute${time < 120 ? '' : 's'}`
     }.</div>`;
 
-    w.style.cssText = '';
-    progress.style.transform = 'translateX(0)';
-    focus.className = '';
-    play.textContent = 'Play again';
-    index = 0;
+    wordref.style.cssText = '';
+    refs.progress.style.transform = 'translateX(0)';
+    refs.focus.className = '';
+    refs.play.textContent = 'Play again';
+    wordsIndex = 0;
     startTime = 0;
-
-    (w.firstChild as HTMLDivElement).style.opacity = '0';
-    window.setTimeout(() => {
-      (w.firstChild as HTMLDivElement).style.opacity = '1';
-    });
   }
 
-  async function next(timeout?: number, jumped?: boolean) {
-    const words = await wordList;
-
-    if (++index >= words.length) {
-      end(words);
+  function next(forceWait?: boolean) {
+    if (++wordsIndex >= words.length) {
+      end();
       return;
     }
 
-    const word = words[index];
+    const word = words[wordsIndex];
     const orpIndex = indexOfORP(word);
-    const frag = createFragment();
-    let orp: HTMLElement | undefined;
+    let orp;
 
-    // eslint-disable-next-line unicorn/no-array-for-each
-    [...word].forEach((char, i) => {
-      append(i === orpIndex ? (orp = ORP(char)) : new Text(char), frag);
-    });
+    wordref.replaceChildren(
+      word.slice(0, orpIndex),
+      (orp = ORP(word[orpIndex])),
+      word.slice(orpIndex + 1),
+    );
 
-    frag.normalize();
-    w.replaceChildren(frag);
-
-    w.style.transform = `translateX(-${
-      orp!.offsetLeft + orp!.offsetWidth / 2
+    wordref.style.transform = `translateX(-${
+      orp.offsetLeft + orp.offsetWidth / 2
     }px)`;
-    progress.style.transform = `translateX(${
-      (index / words.length - 1) * 100
+    refs.progress.style.transform = `translateX(${
+      (wordsIndex / words.length - 1) * 100
     }%)`;
 
-    if (timeout) {
-      timer = window.setTimeout(() => {
-        void next(timeout);
-      }, timeout * timeoutMultiplier(word, jumped));
-    }
+    timer = (setTimeout as Window['setTimeout'])(
+      () => next(),
+      rate * waitMultiplier(word, forceWait),
+    );
   }
 
-  function start(jumped?: boolean) {
+  function start(slowStart?: boolean) {
     if (!startTime) {
       startTime = Date.now();
     }
 
-    void next(60_000 / rate, jumped);
-    focus.className = 'show';
-    play.textContent = 'Pause';
+    next(slowStart);
+    refs.focus.className = 'show';
+    refs.play.textContent = 'Pause';
   }
 
-  function stop() {
-    window.clearTimeout(timer);
-    timer = undefined;
-    play.textContent = 'Play';
-  }
+  function updateWPM(newWPM: number) {
+    rate = 60_000 / newWPM;
+    // refs.speed.textContent = `${newWPM} wpm`;
+    refs.speed.nodeValue = `${newWPM} wpm`;
+    refs.slower.disabled = newWPM <= 60;
+    refs.faster.disabled = newWPM >= 1200;
 
-  function updateWPM(wpm: number) {
-    speed.textContent = `${wpm} wpm`;
-
-    if (timer) {
-      stop();
-      start();
+    // Avoid writing to storage on initial load
+    if (wpm) {
+      void chrome.storage.sync.set({ wpm: newWPM });
     }
 
-    void chrome.storage.sync.set({ wpm });
+    wpm = newWPM;
   }
 
-  function togglePlay() {
-    if (timer) {
-      stop();
-    } else {
-      start();
-    }
-  }
-
-  play.__click = togglePlay;
-
-  rewind.__click = async () => {
-    const words = await wordList;
+  refs.rewind.__click = () => {
     stop();
 
-    // Go back 5 seconds worth of words
-    index -= 5000 / (60_000 / rate);
+    // Go back 3 seconds worth of words
+    wordsIndex -= 3000 / rate;
 
-    if (index < 0) {
-      index = 0;
+    if (wordsIndex <= 0) {
+      wordsIndex = 0;
     } else {
       // Set index to start of the sentence
-      while (index-- && !/[!.?…]$/.test(words[index]));
+      while (wordsIndex-- && !/[!.?…]$/.test(words[wordsIndex]));
     }
 
     start(true);
   };
 
-  slower.__click = () => {
-    if (rate > 60) {
-      updateWPM((rate -= 60));
-      faster.disabled = false;
+  refs.play.__click = () => {
+    if (timer) {
+      stop();
     } else {
-      slower.disabled = true;
-    }
-  };
-  faster.__click = () => {
-    if (rate < 1200) {
-      updateWPM((rate += 60));
-      slower.disabled = false;
-    } else {
-      faster.disabled = true;
+      start();
     }
   };
 
-  void chrome.storage.sync.get(null, ({ wpm = 180 }: UserSettings) => {
-    rate = wpm;
-    speed.textContent = `${wpm} wpm`;
+  refs.slower.__click = () => updateWPM(wpm - 60);
+  refs.faster.__click = () => updateWPM(wpm + 60);
 
-    if (wpm <= 60) {
-      slower.disabled = true;
-    } else if (wpm >= 1200) {
-      faster.disabled = true;
-    }
-
-    // Delay auto-play, otherwise it feels like it starts too early
-    window.setTimeout(togglePlay, 160);
-  });
+  chrome.storage.sync
+    .get()
+    .then((settings: UserSettings) => {
+      updateWPM(settings.wpm || 180);
+      return extractedWords;
+    })
+    .then((wordList) => {
+      words = wordList;
+      start(true);
+    })
+    .catch((error) => {
+      wordref.innerHTML = `<div id=summary>${String(error)}</div>`;
+      refs.rewind.disabled = true;
+      refs.play.disabled = true;
+      // eslint-disable-next-line no-console
+      console.error(error);
+    });
 
   return root;
 }

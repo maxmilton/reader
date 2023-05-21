@@ -1,4 +1,4 @@
-.orp {
+#orp {
   color: ${x.color.primary};
   font-variant: none; // ligatures break ORP highlighting
   text-shadow: 0 0 1rem ${x.color.background};

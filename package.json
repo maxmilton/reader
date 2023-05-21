@@ -1,7 +1,7 @@
 {
   "name": "reader",
   "version": "0.1.4",
-  "description": "Web page speed reader browser extension",
+  "description": "📖 Web page speed reader.",
   "repository": "maxmilton/reader",
   "homepage": "https://github.com/maxmilton/reader",
   "author": "Max Milton <max@happyhackers.xyz>",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@ekscss/framework": "0.0.45",
-    "html5parser": "2.0.2",
+    "@maxmilton/html-parser": "0.0.1",
     "stage1": "0.7.2",
     "trackx": "0.6.0"
   },

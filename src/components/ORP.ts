@@ -2,13 +2,37 @@ import './ORP.xcss';
 
 import { h, type S1Node } from 'stage1';
 
+const NON_WORD_RE = /\W/;
+
+/**
+ * Get the Optimal Recognition Point (OPR) index for a given word phrase.
+ */
+export function indexOfORP(word: string): number {
+  let len = word.length;
+
+  while (NON_WORD_RE.test(word[--len]));
+
+  if (NON_WORD_RE.test(word[0])) len++;
+
+  switch (++len) {
+    case 0:
+    case 1:
+      return 0;
+    case 2:
+    case 3:
+      return 1;
+    default:
+      return Math.trunc(len / 2) - 1;
+  }
+}
+
 type ORPComponent = S1Node & HTMLSpanElement;
 
-const view = h('<span class=orp></span>');
+const view = h('<span id=orp></span>');
 
+/** Optimal recognition point. */
 export function ORP(char: string): ORPComponent {
   // Don't clone; reuse the same node.
-  const root = view as ORPComponent;
-  root.textContent = char;
-  return root;
+  view.textContent = char;
+  return view as ORPComponent;
 }
