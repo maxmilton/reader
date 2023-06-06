@@ -3,10 +3,7 @@
   "compilerOptions": {
     "composite": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-
-    "allowJs": true,
-    "checkJs": true
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     ".eslintrc.cjs",
