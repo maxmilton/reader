@@ -46,5 +46,5 @@ test('renders entire reader popup app', async () => {
   expect(buttons[2].textContent).toBe('−');
   expect(buttons[3].textContent).toBe('+');
 
-  checkConsoleCalls(expect);
+  checkConsoleCalls();
 });
