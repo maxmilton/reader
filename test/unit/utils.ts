@@ -1,5 +1,4 @@
-import type { expect as _expect } from 'bun:test';
-import { spyOn } from 'nanospy';
+import { expect, spyOn, type Mock } from 'bun:test';
 
 export interface RenderResult {
   /** A wrapper DIV which contains your mounted component. */
@@ -54,26 +53,21 @@ export function cleanup(): void {
   }
 }
 
-export function consoleSpy(): (expect: typeof _expect) => void {
-  const errorSpy = spyOn(window.console, 'error');
-  const warnSpy = spyOn(window.console, 'warn');
-  const infoSpy = spyOn(window.console, 'info');
-  const logSpy = spyOn(window.console, 'log');
-  const debugSpy = spyOn(window.console, 'debug');
-  const traceSpy = spyOn(window.console, 'trace');
+const consoleMethods = Object.getOwnPropertyNames(
+  window.console,
+) as (keyof Console)[];
 
-  return (expect) => {
-    expect(errorSpy.callCount).toBe(0);
-    expect(warnSpy.callCount).toBe(0);
-    expect(infoSpy.callCount).toBe(0);
-    expect(logSpy.callCount).toBe(0);
-    expect(debugSpy.callCount).toBe(0);
-    expect(traceSpy.callCount).toBe(0);
-    errorSpy.restore();
-    warnSpy.restore();
-    infoSpy.restore();
-    logSpy.restore();
-    debugSpy.restore();
-    traceSpy.restore();
+export function consoleSpy(): () => void {
+  const spies: Mock<() => void>[] = [];
+
+  for (const method of consoleMethods) {
+    spies.push(spyOn(window.console, method));
+  }
+
+  return () => {
+    for (const spy of spies) {
+      expect(spy).toHaveBeenCalledTimes(0);
+      spy.mockRestore();
+    }
   };
 }
