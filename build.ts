@@ -132,7 +132,7 @@ const minifyCSS: esbuild.Plugin = {
             blacklist: {
               classes: [
                 'button', // #apply mapped to 'button'
-                'disabled', // not actually used
+                'disabled', // not actually used (as class)
               ],
             },
           },
