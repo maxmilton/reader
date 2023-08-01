@@ -51,7 +51,7 @@
     "happy-dom": "9.10.9",
     "lightningcss": "1.21.1",
     "prettier": "2.8.8",
-    "prettier-plugin-pkg": "0.17.1",
+    "prettier-plugin-pkg": "0.18.0",
     "purgecss": "5.0.0",
     "stylelint": "15.9.0",
     "stylelint-config-standard": "33.0.0",
