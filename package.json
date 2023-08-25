@@ -34,7 +34,7 @@
     "@types/csso": "5.0.0",
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
-    "bun-types": "0.6.12",
+    "bun-types": "0.8.1",
     "csso": "5.0.5",
     "ekscss": "0.0.14",
     "esbuild": "0.18.11",
