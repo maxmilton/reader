@@ -13,10 +13,10 @@ trackx.setup('https://api.trackx.app/v1/9lbe1l9le4x');
 trackx.meta.release = process.env.APP_RELEASE;
 
 if (process.env.NODE_ENV !== 'production') {
-  trackx.meta.NODE_ENV = process.env.NODE_ENV;
+  trackx.meta.NODE_ENV = process.env.NODE_ENV ?? 'NULL';
 }
 
-void chrome.tabs.query({ active: true, currentWindow: true }).then(([tab]) => {
+chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
   trackx.meta.url = tab.url;
 });
 
