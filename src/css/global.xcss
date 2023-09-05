@@ -14,7 +14,7 @@ body {
 
 // Override font styles chrome injects for extensions
 body {
-  font-size: ${x.textSize};
+  font-size: ${x.app.textSize};
 }
 
 
