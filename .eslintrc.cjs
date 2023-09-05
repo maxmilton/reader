@@ -13,44 +13,52 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
     'airbnb-base',
     'airbnb-typescript/base',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:@typescript-eslint/strict-type-checked',
+    'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:unicorn/recommended',
     'prettier',
   ],
   plugins: ['prettier'],
   rules: {
-    '@typescript-eslint/explicit-module-boundary-types': WARN,
+    '@typescript-eslint/explicit-module-boundary-types': ERROR,
+    '@typescript-eslint/no-confusing-void-expression': WARN,
+    '@typescript-eslint/no-non-null-assertion': WARN,
     '@typescript-eslint/no-use-before-define': WARN,
-    '@typescript-eslint/restrict-template-expressions': WARN,
-    'import/extensions': WARN,
+    'import/order': OFF, // broken with prettier
     'import/prefer-default-export': OFF,
-    'no-plusplus': OFF,
     'no-restricted-syntax': OFF,
-    // stage1 uses underscores in synthetic event handler names
-    'no-underscore-dangle': OFF,
     'no-void': OFF,
     'prettier/prettier': WARN,
     'unicorn/filename-case': OFF,
     'unicorn/no-abusive-eslint-disable': WARN,
+    'unicorn/no-await-expression-member': WARN,
     'unicorn/no-null': OFF,
-    'unicorn/prefer-add-event-listener': OFF,
-    'unicorn/prefer-dom-node-append': OFF,
     'unicorn/prefer-module': WARN,
     'unicorn/prefer-top-level-await': WARN,
-    'unicorn/prefer-query-selector': OFF,
-    // not faster
-    'unicorn/prefer-set-has': OFF,
     'unicorn/prevent-abbreviations': OFF,
+
+    /* Performance and byte savings */
+    'no-plusplus': OFF,
+    // not always faster
+    'unicorn/prefer-set-has': OFF,
+    // bad browser support and slower
+    'unicorn/prefer-string-replace-all': OFF,
     // byte savings (esbuild minify doesn't currently automatically remove)
     'unicorn/switch-case-braces': [ERROR, 'avoid'],
+
+    /* stage1 */
+    '@typescript-eslint/consistent-type-definitions': OFF, // FIXME: Issue with stage1 collect Refs
+    // underscores in synthetic event handler names
+    'no-underscore-dangle': OFF,
+    'unicorn/prefer-add-event-listener': OFF,
+    'unicorn/prefer-dom-node-append': OFF,
+    'unicorn/prefer-query-selector': OFF,
   },
   overrides: [
     {
-      files: ['build.ts', 'manifest.config.ts', 'xcss.config.ts'],
+      files: ['*.spec.ts', '*.test.ts', '*.d.ts', '*.config.ts', 'build.ts'],
       rules: {
         'import/no-extraneous-dependencies': OFF,
       },
