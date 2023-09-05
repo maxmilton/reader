@@ -9,7 +9,7 @@ import { ctx, onBeforeBuild } from 'ekscss';
 // Generate references so #apply can be used in any file
 onBeforeBuild(preloadApply);
 
-// Cheeky abuse of ekscss ctx to stop unwanted style imports
+// Cheeky abuse of ekscss ctx to prevent unwanted style imports
 onBeforeBuild(() => {
   ctx.dependencies.push(
     import.meta.resolveSync('@ekscss/framework/level2/a11y.xcss'),
@@ -38,17 +38,22 @@ const config = extend(framework, {
     },
 
     media: { ns: '', m: '', l: '' }, // not a responsive app
-    textSize: '15px',
-    fontStack: 'Literata, serif',
+    textSize: null, // removes styles from @ekscss/framework
+    fontStack: null, // removes styles from @ekscss/framework
 
     app: {
       width: '600px',
+      // The app strategically sets font-size and font-family in the right
+      // places to minimize the resulting CSS bundle size.
+      textSize: '15px',
+      fontStack: 'Literata, serif',
     },
   },
 });
 
-// Remove @ekscss/plugin-prefix
-// XXX: This may break when @ekscss/framework is updated!
+// Remove @ekscss/plugin-prefix from the @ekscss/framework config
+// Because this may break when @ekscss/framework is updated, we have test
+// to coverage to ensure that the correct plugins are loaded.
 config.plugins.pop();
 
 export default config;

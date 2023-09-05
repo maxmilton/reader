@@ -62,7 +62,7 @@
   display: flex;
   align-items: center;
   height: 134px;
-  font-family: ${x.fontStack};
+  font-family: ${x.app.fontStack};
   font-size: 48px;
   white-space: nowrap;
   transform: translateX(-50%);
