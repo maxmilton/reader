@@ -1,28 +1,42 @@
-import { gitRef } from 'git-ref';
 import pkg from './package.json' assert { type: 'json' };
 
-export const makeManifest = (): chrome.runtime.ManifestV3 => ({
+function gitRef() {
+  return Bun.spawnSync([
+    'git',
+    'describe',
+    '--always',
+    '--dirty=-dev',
+    '--broken',
+  ])
+    .stdout.toString()
+    .trim()
+    .replace(/^v/, '');
+}
+
+export const createManifest = (
+  debug = !process.env.CI,
+): chrome.runtime.ManifestV3 => ({
   manifest_version: 3,
   name: 'Reader',
   description: pkg.description,
-  version: pkg.version,
-  version_name: process.env.CI ? undefined : gitRef().replace(/^v/, ''),
   homepage_url: pkg.homepage,
+  version: pkg.version,
+  // shippable releases should not have a named version
+  version_name: debug ? gitRef() : undefined,
   icons: {
     16: 'icon16.png',
     48: 'icon48.png',
     128: 'icon128.png',
-  },
-  action: {
-    default_popup: 'reader.html',
   },
   permissions: [
     'activeTab', // https://developer.chrome.com/docs/extensions/mv3/manifest/activeTab/
     'scripting', // https://developer.chrome.com/docs/extensions/reference/scripting/
     'storage', // https://developer.chrome.com/docs/extensions/reference/storage/
   ],
+  action: {
+    default_popup: 'reader.html',
+  },
   offline_enabled: true,
-  incognito: 'spanning',
   content_security_policy: {
     extension_pages: [
       "default-src 'none'",
