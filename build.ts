@@ -1,245 +1,229 @@
-/* eslint-disable no-console, no-param-reassign */
+/* eslint-disable no-bitwise, no-console */
 
+import type { BunPlugin } from 'bun';
 import * as csso from 'csso';
-import esbuild from 'esbuild';
-import {
-  decodeUTF8,
-  encodeUTF8,
-  minifyTemplates,
-  writeFiles,
-} from 'esbuild-minify-templates';
-import { xcss } from 'esbuild-plugin-ekscss';
+import * as xcss from 'ekscss';
 import * as lightningcss from 'lightningcss';
-import { extname } from 'node:path';
 import { PurgeCSS } from 'purgecss';
-import { makeManifest } from './manifest.config';
+import * as terser from 'terser';
+import { createManifest } from './manifest.config';
 import xcssConfig from './xcss.config';
 
 const mode = Bun.env.NODE_ENV;
 const dev = mode === 'development';
-const manifest = makeManifest();
-const release = manifest.version_name || manifest.version;
+const manifest = createManifest();
+const release = manifest.version_name ?? manifest.version;
 
-function findOutputFile(outputFiles: esbuild.OutputFile[], ext: string) {
-  const index = outputFiles.findIndex((outputFile) =>
-    outputFile.path.endsWith(ext),
-  );
-  return { file: outputFiles[index], index };
-}
+let css = '';
+// XXX: Temporary workaround to build CSS until Bun.build supports css loader
+const extractCSS: BunPlugin = {
+  name: 'extract-css',
+  setup(build) {
+    build.onLoad({ filter: /\.css$/ }, async (args) => {
+      css += await Bun.file(args.path).text();
+      return { contents: '', loader: 'js' };
+    });
+    build.onLoad({ filter: /\.xcss$/ }, async (args) => {
+      const source = await Bun.file(args.path).text();
+      const compiled = xcss.compile(source, {
+        from: args.path,
+        globals: xcssConfig.globals,
+        plugins: xcssConfig.plugins,
+      });
 
-function makeHTML(jsPath: string, cssPath: string) {
+      for (const warning of compiled.warnings) {
+        console.error('XCSS:', warning.message);
+
+        if (warning.file) {
+          console.log(
+            `  at ${[warning.file, warning.line, warning.column]
+              .filter(Boolean)
+              .join(':')}`,
+          );
+        }
+      }
+
+      css += compiled.css;
+      return { contents: '', loader: 'js' };
+    });
+  },
+};
+
+function makeHTML() {
   return `
     <!doctype html>
     <meta charset=utf-8>
     <meta name=google value=notranslate>
     <link href=literata.woff2 rel=preload as=font type=font/woff2 crossorigin>
-    <link href=${cssPath} rel=stylesheet>
+    <link href=reader.css rel=stylesheet>
     <script src=trackx.js defer></script>
-    <script src=${jsPath} defer></script>
+    <script src=reader.js defer></script>
   `
     .trim()
     .replaceAll(/\n\s+/g, '\n'); // remove leading whitespace
 }
 
-const analyzeMeta: esbuild.Plugin = {
-  name: 'analyze-meta',
-  setup(build) {
-    if (!build.initialOptions.metafile) return;
-
-    build.onEnd(
-      (result) =>
-        result.metafile &&
-        build.esbuild.analyzeMetafile(result.metafile).then(console.log),
-    );
-  },
-};
-
-const minifyCSS: esbuild.Plugin = {
-  name: 'minify-css',
-  setup(build) {
-    // if (!build.initialOptions.minify) return;
-    if (build.initialOptions.write !== false) return;
-
-    build.onEnd(async (result) => {
-      if (result.outputFiles) {
-        const outJS = findOutputFile(result.outputFiles, '.js');
-        const outCSS = findOutputFile(result.outputFiles, '.css');
-
-        const purged = await new PurgeCSS().purge({
-          content: [{ extension: '.js', raw: decodeUTF8(outJS.file.contents) }],
-          css: [{ raw: decodeUTF8(outCSS.file.contents) }],
-          sourceMap: dev,
-          safelist: ['html', 'body'],
-          blocklist: [
-            // XXX: Remember to remove if actually using the element tag
-            'article',
-            'aside',
-            'blockquote',
-            'break',
-            'canvas',
-            'dd',
-            // 'disabled',
-            'dt',
-            'embed',
-            'figcaption',
-            'figure',
-            'footer',
-            'h1',
-            'h2',
-            'h3',
-            'h4',
-            'h5',
-            'h6',
-            'header',
-            'hgroup',
-            'hr',
-            'iframe',
-            'img',
-            'input',
-            'link',
-            'main',
-            'nav',
-            'ol',
-            'pre',
-            'section',
-            'select',
-            'source',
-            'svg',
-            'table',
-            'textarea',
-            'ul',
-          ],
-        });
-        const minified = lightningcss.transform({
-          filename: outCSS.file.path,
-          code: Buffer.from(purged[0].css),
-          minify: true,
-          sourceMap: dev,
-          targets: {
-            // eslint-disable-next-line no-bitwise
-            chrome: 110 << 16,
-          },
-        });
-
-        for (const warning of minified.warnings) {
-          console.error('CSS WARNING:', warning.message);
-        }
-
-        const minified2 = csso.minify(minified.code.toString(), {
-          filename: outCSS.file.path,
-          sourceMap: dev,
-          usage: {
-            blacklist: {
-              classes: [
-                'button', // #apply mapped to 'button'
-                'disabled', // not actually used (as class)
-              ],
-            },
-          },
-        });
-
-        result.outputFiles[outCSS.index].contents = encodeUTF8(minified2.css);
-
-        if (minified2.map) {
-          const outCSSMap = findOutputFile(result.outputFiles, '.css.map');
-          result.outputFiles[outCSSMap.index].contents = encodeUTF8(
-            minified2.map.toString(),
-          );
-        }
-      }
-    });
-  },
-};
-
-const minifyJS: esbuild.Plugin = {
-  name: 'minify-js',
-  setup(build) {
-    // if (!build.initialOptions.minify) return;
-    if (build.initialOptions.write !== false) return;
-
-    build.onEnd(async (result) => {
-      if (result.outputFiles) {
-        for (let index = 0; index < result.outputFiles.length; index++) {
-          const file = result.outputFiles[index];
-
-          if (extname(file.path) !== '.js') return;
-
-          // eslint-disable-next-line no-await-in-loop
-          const out = await build.esbuild.transform(decodeUTF8(file.contents), {
-            loader: 'js',
-            minify: true,
-            // target: build.initialOptions.target,
-          });
-
-          result.outputFiles[index].contents = encodeUTF8(out.code);
-        }
-      }
-    });
-  },
-};
-
 // Extension manifest
 await Bun.write('dist/manifest.json', JSON.stringify(manifest));
 
 // Reader app HTML
-await Bun.write('dist/reader.html', makeHTML('reader.js', 'reader.css'));
+await Bun.write('dist/reader.html', makeHTML());
 
-// Reader app
-const esbuildConfig1: esbuild.BuildOptions = {
-  entryPoints: ['src/index.ts'],
-  outfile: 'dist/reader.js',
-  platform: 'browser',
-  target: ['chrome110'],
-  external: ['literata-ext.woff2', 'literata-italic.woff2', 'literata.woff2'],
+// Reader app JS
+console.time('build');
+const out = await Bun.build({
+  entrypoints: ['src/reader.ts'],
+  outdir: 'dist',
+  target: 'browser',
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
-  plugins: [
-    xcss(xcssConfig),
-    analyzeMeta,
-    minifyTemplates(),
-    minifyCSS,
-    minifyJS,
-    writeFiles(),
-  ],
-  bundle: true,
-  // XXX: Do not minifySyntax here, it breaks \n in strings after minifyJS
+  loader: {
+    '.svg': 'text',
+  },
+  external: ['literata-ext.woff2', 'literata-italic.woff2', 'literata.woff2'],
+  plugins: [extractCSS],
   // minify: !dev,
-  mangleProps: /_refs|collect/,
-  sourcemap: dev,
-  write: dev,
-  metafile: !dev && process.stdout.isTTY,
-  logLevel: 'debug',
-  legalComments: 'none',
-  // XXX: Comment out to keep performance markers in non-dev builds for debugging
-  pure: ['performance.mark', 'performance.measure'],
-};
+  minify: {
+    whitespace: !dev,
+    identifiers: !dev,
+    // FIXME: Bun macros break if syntax minify is disabled (due to string
+    // interpolation and concatination not being resolved).
+    // syntax: !dev,
+    syntax: true,
+  },
+  sourcemap: dev ? 'external' : 'none',
+});
+console.timeEnd('build');
 
 // Error tracking
-const esbuildConfig2: esbuild.BuildOptions = {
-  entryPoints: ['src/trackx.ts'],
-  outfile: 'dist/trackx.js',
-  platform: 'browser',
-  target: ['chrome110'],
+console.time('build2');
+const out2 = await Bun.build({
+  entrypoints: ['src/trackx.ts'],
+  outdir: 'dist',
+  target: 'browser',
+  // FIXME: Consider using iife once bun supports it.
+  // format: 'iife', // error tracking must not mutate global state
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
-  plugins: [analyzeMeta, minifyJS, writeFiles()],
-  bundle: true,
   minify: !dev,
-  sourcemap: dev,
-  write: dev,
-  metafile: !dev && process.stdout.isTTY,
-  logLevel: 'debug',
-};
+  sourcemap: dev ? 'external' : 'none',
+});
+console.timeEnd('build2');
+
+console.log(out, out2);
+
+async function minifyCSS() {
+  const js = await out.outputs[0].text();
+
+  const purged = await new PurgeCSS().purge({
+    content: [{ extension: '.js', raw: js }],
+    css: [{ raw: css }],
+    safelist: ['html', 'body'],
+    blocklist: [
+      // XXX: Remember to remove if actually using the element tag
+      'article',
+      'aside',
+      'blockquote',
+      'break',
+      'canvas',
+      'dd',
+      // 'disabled',
+      'dt',
+      'embed',
+      'figcaption',
+      'figure',
+      // 'footer',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'header',
+      'hgroup',
+      'hr',
+      'iframe',
+      'img',
+      'input',
+      'link',
+      'main',
+      'nav',
+      'ol',
+      'pre',
+      'section',
+      'select',
+      'source',
+      'svg',
+      'table',
+      'textarea',
+      'ul',
+    ],
+  });
+  const minified = lightningcss.transform({
+    filename: 'popup.css',
+    code: Buffer.from(purged[0].css),
+    minify: true,
+    targets: { chrome: 114 << 16 },
+  });
+
+  for (const warning of minified.warnings) {
+    console.error('CSS:', warning.message);
+  }
+
+  const minified2 = csso.minify(minified.code.toString(), {
+    filename: 'popup.css',
+    // forceMediaMerge: true, // somewhat unsafe
+    usage: {
+      blacklist: {
+        classes: [
+          'button', // #apply mapped to 'button'
+          'disabled', // not actually used (as class)
+        ],
+      },
+    },
+    // debug: true,
+  });
+
+  await Bun.write('dist/reader.css', minified2.css);
+}
+
+async function minifyJS(artifact: Blob & { path: string }) {
+  let source = await artifact.text();
+
+  // Improve collapsing variables; terser doesn't do this so we do it manually.
+  source = source.replaceAll('const ', 'let ');
+
+  const result = await terser.minify(source, {
+    ecma: 2020,
+    module: true,
+    compress: {
+      reduce_funcs: false, // prevent functions being inlined
+      // XXX: Comment out to keep performance markers for debugging.
+      pure_funcs: ['performance.mark', 'performance.measure'],
+    },
+    mangle: {
+      properties: {
+        regex: /^\$\$/, // somewhat unsafe!
+      },
+    },
+  });
+
+  await Bun.write(artifact.path, result.code!);
+}
 
 if (dev) {
-  const context1 = await esbuild.context(esbuildConfig1);
-  const context2 = await esbuild.context(esbuildConfig2);
-  await Promise.all([context1.watch(), context2.watch()]);
+  await Bun.write('dist/reader.css', css);
 } else {
-  await esbuild.build(esbuildConfig1);
-  await esbuild.build(esbuildConfig2);
+  console.time('minifyCSS');
+  await minifyCSS();
+  console.timeEnd('minifyCSS');
+
+  console.time('minifyJS');
+  await minifyJS(out.outputs[0]);
+  await minifyJS(out2.outputs[0]);
+  console.timeEnd('minifyJS');
 }
