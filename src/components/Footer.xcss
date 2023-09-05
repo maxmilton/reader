@@ -1,0 +1,3 @@
+footer {
+  #apply: .mv2, .muted, .fss, .tc;
+}
