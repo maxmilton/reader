@@ -1,6 +1,5 @@
 import './css/index.xcss';
 
-import { append, createFragment, setupSyntheticEvent } from 'stage1';
 import { Footer } from './components/Footer';
 import { Reader } from './components/Reader';
 
