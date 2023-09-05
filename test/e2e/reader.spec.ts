@@ -12,3 +12,5 @@ test('reader popup', async ({ page, extensionId }) => {
   await expect(buttons[2]).toHaveText('−');
   await expect(buttons[3]).toHaveText('+');
 });
+
+// TODO: Test all app states: initial, error, playing, paused, rewinding, end, replay

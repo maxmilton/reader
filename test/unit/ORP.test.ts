@@ -4,19 +4,18 @@ import { cleanup, render } from './utils';
 
 afterEach(cleanup);
 
-test('renders correctly', () => {
+test('rendered DOM contains expected elements', () => {
   const rendered = render(ORP('x'));
-  // TODO: Use toMatchInlineSnapshot once `bun test` supports it
-  expect(rendered.container.innerHTML).toBe('<span id="orp">x</span>');
+  const root = rendered.container.firstChild as HTMLSpanElement;
+  expect(root).toBeTruthy();
+  expect(rendered.container.querySelector('#orp')).toBe(root);
+  expect(root).toBeInstanceOf(window.HTMLSpanElement);
+  expect(root.textContent).toBe('x');
 });
 
-// TODO: Remove? Testing framework internals goes against the philosophy of
-// testing user behaviour.
-test('has no node refs', () => {
+test('rendered DOM matches snapshot', () => {
   const rendered = render(ORP('x'));
-  // @ts-expect-error - FIXME:!
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  expect(rendered.container.firstChild._refs.length).toBe(0);
+  expect(rendered.container.innerHTML).toMatchSnapshot();
 });
 
 test('returns the same reused node every call', () => {
