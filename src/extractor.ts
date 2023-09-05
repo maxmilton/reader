@@ -1,6 +1,9 @@
+/* eslint-disable @typescript-eslint/prefer-for-of */
 /* eslint-disable unicorn/prefer-includes, unicorn/no-for-loop */
 
-// Import html5parser from source directly to avoid tslib in their dist
+// TODO: Currently bun does not support const enum inlining; https://github.com/oven-sh/bun/issues/2945
+// Import html-parser directly from source for better build optimization (const
+// enum inlining in particular).
 import {
   SyntaxKind,
   parse,
@@ -14,32 +17,7 @@ interface Tag extends Omit<Tag_, 'attributeMap'> {
   attributeMap: Record<string, string | undefined>;
 }
 
-const EXTRANEOUS_ELEMENTS = [
-  '!--',
-  'aside',
-  'button',
-  'canvas',
-  'embed',
-  'figcaption',
-  'figure',
-  'form',
-  'head',
-  'iframe',
-  'input',
-  'nav',
-  'noscript',
-  'script',
-  'style',
-  'svg',
-  'textarea',
-];
-// FIXME: Needs more real-world testing as false positives are possible
-//  ↳ Might need some kind of scoring logic to determine confidence
-//  ↳ What if the user wants to read comments? Should the matching be different
-//    if the input is the user selection?
-const EXTRANEOUS_CLASSES =
-  /comment|communit|contact|disqus|donat|extra|fundrais|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|widget/i;
-const BLOCK_ELEMENTS = [
+const BLOCK_ELEMENTS = new Set([
   'address',
   'article',
   // 'aside',
@@ -74,7 +52,32 @@ const BLOCK_ELEMENTS = [
   'table',
   'tfoot',
   'ul',
-];
+]);
+const EXTRANEOUS_ELEMENTS = new Set([
+  '!--',
+  'aside',
+  'button',
+  'canvas',
+  'embed',
+  'figcaption',
+  'figure',
+  'form',
+  'head',
+  'iframe',
+  'input',
+  'nav',
+  'noscript',
+  'script',
+  'style',
+  'svg',
+  'textarea',
+]);
+// FIXME: Needs more real-world testing as false positives are possible
+//  ↳ Might need some kind of scoring logic to determine confidence
+//  ↳ What if the user wants to read comments? Should the matching be different
+//    if the input is the user selection?
+const EXTRANEOUS_CLASSES =
+  /comment|communit|contact|disqus|donat|extra|fundrais|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|widget/i;
 const SKIP = true;
 
 const textarea = create('textarea');
@@ -91,7 +94,7 @@ function buildAttributeMap(node: Tag_ | Tag): asserts node is Tag {
   for (let index = 0; index < node.attributes.length; index++) {
     const attr = node.attributes[index];
     // eslint-disable-next-line no-param-reassign
-    node.attributeMap[attr.name.value] = attr.value && attr.value.value;
+    node.attributeMap[attr.name.value] = attr.value?.value;
   }
 }
 
@@ -100,7 +103,7 @@ function buildAttributeMap(node: Tag_ | Tag): asserts node is Tag {
 function walk2(
   node: Node[] | Node,
   parent: Tag_,
-  enter: (node: Node, parent: Tag_) => void | typeof SKIP,
+  enter: (node: Node, parent: Tag_) => undefined | typeof SKIP,
   leave: (node: Node) => void,
 ) {
   if (Array.isArray(node)) {
@@ -126,7 +129,7 @@ function walk2(
 export function extractText(html: string): string {
   const ast = parse(html);
 
-  const idMap: Record<string, Tag_> = {};
+  const tagById: Record<string, Tag_ | undefined> = {};
   const articles: Tag_[] = [];
   const mains: Tag_[] = [];
   let body: Tag_;
@@ -151,9 +154,10 @@ export function extractText(html: string): string {
 
         buildAttributeMap(node);
 
-        const attrId = node.attributeMap.id;
+        // TODO: Fix the types rather than casting
+        const attrId = node.attributeMap.id as string | undefined;
         if (attrId) {
-          idMap[attrId] = node;
+          tagById[attrId] = node;
         }
       }
     },
@@ -172,11 +176,11 @@ export function extractText(html: string): string {
   const root =
     articles.length === 1
       ? articles[0]
-      : idMap.article ||
-        idMap.post ||
-        idMap.content ||
-        idMap.main ||
-        (mains.length === 1 ? mains[0] : idMap.app || idMap.root || body!);
+      : tagById.article ??
+        tagById.post ??
+        tagById.content ??
+        tagById.main ??
+        (mains.length === 1 ? mains[0] : tagById.app ?? tagById.root ?? body!);
   let text = '';
 
   // Second pass; clean up superfluous nodes and extract meaningful text
@@ -187,7 +191,7 @@ export function extractText(html: string): string {
     (node, parent) => {
       if (node.type === SyntaxKind.Tag) {
         if (
-          EXTRANEOUS_ELEMENTS.indexOf(node.name) !== -1 ||
+          EXTRANEOUS_ELEMENTS.has(node.name) ||
           (node.name === 'footer' && parent.name !== 'blockquote') ||
           // TODO: Fix types
           ((node as unknown as Tag).attributeMap.class &&
@@ -200,17 +204,14 @@ export function extractText(html: string): string {
       } else {
         // Add text with consecutive whitespace collapsed
         text += (
-          node.value.indexOf('&') === -1
+          node.value.indexOf('&') === -1 // eslint-disable-line @typescript-eslint/prefer-includes
             ? node.value
             : decodeHTMLEntities(node.value)
-        ).replaceAll(/\s+/g, ' ');
+        ).replace(/\s+/g, ' ');
       }
     },
     (node) => {
-      if (
-        node.type === SyntaxKind.Tag &&
-        BLOCK_ELEMENTS.indexOf(node.name) !== -1
-      ) {
+      if (node.type === SyntaxKind.Tag && BLOCK_ELEMENTS.has(node.name)) {
         // Add double space (which is turned into a newline later)
         text += '  ';
       }
@@ -224,9 +225,9 @@ export function extractText(html: string): string {
     text
       .trim()
       // ensure single consecutive \n padded with space
-      .replaceAll(/[\n ]{2,}/g, ' \n ')
+      .replace(/[\n ]{2,}/g, ' \n ')
       // fix missing space around em dashes
-      .replaceAll(/(\S)—(\S)/g, '$1 — $2')
+      .replace(/(\S)—(\S)/g, '$1 — $2')
   );
 }
 

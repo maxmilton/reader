@@ -8,7 +8,7 @@ import { ORP, indexOfORP } from './ORP';
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
 const extractedWords = (async () => {
-  performance.mark('Extract:start');
+  performance.mark('Extract:Begin');
   const html = await exec(() => {
     const selection = window.getSelection();
     if (selection?.type === 'Range') {
@@ -22,7 +22,7 @@ const extractedWords = (async () => {
   });
   // eslint-disable-next-line prefer-template
   const text = ' 3. 2. 1. ' + extractText(html) + '\n';
-  performance.measure('Extract', 'Extract:start');
+  performance.measure('Extract', 'Extract:Begin');
   return text.split(' ');
 })();
 
@@ -211,10 +211,11 @@ export function Reader(): ReaderComponent {
   chrome.storage.sync
     .get()
     .then((settings: UserSettings) => {
-      updateWPM(settings.wpm || 180);
+      updateWPM(settings.wpm ?? 180);
       return extractedWords;
     })
     .then((wordList) => {
+      performance.measure('Preprocessing');
       words = wordList;
       start(true);
     })
