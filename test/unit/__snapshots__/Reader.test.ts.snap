@@ -1,0 +1,5 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendered DOM matches snapshot 1`] = `"<div><div id="progress"><div id="bar"></div></div><div id="controls"><button>Rewind</button><button id="play">Play</button> <button>−</button><button>+</button></div><div id="focus"></div><div id="word"></div></div>"`;
+
+exports[`rendered DOM matches snapshot 2`] = `"<div><div id="progress"><div id="bar"></div></div><div id="controls"><button>Rewind</button><button id="play">Play</button> <button>−</button><button>+</button></div><div id="focus"></div><div id="word"></div></div>"`;

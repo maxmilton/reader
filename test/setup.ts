@@ -20,6 +20,8 @@ Bun.plugin({
   },
 });
 
+const noop = () => {};
+
 function setupDOM() {
   const dom = new GlobalWindow();
   global.happyDOM = dom.happyDOM;
@@ -31,9 +33,18 @@ function setupDOM() {
   global.clearTimeout = window.clearTimeout;
   global.DocumentFragment = window.DocumentFragment;
   global.Text = window.Text;
+  global.fetch = window.fetch;
 }
 
 function setupMocks(): void {
+  // normally this is set by Bun.build
+  process.env.APP_RELEASE = '1.0.0';
+
+  // @ts-expect-error - noop stub
+  global.performance.mark = noop;
+  // @ts-expect-error - noop stub
+  global.performance.measure = noop;
+
   global.chrome = {
     storage: {
       // @ts-expect-error - partial mock

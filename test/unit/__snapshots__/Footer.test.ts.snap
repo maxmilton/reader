@@ -1,7 +1,3 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
-"<footer class="mv2 muted fss tc">
-© <a href="https://maxmilton.com" class="normal muted" target="_blank">Max Milton</a> ・ vundefined ・ <a href="https://github.com/maxmilton/reader/issues" target="_blank">report bug</a>
-</footer>"
-`;
+exports[`rendered DOM matches snapshot 1`] = `"<footer class="mv2 muted fss tc">©<a href="https:" maxmilton.com="" class="normal muted" target="_blank">Max Milton</a>・ v1.0.0 ・<a href="https:" github.com="" maxmilton="" reader="" issues="" target="_blank">report bug</a></footer>"`;
