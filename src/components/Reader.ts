@@ -1,9 +1,10 @@
 import './Reader.xcss';
 
-import { h, type S1Node } from 'stage1';
+import { compile } from 'stage1/macro' assert { type: 'macro' };
+import { collect, h } from 'stage1/runtime';
 import { extractText } from '../extractor';
 import { exec } from '../utils';
-import { indexOfORP, ORP } from './ORP';
+import { ORP, indexOfORP } from './ORP';
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
 const extractedWords = (async () => {
@@ -49,12 +50,12 @@ function waitMultiplier(word: string, forceWait?: boolean) {
   return 1;
 }
 
-interface UserSettings {
+export interface UserSettings {
   /** Target words per minute. */
   wpm?: number;
 }
 
-type ReaderComponent = S1Node & HTMLDivElement;
+type ReaderComponent = HTMLDivElement;
 
 type Refs = {
   progress: HTMLDivElement;
@@ -67,28 +68,29 @@ type Refs = {
   w: HTMLDivElement;
 };
 
-const view = h(`
+const meta = compile(`
   <div>
     <div id=progress>
-      <div id=bar #progress></div>
+      <div @progress id=bar></div>
     </div>
 
     <div id=controls>
-      <button #rewind>Rewind</button>
-      <button id=play #play>Play</button>
-      #speed
-      <button #slower>−</button>
-      <button #faster>+</button>
+      <button @rewind>Rewind</button>
+      <button @play id=play>Play</button>
+      @speed
+      <button @slower>−</button>
+      <button @faster>+</button>
     </div>
 
-    <div id=focus #focus></div>
-    <div id=word #w></div>
+    <div @focus id=focus></div>
+    <div @w id=word></div>
   </div>
 `);
+const view = h<ReaderComponent>(meta.html);
 
 export function Reader(): ReaderComponent {
-  const root = view as ReaderComponent;
-  const refs = view.collect<Refs>(root);
+  const root = view;
+  const refs = collect<Refs>(root, meta.k, meta.d);
   const wordref = refs.w;
   let words: string[] = [];
   let wordsIndex = 0;
@@ -167,7 +169,6 @@ export function Reader(): ReaderComponent {
 
   function updateWPM(newWPM: number) {
     rate = 60_000 / newWPM;
-    // refs.speed.textContent = `${newWPM} wpm`;
     refs.speed.nodeValue = `${newWPM} wpm`;
     refs.slower.disabled = newWPM <= 60;
     refs.faster.disabled = newWPM >= 1200;

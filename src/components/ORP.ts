@@ -1,6 +1,6 @@
 import './ORP.xcss';
 
-import { h, type S1Node } from 'stage1';
+import { create } from 'stage1/runtime';
 
 const NON_WORD_RE = /\W/;
 
@@ -26,13 +26,14 @@ export function indexOfORP(word: string): number {
   }
 }
 
-type ORPComponent = S1Node & HTMLSpanElement;
+type ORPComponent = HTMLSpanElement;
 
-const view = h('<span id=orp></span>');
+const view = create('span');
+view.id = 'orp';
 
 /** Optimal recognition point. */
 export function ORP(char: string): ORPComponent {
   // Don't clone; reuse the same node.
   view.textContent = char;
-  return view as ORPComponent;
+  return view;
 }
