@@ -1,7 +1,9 @@
 *-lock.json*
+*-lock.yaml
+*.bak
 *.lock
 *.log
 *.zip
 /coverage/
-dist
-node_modules
+/dist/
+/node_modules/
