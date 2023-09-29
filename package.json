@@ -45,7 +45,7 @@
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-unicorn": "48.0.1",
     "happy-dom": "11.0.2",
-    "lightningcss": "1.21.8",
+    "lightningcss": "1.22.0",
     "prettier": "3.0.3",
     "prettier-plugin-pkg": "0.18.0",
     "purgecss": "5.0.0",
