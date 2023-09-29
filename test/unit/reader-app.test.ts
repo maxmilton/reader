@@ -20,8 +20,7 @@ async function load(html: string, settings?: UserSettings) {
     chrome.storage.sync.get = () => Promise.resolve(settings);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-  delete import.meta.require.cache[MODULE_PATH];
+  Loader.registry.delete(MODULE_PATH);
   await import(MODULE_PATH);
 }
 
@@ -128,7 +127,6 @@ describe('end state', () => {
 describe('error state', () => {
   test('renders reader app', async () => {
     const checkConsoleCalls = consoleSpy();
-    // @ts-expect-error - noop stub
     const consoleErrorSpy = spyOn(console, 'error').mockImplementation(() => {});
     await load(brokenHTML);
     await Bun.sleep(1); // lets queued promises in Reader run first

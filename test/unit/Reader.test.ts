@@ -13,8 +13,7 @@ async function load(html: string) {
   // @ts-expect-error - stub return value
   global.chrome.scripting.executeScript = () => Promise.resolve([{ result: html }]);
 
-  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-  delete import.meta.require.cache[MODULE_PATH];
+  Loader.registry.delete(MODULE_PATH);
   Reader = (await import('../../src/components/Reader')).Reader;
 }
 

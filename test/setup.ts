@@ -23,7 +23,12 @@ Bun.plugin({
 const noop = () => {};
 
 function setupDOM() {
-  const dom = new GlobalWindow();
+  const dom = new GlobalWindow({
+    url: 'chrome-extension://ollcdfepbkpopcfilmheonkfbbnnmkbj/',
+    // TODO: Decide if we want to use the virtual console or not
+    //  ↳ https://github.com/capricorn86/happy-dom/wiki/Virtual-Console
+    // console: global.console,
+  });
   global.happyDOM = dom.happyDOM;
   // @ts-expect-error - happy-dom only implements a subset of the DOM API
   global.window = dom.window.document.defaultView;
