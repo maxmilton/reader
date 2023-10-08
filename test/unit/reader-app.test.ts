@@ -62,6 +62,7 @@ describe('playing state', () => {
   test('renders reader app', async () => {
     const checkConsoleCalls = consoleSpy();
     await load(basicHTML);
+    // TODO: Don't sleep, fast-forward timers instead.
     await Bun.sleep(10);
     happyDOM.cancelAsync();
     expect(document.body.innerHTML.length).toBeGreaterThan(400);
