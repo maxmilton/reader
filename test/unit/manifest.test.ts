@@ -29,6 +29,10 @@ test('contains expected properties', () => {
   expect(manifest.offline_enabled).toBeDefined();
   expect(manifest.content_security_policy).toBeDefined();
   expect(manifest.content_security_policy?.extension_pages).toBeDefined();
+  expect(manifest.cross_origin_embedder_policy).toBeDefined();
+  expect(manifest.cross_origin_embedder_policy?.value).toBeDefined();
+  expect(manifest.cross_origin_opener_policy).toBeDefined();
+  expect(manifest.cross_origin_opener_policy?.value).toBeDefined();
   expect(manifest.key).toBeDefined();
 });
 
@@ -48,6 +52,10 @@ test('properties are the correct type', () => {
   expect(manifest.offline_enabled).toBeTypeOf('boolean');
   expect(manifest.content_security_policy).toBeTypeOf('object');
   expect(manifest.content_security_policy?.extension_pages).toBeTypeOf('string');
+  expect(manifest.cross_origin_embedder_policy).toBeTypeOf('object');
+  expect(manifest.cross_origin_embedder_policy?.value).toBeTypeOf('string');
+  expect(manifest.cross_origin_opener_policy).toBeTypeOf('object');
+  expect(manifest.cross_origin_opener_policy?.value).toBeTypeOf('string');
   expect(manifest.key).toBeTypeOf('string');
 });
 
@@ -64,6 +72,8 @@ test('does not contain any unexpected properties', () => {
     'action',
     'offline_enabled',
     'content_security_policy',
+    'cross_origin_embedder_policy',
+    'cross_origin_opener_policy',
     'key',
   ];
   // eslint-disable-next-line guard-for-in
