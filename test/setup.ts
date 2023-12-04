@@ -42,7 +42,7 @@ function setupDOM() {
 }
 
 function setupMocks(): void {
-  // normally this is set by Bun.build
+  // this is normally set in build.ts
   process.env.APP_RELEASE = '1.0.0';
 
   // @ts-expect-error - noop stub
