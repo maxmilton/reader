@@ -14,6 +14,7 @@ async function load(html: string) {
   global.chrome.scripting.executeScript = () => Promise.resolve([{ result: html }]);
 
   Loader.registry.delete(MODULE_PATH);
+  // eslint-disable-next-line unicorn/no-await-expression-member
   Reader = (await import('../../src/components/Reader')).Reader;
 }
 

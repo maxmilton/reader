@@ -152,6 +152,7 @@ export function Reader(): ReaderComponent {
     }%)`;
 
     timer = (setTimeout as Window['setTimeout'])(
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
       () => next(),
       rate * waitMultiplier(word, forceWait),
     );
@@ -205,7 +206,9 @@ export function Reader(): ReaderComponent {
     }
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
   refs.slower.__click = () => updateWPM(wpm - 60);
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
   refs.faster.__click = () => updateWPM(wpm + 60);
 
   chrome.storage.sync
