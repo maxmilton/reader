@@ -140,8 +140,7 @@ describe('error state', () => {
     expect(buttons[1].textContent).toBe('Play'); // changes according to state
     expect(buttons[1].disabled).toBe(true);
     expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
-    // TODO: Use this once bun:test supports it.
-    // expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(TypeError));
+    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(TypeError));
     consoleErrorSpy.mockReset();
     checkConsoleCalls();
   });
