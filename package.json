@@ -30,7 +30,7 @@
   "devDependencies": {
     "@maxmilton/stylelint-config": "0.0.13",
     "@playwright/test": "1.40.1",
-    "@types/chrome": "0.0.253",
+    "@types/chrome": "0.0.256",
     "@types/csso": "5.0.3",
     "@typescript-eslint/eslint-plugin": "6.14.0",
     "@typescript-eslint/parser": "6.14.0",
