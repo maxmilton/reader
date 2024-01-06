@@ -166,7 +166,8 @@ async function minifyCSS() {
     filename: 'popup.css',
     code: Buffer.from(purged[0].css),
     minify: true,
-    targets: { chrome: 114 << 16 },
+    // targets: { chrome: 120 << 16 },
+    targets: { chrome: 71 << 16 }, // to support linear-gradient syntax we use
   });
 
   for (const warning of minified.warnings) {
@@ -203,10 +204,11 @@ async function minifyJS(artifact: Blob & { path: string }) {
       reduce_funcs: false, // prevent functions being inlined
       // XXX: Comment out to keep performance markers for debugging.
       pure_funcs: ['performance.mark', 'performance.measure'],
+      passes: 3,
     },
     mangle: {
       properties: {
-        regex: /^\$\$/, // somewhat unsafe!
+        regex: /^\$\$/,
       },
     },
   });

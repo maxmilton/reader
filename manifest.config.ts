@@ -36,6 +36,7 @@ export const createManifest = (
   version: pkg.version,
   // shippable releases should not have a named version
   version_name: debug ? gitRef() : undefined,
+  // minimum_chrome_version: '71', // match build configuration (for CSS syntax)
   icons: {
     16: 'icon16.png',
     48: 'icon48.png',
