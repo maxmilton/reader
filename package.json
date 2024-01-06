@@ -54,40 +54,4 @@
     "terser": "5.25.0",
     "typescript": "5.3.2"
   },
-  "prettier": {
-    "arrowParens": "always",
-    "endOfLine": "lf",
-    "singleQuote": true,
-    "trailingComma": "all",
-    "plugins": [
-      "prettier-plugin-pkg"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "*.spec.ts",
-          "*.test.ts"
-        ],
-        "options": {
-          "printWidth": 100
-        }
-      }
-    ]
-  },
-  "stylelint": {
-    "reportInvalidScopeDisables": true,
-    "reportNeedlessDisables": true,
-    "extends": [
-      "stylelint-config-standard",
-      "@maxmilton/stylelint-config"
-    ],
-    "ignoreFiles": [
-      "**/dist/**",
-      "**/node_modules/**"
-    ],
-    "rules": {
-      "import-notation": null,
-      "function-no-unknown": null
-    }
-  }
 }
