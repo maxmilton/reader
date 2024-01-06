@@ -1,7 +1,7 @@
 import './Footer.xcss';
 
+import { h } from 'stage1';
 import { compile } from 'stage1/macro' assert { type: 'macro' };
-import { h } from 'stage1/runtime';
 import { interpolate } from '../macros' assert { type: 'macro' };
 
 export type FooterComponent = HTMLElement;

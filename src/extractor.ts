@@ -11,7 +11,7 @@ import {
   type Node,
   type Tag as Tag_,
 } from '@maxmilton/html-parser/src';
-import { create } from 'stage1/runtime';
+import { create } from 'stage1';
 
 interface Tag extends Omit<Tag_, 'attributeMap'> {
   attributeMap: Record<string, string | undefined>;

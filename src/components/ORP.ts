@@ -1,6 +1,6 @@
 import './ORP.xcss';
 
-import { create } from 'stage1/runtime';
+import { create } from 'stage1';
 
 const NON_WORD_RE = /\W/;
 
