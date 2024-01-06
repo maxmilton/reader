@@ -23,7 +23,7 @@
   align-items: center;
   margin: 0.5rem 0.5rem 0;
 
-  // TODO: Messure holistic performance impact of this vs adding classes to the buttons
+  // TODO: Measure holistic performance impact of this vs adding classes to the buttons
   & > button:nth-child(n+3) {
     #apply: .bold;
   }
@@ -40,14 +40,13 @@
   left: ${Number.parseInt(x.app.width) / 2 - 2}px;
   width: 4px;
   height: 92px;
-  background:
-    linear-gradient(
-      to bottom,
-      ${x.color.rose1} 0%,
-      ${x.color.background} 38%,
-      ${x.color.background} 62%,
-      ${x.color.rose1} 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    ${x.color.rose1} 0%,
+    ${x.color.background} 38%,
+    ${x.color.background} 62%,
+    ${x.color.rose1} 100%
+  );
   opacity: 0;
   transition: opacity 1s;
 
