@@ -64,4 +64,4 @@ The [open book icon](https://github.com/twitter/twemoji/blob/master/assets/svg/1
 
 ---
 
-© 2023 [Max Milton](https://maxmilton.com)
+© 2024 [Max Milton](https://maxmilton.com)
