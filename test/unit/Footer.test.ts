@@ -2,8 +2,6 @@
 //  ↳ https://github.com/oven-sh/bun/issues/3641
 //  ↳ https://github.com/oven-sh/bun/issues/3832
 
-export {};
-
 // import { afterEach, expect, test } from 'bun:test';
 // import { Footer } from '../../src/components/Footer';
 // import { cleanup, render } from './utils';
@@ -30,3 +28,5 @@ export {};
 //   const rendered = render(Footer());
 //   expect(rendered.container.innerHTML).toMatch(/v\d+\.\d+\.\d+/);
 // });
+
+console2.warn('FIXME: Footer tests are disabled');

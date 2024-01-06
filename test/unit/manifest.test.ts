@@ -4,8 +4,7 @@ import { createManifest } from '../../manifest.config';
 const manifest = createManifest();
 
 test('is an object', () => {
-  expect(manifest).toBeTypeOf('object');
-  expect(manifest).not.toBeArray();
+  expect(manifest).toBePlainObject();
 });
 
 test('is valid JSON', () => {
@@ -37,26 +36,26 @@ test('contains expected properties', () => {
 });
 
 test('properties are the correct type', () => {
-  expect(manifest.manifest_version).toBeTypeOf('number');
-  expect(manifest.name).toBeTypeOf('string');
-  expect(manifest.description).toBeTypeOf('string');
-  expect(manifest.homepage_url).toBeTypeOf('string');
-  expect(manifest.version).toBeTypeOf('string');
-  expect(manifest.icons).toBeTypeOf('object');
-  expect(manifest.icons?.[16]).toBeTypeOf('string');
-  expect(manifest.icons?.[48]).toBeTypeOf('string');
-  expect(manifest.icons?.[128]).toBeTypeOf('string');
+  expect(manifest.manifest_version).toBeNumber();
+  expect(manifest.name).toBeString();
+  expect(manifest.description).toBeString();
+  expect(manifest.homepage_url).toBeString();
+  expect(manifest.version).toBeString();
+  expect(manifest.icons).toBePlainObject();
+  expect(manifest.icons?.[16]).toBeString();
+  expect(manifest.icons?.[48]).toBeString();
+  expect(manifest.icons?.[128]).toBeString();
   expect(manifest.permissions).toBeArray();
-  expect(manifest.action).toBeTypeOf('object');
-  expect(manifest.action?.default_popup).toBeTypeOf('string');
-  expect(manifest.offline_enabled).toBeTypeOf('boolean');
-  expect(manifest.content_security_policy).toBeTypeOf('object');
-  expect(manifest.content_security_policy?.extension_pages).toBeTypeOf('string');
-  expect(manifest.cross_origin_embedder_policy).toBeTypeOf('object');
-  expect(manifest.cross_origin_embedder_policy?.value).toBeTypeOf('string');
-  expect(manifest.cross_origin_opener_policy).toBeTypeOf('object');
-  expect(manifest.cross_origin_opener_policy?.value).toBeTypeOf('string');
-  expect(manifest.key).toBeTypeOf('string');
+  expect(manifest.action).toBePlainObject();
+  expect(manifest.action?.default_popup).toBeString();
+  expect(manifest.offline_enabled).toBeBoolean();
+  expect(manifest.content_security_policy).toBePlainObject();
+  expect(manifest.content_security_policy?.extension_pages).toBeString();
+  expect(manifest.cross_origin_embedder_policy).toBePlainObject();
+  expect(manifest.cross_origin_embedder_policy?.value).toBeString();
+  expect(manifest.cross_origin_opener_policy).toBePlainObject();
+  expect(manifest.cross_origin_opener_policy?.value).toBeString();
+  expect(manifest.key).toBeString();
 });
 
 test('does not contain any unexpected properties', () => {
@@ -98,10 +97,15 @@ test('has correct icons.* values', () => {
   expect(manifest.icons?.[16]).toBe('icon16.png');
   expect(manifest.icons?.[48]).toBe('icon48.png');
   expect(manifest.icons?.[128]).toBe('icon128.png');
+  expect(Object.keys(manifest.icons!)).toHaveLength(3);
 });
 
-test('has correct action.default_popup value of "reader.html"', () => {
+test('has correct action.default_popup value', () => {
   expect(manifest.action?.default_popup).toBe('reader.html');
+});
+
+test('has correct offline_enabled value', () => {
+  expect(manifest.offline_enabled).toBe(true);
 });
 
 test('has version_name when debug option is true', () => {
@@ -127,6 +131,7 @@ const restoreCI = () => {
     // TODO: Consider setting to undefined instead. Delete does not currently
     // work in bun for env vars that were set before the process started.
     //  ↳ https://github.com/oven-sh/bun/issues/1559#issuecomment-1440507885
+    //  ↳ May be fixed, need to investigate; https://github.com/oven-sh/bun/pull/7614
     delete process.env.CI;
   } else {
     process.env.CI = oldCI;
