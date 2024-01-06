@@ -56,7 +56,7 @@ function makeHTML() {
     <meta name=google value=notranslate>
     <link href=literata.woff2 rel=preload as=font type=font/woff2 crossorigin>
     <link href=reader.css rel=stylesheet>
-    <script src=trackx.js defer></script>
+    <script src=health.js defer></script>
     <script src=reader.js defer></script>
   `
     .trim()
@@ -97,14 +97,14 @@ const out = await Bun.build({
 });
 console.timeEnd('build');
 
-// Error tracking
+// Health insights (exception monitoring)
 console.time('build2');
 const out2 = await Bun.build({
-  entrypoints: ['src/trackx.ts'],
+  entrypoints: ['src/health.ts'],
   outdir: 'dist',
   target: 'browser',
   // FIXME: Consider using iife once bun supports it.
-  // format: 'iife', // error tracking must not mutate global state
+  // format: 'iife', // monitoring code must not mutate global state
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.NODE_ENV': JSON.stringify(mode),
@@ -113,7 +113,6 @@ const out2 = await Bun.build({
   sourcemap: dev ? 'external' : 'none',
 });
 console.timeEnd('build2');
-
 console.log(out, out2);
 
 async function minifyCSS() {

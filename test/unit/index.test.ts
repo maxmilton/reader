@@ -9,6 +9,7 @@ describe('dist files', () => {
   // "application/octet-stream". Bun.file() does not resolve symlinks so it's
   // safe to infer that all these files are therefore regular files.
   const distFiles: [filename: string, type: string, minBytes?: number, maxBytes?: number][] = [
+    ['health.js', 'text/javascript;charset=utf-8', 600, 800],
     ['icon16.png', 'image/png'],
     ['icon48.png', 'image/png'],
     ['icon128.png', 'image/png'],
@@ -21,7 +22,6 @@ describe('dist files', () => {
     // TODO: Once const enum inlining support is added to bun, reduce maxBytes.
     //  ↳ https://github.com/oven-sh/bun/issues/2945
     ['reader.js', 'text/javascript;charset=utf-8', 8000, 14_000],
-    ['trackx.js', 'text/javascript;charset=utf-8', 600, 800],
   ];
 
   for (const [filename, type, minBytes, maxBytes] of distFiles) {
