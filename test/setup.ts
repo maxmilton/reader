@@ -29,8 +29,7 @@ expect.extend({
   },
 });
 
-// Make imported .xcss files return empty to prevent test errors (unit tests
-// can't assert styles properly anyway; better to create e2e tests!)
+// Make imported .xcss files return empty to prevent test errors.
 Bun.plugin({
   name: 'xcss',
   setup(build) {
@@ -57,8 +56,8 @@ function setupDOM() {
   global.fetch = window.fetch;
   global.setTimeout = window.setTimeout;
   global.clearTimeout = window.clearTimeout;
-  global.DocumentFragment = window.DocumentFragment;
   global.Text = window.Text;
+  global.DocumentFragment = window.DocumentFragment;
 }
 
 function setupMocks(): void {
