@@ -166,8 +166,7 @@ async function minifyCSS() {
     filename: 'popup.css',
     code: Buffer.from(purged[0].css),
     minify: true,
-    // targets: { chrome: 120 << 16 },
-    targets: { chrome: 71 << 16 }, // to support linear-gradient syntax we use
+    targets: { chrome: 88 << 16 }, // matches manifest minimum_chrome_version
   });
 
   for (const warning of minified.warnings) {
