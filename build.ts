@@ -201,6 +201,7 @@ async function minifyJS(artifact: Blob & { path: string }) {
     module: true,
     compress: {
       reduce_funcs: false, // prevent functions being inlined
+      hoist_funs: true,
       // XXX: Comment out to keep performance markers for debugging.
       pure_funcs: ['performance.mark', 'performance.measure'],
       passes: 3,

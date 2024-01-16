@@ -26,7 +26,9 @@ const extractedWords = (async () => {
   return text.split(' ');
 })();
 
+// FIXME: These should be inlined at build time
 // https://github.com/cameron/squirt/blob/03cf7bf103652857bd54fa7960a39fc27e306b31/squirt.js#L168-L187
+const WAIT_AFTER_WORD = 1;
 const WAIT_AFTER_SHORT_WORD = 1.2;
 const WAIT_AFTER_LONG_WORD = 1.5;
 const WAIT_AFTER_COMMA = 2;
@@ -40,14 +42,14 @@ function waitMultiplier(word: string, forceWait?: boolean) {
   // eslint-disable-next-line unicorn/prefer-at
   let lastChar = word[word.length - 1];
   // eslint-disable-next-line unicorn/prefer-at
-  if (/["”]/.test(lastChar)) lastChar = word[word.length - 2];
+  if ('"”'.includes(lastChar)) lastChar = word[word.length - 2];
 
   if (lastChar === '\n') return WAIT_AFTER_PARAGRAPH;
   if ('.!?…'.includes(lastChar)) return WAIT_AFTER_PERIOD;
   if (',;:–'.includes(lastChar)) return WAIT_AFTER_COMMA;
   if (word.length < 4) return WAIT_AFTER_SHORT_WORD;
   if (word.length > 11) return WAIT_AFTER_LONG_WORD;
-  return 1;
+  return WAIT_AFTER_WORD;
 }
 
 export interface UserSettings {
@@ -159,13 +161,10 @@ export function Reader(): ReaderComponent {
   }
 
   function start(slowStart?: boolean) {
-    if (!startTime) {
-      startTime = Date.now();
-    }
-
-    next(slowStart);
+    startTime ||= Date.now();
     refs.focus.className = 'show';
     refs.play.textContent = 'Pause';
+    next(slowStart);
   }
 
   function updateWPM(newWPM: number) {
