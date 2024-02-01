@@ -31,7 +31,7 @@
     "@maxmilton/stylelint-config": "0.0.15",
     "@playwright/test": "1.40.1",
     "@types/bun": "1.0.0",
-    "@types/chrome": "0.0.256",
+    "@types/chrome": "0.0.260",
     "@types/csso": "5.0.4",
     "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "6.18.1",
