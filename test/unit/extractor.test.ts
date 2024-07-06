@@ -10,20 +10,24 @@ const wikipedia = await Bun.file('test/unit/fixtures/wikipedia.html').text();
 // TODO: Test each of the root element selection logic branches
 
 test('is a function', () => {
+  expect.assertions(1);
   expect(extractText).toBeFunction();
 });
 
 test('takes a single argument', () => {
+  expect.assertions(1);
   expect(extractText).toHaveLength(1);
 });
 
 test('returns a string', () => {
+  expect.assertions(1);
   const result = extractText(minimal);
   expect(result).toBeString();
 });
 
 describe('basic.html', () => {
   test('returns expected text', () => {
+    expect.assertions(1);
     const result = extractText(basic);
     expect(result).toBe('Basic HTML \n Some text.');
   });
@@ -31,6 +35,7 @@ describe('basic.html', () => {
 
 describe('broken.html', () => {
   test('throws when processing', () => {
+    expect.assertions(1);
     expect(() => extractText(broken)).toThrow();
   });
 });
@@ -38,6 +43,7 @@ describe('broken.html', () => {
 describe('wikipedia-simple.html', () => {
   // FIXME: Don't skip this test. Test snapshots are currently broken in bun.
   test.skip('returns expected text', () => {
+    expect.assertions(1);
     const result = extractText(wikipediaSimple);
     expect(result).toMatchSnapshot();
   });
@@ -46,6 +52,7 @@ describe('wikipedia-simple.html', () => {
 describe('wikipedia.html', () => {
   // FIXME: Don't skip this test. Test snapshots are currently broken in bun.
   test.skip('returns expected text', () => {
+    expect.assertions(1);
     const result = extractText(wikipedia);
     expect(result).toMatchSnapshot();
   });

@@ -17,7 +17,7 @@ describe('dist files', () => {
     ['literata-italic.woff2', 'font/woff2'],
     ['literata.woff2', 'font/woff2'],
     ['manifest.json', 'application/json;charset=utf-8'],
-    ['reader.css', 'text/css', 2000, 4000],
+    ['reader.css', 'text/css;charset=utf-8', 2000, 4000],
     ['reader.html', 'text/html;charset=utf-8', 200, 300],
     // TODO: Once const enum inlining support is added to bun, reduce maxBytes.
     //  ↳ https://github.com/oven-sh/bun/issues/2945
@@ -29,14 +29,16 @@ describe('dist files', () => {
     describe(filename, () => {
       const file = Bun.file(`dist/${filename}`);
 
-      test(`exists with correct type`, () => {
+      test('exists with correct type', () => {
+        expect.assertions(3);
         expect(file.exists()).resolves.toBeTruthy();
         expect(file.size).toBeGreaterThan(0);
         expect(file.type).toBe(type); // TODO: Keep this? Type seems to be resolved from the file extension, not the file data.
       });
 
       if (minBytes != null && maxBytes != null) {
-        test(`is within expected file size limits`, () => {
+        test('is within expected file size limits', () => {
+          expect.assertions(2);
           expect(file.size).toBeGreaterThan(minBytes);
           expect(file.size).toBeLessThan(maxBytes);
         });
@@ -45,6 +47,7 @@ describe('dist files', () => {
   }
 
   test('contains no extra files', async () => {
+    expect.assertions(1);
     const distDir = await readdir('dist');
     expect(distDir).toHaveLength(distFiles.length);
   });

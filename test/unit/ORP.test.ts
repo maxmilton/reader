@@ -1,10 +1,11 @@
 import { afterEach, expect, test } from 'bun:test';
-import { ORP } from '../../src/components/ORP';
+import { ORP, type ORPComponent } from '../../src/components/ORP';
 import { cleanup, render } from './utils';
 
 afterEach(cleanup);
 
 test('rendered DOM contains expected elements', () => {
+  expect.assertions(4);
   const rendered = render(ORP('x'));
   const root = rendered.container.firstChild as HTMLSpanElement;
   expect(root).toBeTruthy();
@@ -14,14 +15,16 @@ test('rendered DOM contains expected elements', () => {
 });
 
 test('rendered DOM matches snapshot', () => {
+  expect.assertions(1);
   const rendered = render(ORP('x'));
   expect(rendered.container.innerHTML).toMatchSnapshot();
 });
 
 test('returns the same reused node every call', () => {
-  let node1;
-  let node2;
-  let node3;
+  expect.assertions(10);
+  let node1: ORPComponent;
+  let node2: ORPComponent;
+  let node3: ORPComponent;
   const rendered1 = render((node1 = ORP('1')));
   expect(rendered1.container.firstChild).toBeTruthy();
   const rendered2 = render((node2 = ORP('2')));

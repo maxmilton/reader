@@ -1,5 +1,7 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rendered DOM matches snapshot 1`] = `"<div><div id="progress"><div id="bar"></div></div><div id="controls"><button>Rewind</button><button id="play">Play</button> <button>−</button><button>+</button></div><div id="focus"></div><div id="word"></div></div>"`;
+exports[`rendered DOM initial state matches snapshot 1`] = `"<div><div id="progress"><div id="bar"></div></div><div id="controls"><button>Rewind</button><button id="play">Play</button>180 wpm<button>−</button><button>+</button></div><div id="focus"></div><div id="word"></div></div>"`;
 
-exports[`rendered DOM matches snapshot 2`] = `"<div><div id="progress"><div id="bar"></div></div><div id="controls"><button>Rewind</button><button id="play">Play</button> <button>−</button><button>+</button></div><div id="focus"></div><div id="word"></div></div>"`;
+exports[`rendered DOM playing state matches snapshot 1`] = `"<div><div id="progress"><div id="bar" style="transform: translateX(-88.88888888888889%);"></div></div><div id="controls"><button>Rewind</button><button id="play">Pause</button>180 wpm<button>−</button><button>+</button></div><div id="focus" class="show"></div><div id="word" style="transform: translateX(-0px);"><span id="orp">3</span>.</div></div>"`;
+
+exports[`rendered DOM end state matches snapshot 1`] = `"<div><div id="progress"><div id="bar" style="transform: translateX(0);"></div></div><div id="controls"><button>Rewind</button><button id="play">Play again</button>180 wpm<button>−</button><button>+</button></div><div id="focus" class=""></div><div id="word" style=""><div id="summary"><em>ﬁn.</em><br>You read 5 words in 0 seconds.</div></div></div>"`;

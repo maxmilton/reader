@@ -30,9 +30,10 @@ const basicHTML = await Bun.file('test/unit/fixtures/basic.html').text();
 //    can cancel any running async tasks.
 
 test('rendered DOM contains expected elements', async () => {
+  expect.assertions(16);
   await load(basicHTML);
   const rendered = render(Reader());
-  happyDOM.cancelAsync();
+  await happyDOM.abort();
   const root = rendered.container.firstChild as HTMLDivElement;
   expect(root).toBeInstanceOf(window.HTMLDivElement);
   expect(rendered.container.querySelector('#progress')).toBeTruthy();
@@ -55,16 +56,26 @@ test('rendered DOM contains expected elements', async () => {
   expect(buttons[3].textContent).toBe('+');
 });
 
-test('rendered DOM matches snapshot', async () => {
+test('rendered DOM initial state matches snapshot', async () => {
+  expect.assertions(1);
   await load(basicHTML);
   const rendered = render(Reader());
-  happyDOM.cancelAsync();
+  await happyDOM.abort();
   expect(rendered.container.innerHTML).toMatchSnapshot();
 });
 
-// TODO: Test DOM of end state
-// test('rendered DOM matches snapshot', async () => {
-//   const rendered = render(Reader());
-//   await happyDOM.whenAsyncComplete();
-//   expect(rendered.container.innerHTML).toMatchSnapshot();
-// });
+test('rendered DOM playing state matches snapshot', async () => {
+  expect.assertions(1);
+  await load(basicHTML);
+  const rendered = render(Reader());
+  await Bun.sleep(1); // lets queued promises in Reader run first
+  await happyDOM.abort();
+  expect(rendered.container.innerHTML).toMatchSnapshot();
+});
+
+test('rendered DOM end state matches snapshot', async () => {
+  expect.assertions(1);
+  const rendered = render(Reader());
+  await happyDOM.waitUntilComplete();
+  expect(rendered.container.innerHTML).toMatchSnapshot();
+});

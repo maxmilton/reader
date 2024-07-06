@@ -19,10 +19,12 @@ const css = await Bun.file('dist/reader.css').text();
 const ast = compile(css);
 
 test('compiled AST is not empty', () => {
+  expect.assertions(1);
   expect(ast).not.toBeEmpty();
 });
 
 test('contains @font-face rule for each font', () => {
+  expect.assertions(11); // 5 other assertions + 3 fonts * 2 assertions
   expect(css).toInclude(fonts[0]);
   expect(css).toInclude(fonts[1]);
   expect(css).toInclude(fonts[2]);
@@ -43,21 +45,25 @@ test('contains @font-face rule for each font', () => {
 });
 
 test('does not contain any media queries', () => {
+  expect.assertions(1);
   expect(css).not.toInclude('@media');
 });
 
 test('does not contain any @import rules', () => {
+  expect.assertions(1);
   expect(css).not.toInclude('@import');
 });
 
 test('does not contain any comments', () => {
+  expect.assertions(4);
   expect(css).not.toInclude('/*');
   expect(css).not.toInclude('*/');
-  expect(css).not.toInclude('//');
+  expect(css).not.toInclude('//'); // inline comments or URL protocol
   expect(css).not.toInclude('<!');
 });
 
 test('<html> has width of 600px', () => {
+  expect.assertions(4);
   const elements = lookup(ast, 'html');
   expect(elements).toBeArray();
   expect(elements?.length).toBeGreaterThan(0);
@@ -67,6 +73,7 @@ test('<html> has width of 600px', () => {
 });
 
 test('<body> has width of 600px', () => {
+  expect.assertions(4);
   const elements = lookup(ast, 'body');
   expect(elements).toBeArray();
   expect(elements?.length).toBeGreaterThan(0);

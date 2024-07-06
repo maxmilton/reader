@@ -2,27 +2,25 @@
  * @overview CSS engine and utilities for writing CSS tests.
  */
 
-/* eslint-disable @typescript-eslint/prefer-string-starts-ends-with, import/no-extraneous-dependencies, prefer-template */
-
-import { DECLARATION, MEDIA, RULESET, compile, type Element } from 'stylis';
+import { DECLARATION, type Element, LAYER, MEDIA, RULESET, SCOPE, SUPPORTS, compile } from 'stylis';
 
 export * from 'stylis';
+
+export const CONTAINER = '@container';
+export const STARTING_STYLE = '@starting-style';
 
 export const SKIP = Symbol('SKIP');
 
 /**
  * Clones the element, stripping out references to other elements (e.g.,
- * "parent") for cleaner logging. Intended for debugging only.
+ * "parent") for cleaner logging. **Intended for debugging only.**
  */
-export const cleanElement = <T extends Element>(element: T): T => ({
-  ...element,
-  root: undefined,
-  parent: undefined,
-  children: Array.isArray(element.children)
-    ? element.children.length
-    : element.children,
-  siblings: undefined,
-});
+export const cleanElement = <T extends Element & { siblings?: Element[] }>(element: T): T => {
+  const { root, parent, children, siblings, ...rest } = element;
+  // @ts-expect-error - TODO: Fix "children" prop type
+  rest.children = Array.isArray(children) ? children.length : children;
+  return rest as T;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type VisitorFunction = (element: Element) => typeof SKIP | void;
@@ -52,8 +50,20 @@ function load(root: Element[]): void {
   cache.set(root, map);
 
   walk(root, (element) => {
+    // eslint-disable-next-line @typescript-eslint/prefer-string-starts-ends-with
     if (element.type[0] === '@') {
-      return element.type === MEDIA ? undefined : SKIP;
+      switch (element.type) {
+        case CONTAINER:
+        case LAYER:
+        case MEDIA:
+        case SCOPE:
+        case STARTING_STYLE:
+        case SUPPORTS:
+          return;
+        default:
+          // eslint-disable-next-line consistent-return
+          return SKIP;
+      }
     }
 
     if (element.type === RULESET) {
@@ -65,6 +75,7 @@ function load(root: Element[]): void {
         }
       }
     }
+    // eslint-disable-next-line consistent-return
     return SKIP;
   });
 }
@@ -72,13 +83,11 @@ function load(root: Element[]): void {
 /**
  * Returns a list of elements matching the given CSS selector.
  */
-export function lookup(
-  root: Element[],
-  cssSelector: string,
-): Element[] | undefined {
+export function lookup(root: Element[], cssSelector: string): Element[] | undefined {
   if (!cache.has(root)) load(root);
 
   // parse the selector to ensure it's valid and normalized
+  // eslint-disable-next-line prefer-template
   const ast = compile(cssSelector + '{}');
 
   if (ast.length !== 1 || ast[0].type !== RULESET) {
@@ -103,9 +112,9 @@ export function lookup(
  * NOTE: `@media`, `@layer`, `@supports`, etc. rules are currently not handled.
  * All declarations will be merged regardless of their parent rules.
  *
- * FIXME: Evalute at-rules and handle them appropriately. This adds a lot of
- * complexity, so consider using happy-dom if they have support for it.
  */
+// FIXME: Evaluate at-rules and handle them appropriately. This adds a lot of
+// complexity, so consider using happy-dom if they have support for it.
 export function reduce(elements: Element[]): Record<string, string> {
   const decls: Record<string, string> = {};
 

@@ -5,7 +5,7 @@
 import { afterEach, describe, expect, spyOn, test } from 'bun:test';
 import type { UserSettings } from '../../src/components/Reader';
 import { reset } from '../setup';
-import { consoleSpy } from './utils';
+import { performanceSpy } from './utils';
 
 // Completely reset DOM and global state between tests
 afterEach(reset);
@@ -29,9 +29,9 @@ const brokenHTML = await Bun.file('test/unit/fixtures/broken.html').text();
 
 describe('initial state', () => {
   test('renders reader app', async () => {
-    const checkConsoleCalls = consoleSpy();
+    expect.assertions(20);
     await load(basicHTML);
-    happyDOM.cancelAsync();
+    await happyDOM.abort();
     expect(document.body.innerHTML.length).toBeGreaterThan(400);
     const root = document.body.firstChild as HTMLDivElement;
     expect(root).toBeInstanceOf(window.HTMLDivElement);
@@ -54,17 +54,17 @@ describe('initial state', () => {
     expect(buttons[1].textContent).toBe('Play'); // changes according to state
     expect(buttons[2].textContent).toBe('−');
     expect(buttons[3].textContent).toBe('+');
-    checkConsoleCalls();
+    expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
   });
 });
 
 describe('playing state', () => {
   test('renders reader app', async () => {
-    const checkConsoleCalls = consoleSpy();
+    expect.assertions(19);
     await load(basicHTML);
     // TODO: Don't sleep, fast-forward timers instead.
     await Bun.sleep(10);
-    happyDOM.cancelAsync();
+    await happyDOM.abort();
     expect(document.body.innerHTML.length).toBeGreaterThan(400);
     const root = document.body.firstChild as HTMLDivElement;
     expect(root).toBeInstanceOf(window.HTMLDivElement);
@@ -87,16 +87,16 @@ describe('playing state', () => {
     expect(buttons[1].textContent).toBe('Pause'); // changes according to state
     expect(buttons[2].textContent).toBe('−');
     expect(buttons[3].textContent).toBe('+');
-    checkConsoleCalls();
+    expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
   });
 });
 
 describe('end state', () => {
   test('renders reader app', async () => {
-    const checkConsoleCalls = consoleSpy();
+    expect.assertions(19);
     // set wpm to max possible value to speed up test
     await load(basicHTML, { wpm: 60_000 });
-    await happyDOM.whenAsyncComplete();
+    await happyDOM.waitUntilComplete();
     // TODO: Don't sleep or set wpm. Use jest.runAllTimers() once bun:test supports it.
     await Bun.sleep(50);
     expect(document.body.innerHTML.length).toBeGreaterThan(500);
@@ -121,17 +121,43 @@ describe('end state', () => {
     expect(buttons[1].textContent).toBe('Play again'); // changes according to state
     expect(buttons[2].textContent).toBe('−');
     expect(buttons[3].textContent).toBe('+');
-    checkConsoleCalls();
+    expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
+  });
+
+  test('does not call any console methods', async () => {
+    expect.assertions(1);
+    // set wpm to max possible value to speed up test
+    await load(basicHTML, { wpm: 60_000 });
+    await happyDOM.waitUntilComplete();
+    expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
+  });
+
+  test('does not call any performance methods', async () => {
+    expect.hasAssertions(); // variable number of assertions
+    const check = performanceSpy();
+    // set wpm to max possible value to speed up test
+    await load(basicHTML, { wpm: 60_000 });
+    await happyDOM.waitUntilComplete();
+    check();
+  });
+
+  test('does not call fetch()', async () => {
+    expect.assertions(1);
+    const spy = spyOn(global, 'fetch');
+    // set wpm to max possible value to speed up test
+    await load(basicHTML, { wpm: 60_000 });
+    await happyDOM.waitUntilComplete();
+    expect(spy).not.toHaveBeenCalled();
   });
 });
 
 describe('error state', () => {
   test('renders reader app', async () => {
-    const checkConsoleCalls = consoleSpy();
+    expect.assertions(9);
     const consoleErrorSpy = spyOn(console, 'error').mockImplementation(() => {});
     await load(brokenHTML);
     await Bun.sleep(1); // lets queued promises in Reader run first
-    happyDOM.cancelAsync();
+    await happyDOM.abort();
     expect(document.body.querySelector('#summary')).toBeTruthy();
     expect(document.body.querySelector('#summary')?.textContent).toInclude('TypeError');
     const buttons = document.body.querySelectorAll('button');
@@ -142,6 +168,6 @@ describe('error state', () => {
     expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
     expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(TypeError));
     consoleErrorSpy.mockReset();
-    checkConsoleCalls();
+    expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
   });
 });

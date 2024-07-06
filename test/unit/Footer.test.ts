@@ -9,6 +9,7 @@
 // afterEach(cleanup);
 
 // test('rendered DOM contains expected elements', () => {
+//   expect.assertions(3);
 //   const rendered = render(Footer());
 //   expect(rendered.container.firstChild?.nodeName).toBe('FOOTER');
 //   expect(rendered.container.querySelector('a[href="https://maxmilton.com"]')).toBeTruthy();
@@ -20,13 +21,15 @@
 // });
 
 // test('rendered DOM matches snapshot', () => {
+//   expect.assertions(1);
 //   const rendered = render(Footer());
 //   expect(rendered.container.innerHTML).toMatchSnapshot();
 // });
 
 // test('contains the app release version number', () => {
+//   expect.assertions(1);
 //   const rendered = render(Footer());
 //   expect(rendered.container.innerHTML).toMatch(/v\d+\.\d+\.\d+/);
 // });
 
-console2.warn('FIXME: Footer tests are disabled');
+$console.warn('FIXME: Footer tests are disabled');

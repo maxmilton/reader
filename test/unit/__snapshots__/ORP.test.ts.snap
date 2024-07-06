@@ -1,5 +1,3 @@
 // Bun Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`rendered DOM matches snapshot 1`] = `"<span id="orp">x</span>"`;
-
-exports[`rendered DOM matches snapshot 2`] = `"<span id="orp">x</span>"`;
