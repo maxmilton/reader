@@ -1,0 +1,6 @@
+[files]
+extend-exclude = ["test/unit/fixtures/*"]
+
+[default.extend-words]
+# Don't correct regex part in src/extractor.ts#77
+communit = "communit"
