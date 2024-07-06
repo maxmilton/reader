@@ -26,7 +26,7 @@ export function indexOfORP(word: string): number {
   }
 }
 
-type ORPComponent = HTMLSpanElement;
+export type ORPComponent = HTMLSpanElement;
 
 const view = create('span');
 view.id = 'orp';

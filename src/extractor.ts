@@ -1,15 +1,12 @@
-/* eslint-disable @typescript-eslint/prefer-for-of */
-/* eslint-disable unicorn/prefer-includes, unicorn/no-for-loop */
+/* eslint-disable @typescript-eslint/prefer-for-of, unicorn/prefer-includes, unicorn/no-for-loop */
 
-// TODO: Currently bun does not support const enum inlining; https://github.com/oven-sh/bun/issues/2945
-// Import html-parser directly from source for better build optimization (const
-// enum inlining in particular).
+// Import source for better build optimization (especially const enum inlining).
 import {
+  type Node,
   SyntaxKind,
+  type Tag as Tag_,
   parse,
   walk,
-  type Node,
-  type Tag as Tag_,
 } from '@maxmilton/html-parser/src';
 import { create } from 'stage1';
 

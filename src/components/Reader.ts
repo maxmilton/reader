@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import './Reader.xcss';
 
 import { collect, h } from 'stage1';
 import { compile } from 'stage1/macro' assert { type: 'macro' };
 import { extractText } from '../extractor';
 import { exec } from '../utils';
-import { ORP, indexOfORP } from './ORP';
+import { ORP, type ORPComponent, indexOfORP } from './ORP';
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
 const extractedWords = (async () => {
@@ -26,16 +28,24 @@ const extractedWords = (async () => {
   return text.split(' ');
 })();
 
-// FIXME: These should be inlined at build time
-// https://github.com/cameron/squirt/blob/03cf7bf103652857bd54fa7960a39fc27e306b31/squirt.js#L168-L187
-const WAIT_AFTER_WORD = 1;
-const WAIT_AFTER_SHORT_WORD = 1.2;
-const WAIT_AFTER_LONG_WORD = 1.5;
-const WAIT_AFTER_COMMA = 2;
-const WAIT_AFTER_PERIOD = 3;
-const WAIT_AFTER_PARAGRAPH = 3.5;
-
 function waitMultiplier(word: string, forceWait?: boolean) {
+  // TODO: Move these constants to outer scope, but only when they are inlined
+  // correctly again in production builds.
+
+  // https://github.com/cameron/squirt/blob/03cf7bf103652857bd54fa7960a39fc27e306b31/squirt.js#L168-L187
+  // biome-ignore lint/style/useNamingConvention: temp scope
+  const WAIT_AFTER_WORD = 1;
+  // biome-ignore lint/style/useNamingConvention: temp scope
+  const WAIT_AFTER_SHORT_WORD = 1.2;
+  // biome-ignore lint/style/useNamingConvention: temp scope
+  const WAIT_AFTER_LONG_WORD = 1.5;
+  // biome-ignore lint/style/useNamingConvention: temp scope
+  const WAIT_AFTER_COMMA = 2;
+  // biome-ignore lint/style/useNamingConvention: temp scope
+  const WAIT_AFTER_PERIOD = 3;
+  // biome-ignore lint/style/useNamingConvention: temp scope
+  const WAIT_AFTER_PARAGRAPH = 3.5;
+
   if (forceWait) return WAIT_AFTER_PERIOD;
   // if (word === 'Dr.' || word === 'Mr.' || word === 'Mrs.' || word === 'Ms.') return 1;
 
@@ -59,7 +69,7 @@ export interface UserSettings {
 
 type ReaderComponent = HTMLDivElement;
 
-type Refs = {
+interface Refs {
   progress: HTMLDivElement;
   rewind: HTMLButtonElement;
   play: HTMLButtonElement;
@@ -68,7 +78,7 @@ type Refs = {
   faster: HTMLButtonElement;
   focus: HTMLDivElement;
   w: HTMLDivElement;
-};
+}
 
 const meta = compile(`
   <div>
@@ -138,7 +148,7 @@ export function Reader(): ReaderComponent {
 
     const word = words[wordsIndex];
     const orpIndex = indexOfORP(word);
-    let orp;
+    let orp: ORPComponent;
 
     wordref.replaceChildren(
       word.slice(0, orpIndex),
@@ -221,7 +231,7 @@ export function Reader(): ReaderComponent {
       words = wordList;
       start(true);
     })
-    .catch((error) => {
+    .catch((error: unknown) => {
       wordref.innerHTML = `<div id=summary>${String(error)}</div>`;
       refs.rewind.disabled = true;
       refs.play.disabled = true;
