@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise, no-console */
 
-import type { BunPlugin } from 'bun';
+import type { BuildArtifact, BunPlugin } from 'bun';
 import * as csso from 'csso';
 import * as xcss from 'ekscss';
 import * as lightningcss from 'lightningcss';
@@ -11,8 +11,6 @@ import xcssConfig from './xcss.config';
 
 const mode = Bun.env.NODE_ENV;
 const dev = mode === 'development';
-const manifest = createManifest();
-const release = manifest.version_name ?? manifest.version;
 
 let css = '';
 // XXX: Temporary workaround to build CSS until Bun.build supports css loader
@@ -63,61 +61,8 @@ function makeHTML() {
     .replaceAll(/\n\s+/g, '\n'); // remove leading whitespace
 }
 
-// Extension manifest
-await Bun.write('dist/manifest.json', JSON.stringify(manifest));
-
-// Reader app HTML
-await Bun.write('dist/reader.html', makeHTML());
-
-// Reader app JS
-console.time('build');
-const out = await Bun.build({
-  entrypoints: ['src/reader.ts'],
-  outdir: 'dist',
-  target: 'browser',
-  define: {
-    'process.env.APP_RELEASE': JSON.stringify(release),
-    'process.env.NODE_ENV': JSON.stringify(mode),
-  },
-  loader: {
-    '.svg': 'text',
-  },
-  external: ['literata-ext.woff2', 'literata-italic.woff2', 'literata.woff2'],
-  plugins: [extractCSS],
-  // minify: !dev,
-  minify: {
-    whitespace: !dev,
-    identifiers: !dev,
-    // FIXME: Bun macros break if syntax minify is disabled (due to string
-    // interpolation and concatination not being resolved).
-    // syntax: !dev,
-    syntax: true,
-  },
-  sourcemap: dev ? 'external' : 'none',
-});
-console.timeEnd('build');
-
-// Health insights (exception monitoring)
-console.time('build2');
-const out2 = await Bun.build({
-  entrypoints: ['src/health.ts'],
-  outdir: 'dist',
-  target: 'browser',
-  // FIXME: Consider using iife once bun supports it.
-  // format: 'iife', // monitoring code must not mutate global state
-  define: {
-    'process.env.APP_RELEASE': JSON.stringify(release),
-    'process.env.NODE_ENV': JSON.stringify(mode),
-  },
-  minify: !dev,
-  sourcemap: dev ? 'external' : 'none',
-});
-console.timeEnd('build2');
-console.log(out, out2);
-
-async function minifyCSS() {
-  const js = await out.outputs[0].text();
-
+async function minifyCSS(artifact: BuildArtifact) {
+  const js = await artifact.text();
   const purged = await new PurgeCSS().purge({
     content: [{ extension: '.js', raw: js }],
     css: [{ raw: css }],
@@ -190,7 +135,7 @@ async function minifyCSS() {
   await Bun.write('dist/reader.css', minified2.css);
 }
 
-async function minifyJS(artifact: Blob & { path: string }) {
+async function minifyJS(artifact: BuildArtifact) {
   let source = await artifact.text();
 
   // Improve collapsing variables; terser doesn't do this so we do it manually.
@@ -216,15 +161,78 @@ async function minifyJS(artifact: Blob & { path: string }) {
   await Bun.write(artifact.path, result.code!);
 }
 
+console.time('prebuild');
+await Bun.$`rm -rf dist`;
+await Bun.$`cp -r static dist`;
+console.timeEnd('prebuild');
+
+// Extension manifest
+console.time('manifest');
+const manifest = createManifest();
+const release = manifest.version_name ?? manifest.version;
+await Bun.write('dist/manifest.json', JSON.stringify(manifest));
+console.timeEnd('manifest');
+
+// Reader app HTML
+console.time('html');
+await Bun.write('dist/reader.html', makeHTML());
+console.timeEnd('html');
+
+// Reader app JS
+console.time('build');
+const out = await Bun.build({
+  entrypoints: ['src/reader.ts'],
+  outdir: 'dist',
+  target: 'browser',
+  define: {
+    'process.env.APP_RELEASE': JSON.stringify(release),
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  },
+  loader: {
+    '.svg': 'text',
+  },
+  external: ['literata-ext.woff2', 'literata-italic.woff2', 'literata.woff2'],
+  plugins: [extractCSS],
+  // minify: !dev,
+  minify: {
+    whitespace: !dev,
+    identifiers: !dev,
+    // FIXME: Bun macros break if syntax minify is disabled (due to string
+    // interpolation and concatenation not being resolved).
+    syntax: true,
+  },
+  sourcemap: dev ? 'external' : 'none',
+});
+console.timeEnd('build');
+console.log(out);
+
+// Health insights (exception monitoring)
+console.time('build2');
+const out2 = await Bun.build({
+  entrypoints: ['src/health.ts'],
+  outdir: 'dist',
+  target: 'browser',
+  // FIXME: Consider using iife once bun supports it.
+  // format: 'iife', // monitoring code must not mutate global state
+  define: {
+    'process.env.APP_RELEASE': JSON.stringify(release),
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  },
+  minify: !dev,
+  sourcemap: dev ? 'external' : 'none',
+});
+console.timeEnd('build2');
+console.log(out2);
+
 if (dev) {
   await Bun.write('dist/reader.css', css);
 } else {
-  console.time('minifyCSS');
-  await minifyCSS();
-  console.timeEnd('minifyCSS');
+  console.time('minify:css');
+  await minifyCSS(out.outputs[0]);
+  console.timeEnd('minify:css');
 
-  console.time('minifyJS');
+  console.time('minify:js');
   await minifyJS(out.outputs[0]);
   await minifyJS(out2.outputs[0]);
-  console.timeEnd('minifyJS');
+  console.timeEnd('minify:js');
 }
