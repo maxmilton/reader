@@ -22,17 +22,17 @@
     "happy-dom@14.12.3": "patches/happy-dom@14.12.3.patch"
   },
   "dependencies": {
-    "@ekscss/framework": "0.0.48",
+    "@ekscss/framework": "0.0.50",
     "@maxmilton/html-parser": "0.0.8",
-    "stage1": "0.8.0-next.12",
+    "stage1": "0.8.0-next.13",
     "trackx": "0.6.1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
-    "@eslint/compat": "1.1.0",
+    "@eslint/compat": "1.1.1",
     "@eslint/eslintrc": "3.1.0",
-    "@eslint/js": "9.6.0",
-    "@maxmilton/stylelint-config": "0.0.15",
+    "@eslint/js": "9.7.0",
+    "@maxmilton/stylelint-config": "0.1.2",
     "@playwright/test": "1.45.1",
     "@types/bun": "1.1.6",
     "@types/chrome": "0.0.268",
@@ -40,8 +40,8 @@
     "@types/eslint__eslintrc": "2.1.1",
     "@types/eslint__js": "8.42.3",
     "csso": "5.0.5",
-    "ekscss": "0.0.17",
-    "eslint": "9.6.0",
+    "ekscss": "0.0.18",
+    "eslint": "9.7.0",
     "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-airbnb-typescript": "18.0.0",
     "eslint-plugin-import": "2.29.1",
@@ -49,10 +49,10 @@
     "happy-dom": "14.12.3",
     "lightningcss": "1.25.1",
     "purgecss": "6.0.0",
-    "stylelint": "16.6.1",
+    "stylelint": "16.7.0",
     "stylelint-config-standard": "36.0.1",
-    "terser": "5.31.1",
+    "terser": "5.31.2",
     "typescript": "5.5.3",
-    "typescript-eslint": "7.15.0"
+    "typescript-eslint": "7.16.0"
   }
 }
