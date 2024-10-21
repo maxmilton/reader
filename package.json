@@ -53,6 +53,6 @@
     "stylelint-config-standard": "36.0.1",
     "terser": "5.31.3",
     "typescript": "5.5.3",
-    "typescript-eslint": "7.16.1"
+    "typescript-eslint": "8.11.0"
   }
 }
