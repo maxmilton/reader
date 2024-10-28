@@ -7,6 +7,7 @@
  * Since the runtime environment will be modern browsers the lite client is OK.
  */
 
+// biome-ignore lint/style/noNamespaceImport: simple case for better readability
 import * as trackx from 'trackx/lite';
 
 trackx.setup('https://api.trackx.app/v1/9lbe1l9le4x');
