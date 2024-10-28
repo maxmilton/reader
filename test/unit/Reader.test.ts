@@ -5,7 +5,7 @@ afterEach(cleanup);
 // HACK: The Reader component is designed to be rendered once (does not clone
 // its view) and mutates global state. Given the global state mutation, it's
 // vital to reset its module between tests for accurate test conditions.
-const MODULE_PATH = import.meta.resolveSync('../../src/components/Reader');
+const MODULE_PATH = Bun.resolveSync('../../src/components/Reader', import.meta.dir);
 let Reader: typeof import('../../src/components/Reader').Reader;
 
 async function load(html: string) {

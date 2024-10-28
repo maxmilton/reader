@@ -10,7 +10,7 @@ import { reset } from '../setup';
 // Completely reset DOM and global state between tests
 afterEach(reset);
 
-const MODULE_PATH = import.meta.resolveSync('../../dist/reader.js');
+const MODULE_PATH = Bun.resolveSync('../../dist/reader.js', import.meta.dir);
 
 async function load(html: string, settings?: UserSettings) {
   // @ts-expect-error - stub return value

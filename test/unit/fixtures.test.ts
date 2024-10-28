@@ -14,7 +14,6 @@ const fixtureFiles: [filename: string, bytes: number, valid: boolean][] = [
 ];
 
 for (const [filename, bytes, valid] of fixtureFiles) {
-  // eslint-disable-next-line @typescript-eslint/no-loop-func
   describe(filename, () => {
     const file = Bun.file(`test/unit/fixtures/${filename}`);
 
