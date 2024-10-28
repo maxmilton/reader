@@ -30,11 +30,13 @@ for (const [filename, bytes, valid] of fixtureFiles) {
     });
 
     if (valid) {
+      // TODO: Don't skip once validateHTML is implemented.
       test.skip('code is valid HTML', async () => {
         expect.assertions(1);
         expect(validateHTML(await file.text())).toBeTruthy();
       });
     } else {
+      // TODO: Don't skip once validateHTML is implemented.
       test.skip('code is intentionally not valid HTML', async () => {
         expect.assertions(1);
         expect(validateHTML(await file.text())).toBeFalsy();

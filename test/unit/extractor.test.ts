@@ -41,17 +41,16 @@ describe('broken.html', () => {
 });
 
 describe('wikipedia-simple.html', () => {
-  // FIXME: Don't skip this test. Test snapshots are currently broken in bun.
-  test.skip('returns expected text', () => {
+  test('returns expected text', () => {
     expect.assertions(1);
     const result = extractText(wikipediaSimple);
     expect(result).toMatchSnapshot();
   });
 });
 
-describe('wikipedia.html', () => {
-  // FIXME: Don't skip this test. Test snapshots are currently broken in bun.
-  test.skip('returns expected text', () => {
+// TODO: Don't skip once we improve the extractor. Lots of noise in the output.
+describe.skip('wikipedia.html', () => {
+  test('returns expected text', () => {
     expect.assertions(1);
     const result = extractText(wikipedia);
     expect(result).toMatchSnapshot();
