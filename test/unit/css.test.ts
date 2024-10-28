@@ -1,8 +1,16 @@
 /* eslint-disable consistent-return */
 
 import { describe, expect, test } from 'bun:test';
+import {
+  DECLARATION,
+  FONT_FACE,
+  SKIP,
+  compile,
+  lookup,
+  reduce,
+  walk,
+} from '@maxmilton/test-utils/css';
 import xcssConfig from '../../xcss.config';
-import { DECLARATION, FONT_FACE, SKIP, compile, lookup, reduce, walk } from './css-engine';
 
 describe('xcss config', () => {
   test('contains only expected plugins', () => {
