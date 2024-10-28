@@ -202,7 +202,7 @@ const out = await Bun.build({
     // interpolation and concatenation not being resolved).
     syntax: true,
   },
-  sourcemap: dev ? 'external' : 'none',
+  sourcemap: dev ? 'linked' : 'none',
 });
 console.timeEnd('build');
 console.log(out);
@@ -220,7 +220,7 @@ const out2 = await Bun.build({
     'process.env.NODE_ENV': JSON.stringify(mode),
   },
   minify: !dev,
-  sourcemap: dev ? 'external' : 'none',
+  sourcemap: dev ? 'linked' : 'none',
 });
 console.timeEnd('build2');
 console.log(out2);
