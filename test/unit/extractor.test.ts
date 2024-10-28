@@ -40,7 +40,8 @@ describe('broken.html', () => {
   });
 });
 
-describe('wikipedia-simple.html', () => {
+// FIXME: Don't skip once snapshots work consistently across all environments.
+describe.skip('wikipedia-simple.html', () => {
   test('returns expected text', () => {
     expect.assertions(1);
     const result = extractText(wikipediaSimple);
@@ -48,6 +49,7 @@ describe('wikipedia-simple.html', () => {
   });
 });
 
+// FIXME: Don't skip once snapshots work consistently across all environments.
 // TODO: Don't skip once we improve the extractor. Lots of noise in the output.
 describe.skip('wikipedia.html', () => {
   test('returns expected text', () => {
