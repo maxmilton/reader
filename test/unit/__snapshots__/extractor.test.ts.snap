@@ -1,0 +1,52 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wikipedia-simple.html returns expected text 1`] = `
+"\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\t\tToggle the table of contents\n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\tTest 
+ \n\t\t\t\t\t\t\t\n\n\t\n\t\n\n6 languages\n\t\n\t\n\n\t\t\n\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\tDeutsch 
+ Italiano 
+ עברית 
+ Русский 
+ Српски / srpski 
+ Українська 
+ \n\t\t\t 
+ \n\t\t\tChange links 
+ \n\t\t 
+ \n\n\t 
+ \n 
+ \n 
+ \n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t 
+ \n\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\t\t\n\t\t 
+ \n\n\t\t\t\t\t\tFrom Simple English Wikipedia, the free encyclopedia 
+ \n\t\t\t\t\t 
+ \n\t\t\t\t\t 
+ \n\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\t\nA test is a way of checking something to see if it is true, or false, or if it is edible or not. If something can be tested, or finishes the tests correctly, it is testable. The Concise Oxford English Dictionary defines a test as: "a procedure intended to establish the quality, performance, or reliability of something".[1]\n 
+ A test is different from an experiment: Before a test is done, there is an expected result. The test is performed, to show this result. In an experiment, the outcome is open. Very often, tests are performed as part of an experiment.\n 
+ \n\nProducts[change | change source] 
+ \nProducts are usually tested for quality, so customers will get good products.\n 
+ In software engineering, a test is used to see if the software system can do what it should. Software is tested before it is released. Alpha testing is where software developers check the software for bugs. Software can also be checked for quality and usability. Beta testing is done by groups of users.\n 
+ Tests of cars and other vehicles include a crash test. The car is put under severe conditions to see what will make it fail, or deliberately crashed to measure the damage. Other machines can also be crash tested. Crash test dummies can be used instead of humans. They are placed in the car seat to see if a human in the crash would have been injured or killed.\n 
+ \nPeople[change | change source] 
+ \n\nPeople are tested to see what they have learned. This is often called an assessment or examination. In learning, a test item is a question, or set of questions.\n 
+ Many people think tests are valuable. They believe tests:\n 
+ \nare a quick and fair way of judging a test taker's performance 
+ \nenable predictions about test takers to be made 
+ \nallow selection 
+ \nimprove performance by highlighting areas that need work. 
+ \nHowever, academic tests are not perfect measures. Tests could only partly measure a student’s memory and maybe their understanding. The test would only be about a small part of the subject, and only at that moment in time. \n 
+ People, animals and plants can also be tested for illnesses. For example, a blood test can be used to check for disease.\n 
+ \nScience[change | change source] 
+ \nIn science, tests can done to check for a presence of a substance, or to check the quality of something.\n 
+ \nReferences[change | change source] 
+ \n\n↑ Stevenson, Angus; Waite, Maurice (2011). Concise Oxford English Dictionary (Twelfth ed.). Oxford University Press. p. 1490. ISBN 978-0-19-960108-0.\n 
+ \n 
+ \nOther websites[change | change source] 
+ \nTests and Experiments: Similarities and Differences Archived 2016-03-04 at the Wayback Machine 
+ \n\x3C!-- \nNewPP limit report\nParsed by mw2390\nCached time: 20230718002129\nCache expiry: 1814400\nReduced expiry: false\nComplications: [vary‐revision‐sha1, show‐toc]\nCPU time usage: 0.078 seconds\nReal time usage: 0.112 seconds\nPreprocessor visited node count: 91/1000000\nPost‐expand include size: 1841/2097152 bytes\nTemplate argument size: 0/2097152 bytes\nHighest expansion depth: 5/100\nExpensive parser function count: 0/500\nUnstrip recursion depth: 1/20\nUnstrip post‐expand size: 2709/5000000 bytes\nLua time usage: 0.047/10.000 seconds\nLua memory usage: 2515437/52428800 bytes\nNumber of Wikibase entities loaded: 0/400\n-->\n\x3C!--\nTransclusion expansion time report (%,ms,calls,template)\n100.00% 86.090 1 -total\n 82.95% 71.414 1 Template:Cite_book\n 15.53% 13.371 1 Template:Webarchive\n-->\n\n\x3C!-- Saved in parser cache with key simplewiki:pcache:idhash:823-0!canonical and timestamp 20230718002129 and revision id 8058954. Rendering was triggered because: page-view\n -->\n 
+ \x3C!--esi 
+ -->\nRetrieved from "https://simple.wikipedia.org/w/index.php?title=Test&oldid=8058954" 
+ \n\t\t\t\t\tCategories: Basic English 850 words 
+ Tests 
+ Hidden category: Webarchive template wayback links 
+ \n\t\t\t\t 
+ \n\t\t\t"
+`;
