@@ -40,19 +40,19 @@ describe('broken.html', () => {
   });
 });
 
-// FIXME: Don't skip once snapshots work consistently across all environments.
-describe.skip('wikipedia-simple.html', () => {
-  test('returns expected text', () => {
+describe('wikipedia-simple.html', () => {
+  // FIXME: Don't skip once snapshots work consistently across all environments.
+  test.skip('returns expected text', () => {
     expect.assertions(1);
     const result = extractText(wikipediaSimple);
     expect(result).toMatchSnapshot();
   });
 });
 
-// FIXME: Don't skip once snapshots work consistently across all environments.
-// TODO: Don't skip once we improve the extractor. Lots of noise in the output.
-describe.skip('wikipedia.html', () => {
-  test('returns expected text', () => {
+describe('wikipedia.html', () => {
+  // FIXME: Don't skip once snapshots work consistently across all environments.
+  // TODO: Don't skip once we improve the extractor. Lots of noise in the output.
+  test.skip('returns expected text', () => {
     expect.assertions(1);
     const result = extractText(wikipedia);
     expect(result).toMatchSnapshot();
