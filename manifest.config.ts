@@ -36,8 +36,8 @@ export const createManifest = (
   version: pkg.version,
   // shippable releases should not have a named version
   version_name: debug ? gitRef() : undefined,
-  // for full ECMAScript 2020 support + manifest v3 + chrome.scripting API
-  minimum_chrome_version: '88', // matches build
+  // for full ECMAScript 2020 support + manifest v3 + chrome.scripting API + for light-dark() CSS function
+  minimum_chrome_version: '123', // matches build
   icons: {
     16: 'icon16.png',
     48: 'icon48.png',
