@@ -107,9 +107,10 @@ async function minifyCSS(artifact: BuildArtifact) {
       'ul',
     ],
   });
+  // TODO: Migrate to bun CSS handling (which is based on lightningcss).
   const minified = lightningcss.transform({
     filename: 'popup.css',
-    code: Buffer.from(purged[0].css),
+    code: new TextEncoder().encode(purged[0].css),
     minify: true,
     targets: { chrome: 88 << 16 }, // matches manifest minimum_chrome_version
   });

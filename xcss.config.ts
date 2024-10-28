@@ -12,8 +12,8 @@ onBeforeBuild(preloadApply);
 // Cheeky abuse of ekscss ctx to prevent unwanted style imports
 onBeforeBuild(() => {
   ctx.dependencies.push(
-    import.meta.resolveSync('@ekscss/framework/level2/a11y.xcss'),
-    import.meta.resolveSync('@ekscss/framework/level2/form.xcss'),
+    Bun.resolveSync('@ekscss/framework/level2/a11y.xcss', '.'),
+    Bun.resolveSync('@ekscss/framework/level2/form.xcss', '.'),
   );
 });
 
