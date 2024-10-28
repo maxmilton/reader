@@ -3,9 +3,9 @@
 // name but starting with an uppercase letter. This is a temporary solution.
 
 import { afterEach, describe, expect, spyOn, test } from 'bun:test';
+import { performanceSpy } from '@maxmilton/test-utils/spy';
 import type { UserSettings } from '../../src/components/Reader';
 import { reset } from '../setup';
-import { performanceSpy } from './utils';
 
 // Completely reset DOM and global state between tests
 afterEach(reset);

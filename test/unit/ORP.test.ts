@@ -1,6 +1,6 @@
 import { afterEach, expect, test } from 'bun:test';
+import { cleanup, render } from '@maxmilton/test-utils/dom';
 import { ORP, type ORPComponent } from '../../src/components/ORP';
-import { cleanup, render } from './utils';
 
 afterEach(cleanup);
 
