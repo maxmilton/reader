@@ -18,41 +18,33 @@
     "test": "bun test",
     "test:e2e": "playwright test"
   },
-  "patchedDependencies": {
-    "happy-dom@14.12.3": "patches/happy-dom@14.12.3.patch"
-  },
   "dependencies": {
-    "@ekscss/framework": "0.0.50",
+    "@ekscss/framework": "0.0.52",
     "@maxmilton/html-parser": "0.0.8",
     "stage1": "0.8.0-next.13",
     "trackx": "0.6.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@eslint/compat": "1.1.1",
-    "@eslint/eslintrc": "3.1.0",
-    "@eslint/js": "9.7.0",
+    "@biomejs/biome": "1.9.4",
+    "@eslint/js": "9.13.0",
+    "@maxmilton/eslint-config": "0.0.3",
     "@maxmilton/stylelint-config": "0.1.2",
-    "@playwright/test": "1.45.2",
-    "@types/bun": "1.1.6",
-    "@types/chrome": "0.0.268",
+    "@maxmilton/test-utils": "0.0.3",
+    "@playwright/test": "1.48.2",
+    "@types/bun": "1.1.12",
+    "@types/chrome": "0.0.279",
     "@types/csso": "5.0.4",
-    "@types/eslint__eslintrc": "2.1.1",
-    "@types/eslint__js": "8.42.3",
     "csso": "5.0.5",
-    "ekscss": "0.0.18",
-    "eslint": "9.7.0",
-    "eslint-config-airbnb-base": "15.0.0",
-    "eslint-config-airbnb-typescript": "18.0.0",
-    "eslint-plugin-import": "2.29.1",
-    "eslint-plugin-unicorn": "54.0.0",
-    "happy-dom": "14.12.3",
-    "lightningcss": "1.25.1",
+    "ekscss": "0.0.20",
+    "eslint": "9.13.0",
+    "eslint-plugin-unicorn": "56.0.0",
+    "happy-dom": "15.7.4",
+    "lightningcss": "1.27.0",
     "purgecss": "6.0.0",
-    "stylelint": "16.7.0",
+    "stylelint": "16.10.0",
     "stylelint-config-standard": "36.0.1",
-    "terser": "5.31.3",
-    "typescript": "5.5.3",
-    "typescript-eslint": "7.16.1"
+    "terser": "5.36.0",
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.11.0"
   }
 }
