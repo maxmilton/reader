@@ -112,7 +112,7 @@ async function minifyCSS(artifact: BuildArtifact) {
     filename: 'popup.css',
     code: new TextEncoder().encode(purged[0].css),
     minify: true,
-    targets: { chrome: 88 << 16 }, // matches manifest minimum_chrome_version
+    targets: { chrome: 123 << 16 }, // matches manifest minimum_chrome_version
   });
 
   for (const warning of minified.warnings) {
