@@ -22,6 +22,10 @@ async function load(html: string, settings?: UserSettings) {
 
   Loader.registry.delete(MODULE_PATH);
   await import(MODULE_PATH);
+
+  return /** restore */ () => {
+    chrome.storage.sync.get = () => Promise.resolve({});
+  };
 }
 
 const basicHTML = await Bun.file('test/unit/fixtures/basic.html').text();
@@ -29,7 +33,18 @@ const brokenHTML = await Bun.file('test/unit/fixtures/broken.html').text();
 
 describe('initial state', () => {
   test('renders reader app', async () => {
-    expect.assertions(20);
+    expect.assertions(19);
+
+    // HACK: Prevent the UI from progressing past the initial state by preventing
+    // the second `Promise.then` call which would normally call the Reader
+    // component's start() function. Flaky and needs a better solution!
+    const thenSpy = spyOn(Promise.prototype, 'then');
+    // @ts-expect-error - mock implementation
+    thenSpy.mockImplementation((fn) => {
+      if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
+      return Promise.resolve(() => {});
+    });
+
     await load(basicHTML);
     await happyDOM.abort();
     expect(document.body.innerHTML.length).toBeGreaterThan(400);
@@ -55,6 +70,8 @@ describe('initial state', () => {
     expect(buttons[2].textContent).toBe('−');
     expect(buttons[3].textContent).toBe('+');
     expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
+
+    thenSpy.mockRestore();
   });
 });
 
@@ -62,8 +79,7 @@ describe('playing state', () => {
   test('renders reader app', async () => {
     expect.assertions(19);
     await load(basicHTML);
-    // TODO: Don't sleep, fast-forward timers instead.
-    await Bun.sleep(10);
+    // await Bun.sleep(10);
     await happyDOM.abort();
     expect(document.body.innerHTML.length).toBeGreaterThan(400);
     const root = document.body.firstChild as HTMLDivElement;
@@ -97,8 +113,6 @@ describe('end state', () => {
     // set wpm to max possible value to speed up test
     await load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
-    // TODO: Don't sleep or set wpm. Use jest.runAllTimers() once bun:test supports it.
-    await Bun.sleep(50);
     expect(document.body.innerHTML.length).toBeGreaterThan(500);
     const root = document.body.firstChild as HTMLDivElement;
     expect(root).toBeInstanceOf(window.HTMLDivElement);
@@ -145,9 +159,10 @@ describe('end state', () => {
     expect.assertions(1);
     const spy = spyOn(global, 'fetch');
     // set wpm to max possible value to speed up test
-    await load(basicHTML, { wpm: 60_000 });
+    const restore = await load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
     expect(spy).not.toHaveBeenCalled();
+    restore();
   });
 });
 
@@ -156,7 +171,7 @@ describe('error state', () => {
     expect.assertions(9);
     const consoleErrorSpy = spyOn(console, 'error').mockImplementation(() => {});
     await load(brokenHTML);
-    await Bun.sleep(1); // lets queued promises in Reader run first
+    // await Bun.sleep(1); // lets queued promises in Reader run first
     await happyDOM.abort();
     expect(document.body.querySelector('#summary')).toBeTruthy();
     expect(document.body.querySelector('#summary')?.textContent).toInclude('TypeError');

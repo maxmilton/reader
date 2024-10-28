@@ -1,4 +1,6 @@
+import { afterEach, expect, spyOn, test } from 'bun:test';
 import { cleanup, render } from '@maxmilton/test-utils/dom';
+import type { UserSettings } from '../../src/components/Reader';
 
 afterEach(cleanup);
 
@@ -8,13 +10,21 @@ afterEach(cleanup);
 const MODULE_PATH = Bun.resolveSync('../../src/components/Reader', import.meta.dir);
 let Reader: typeof import('../../src/components/Reader').Reader;
 
-async function load(html: string) {
+async function load(html: string, settings?: UserSettings) {
   // @ts-expect-error - stub return value
   global.chrome.scripting.executeScript = () => Promise.resolve([{ result: html }]);
+
+  if (settings) {
+    chrome.storage.sync.get = () => Promise.resolve(settings);
+  }
 
   Loader.registry.delete(MODULE_PATH);
   // eslint-disable-next-line unicorn/no-await-expression-member
   Reader = (await import('../../src/components/Reader')).Reader;
+
+  return /** restore */ () => {
+    chrome.storage.sync.get = () => Promise.resolve({});
+  };
 }
 
 // const minimalHTML = '<html><body>x</body></html>';
@@ -23,13 +33,19 @@ const basicHTML = await Bun.file('test/unit/fixtures/basic.html').text();
 // const wikipediaSimpleHTML = await Bun.file('test/unit/fixtures/wikipedia-simple.html').text();
 // const wikipediaHTML = await Bun.file('test/unit/fixtures/wikipedia.html').text();
 
-// XXX: Because there are async function calls within Reader, we need to wait
-// for them to complete before we assert anything.
-//  ↳ But not if we want to test the initial state of the DOM. In which case we
-//    can cancel any running async tasks.
-
 test('rendered DOM contains expected elements', async () => {
   expect.assertions(16);
+
+  // HACK: Prevent the UI from progressing past the initial state by preventing
+  // the second `Promise.then` call which would normally call the Reader
+  // component's start() function. Flaky and needs a better solution!
+  const thenSpy = spyOn(Promise.prototype, 'then');
+  // @ts-expect-error - mock implementation
+  thenSpy.mockImplementation((fn) => {
+    if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
+    return Promise.resolve(() => {});
+  });
+
   await load(basicHTML);
   const rendered = render(Reader());
   await happyDOM.abort();
@@ -53,14 +69,29 @@ test('rendered DOM contains expected elements', async () => {
   expect(buttons[1].textContent).toBe('Play'); // starts as "Play" then changes to "Pause" after load
   expect(buttons[2].textContent).toBe('−');
   expect(buttons[3].textContent).toBe('+');
+
+  thenSpy.mockRestore();
 });
 
 test('rendered DOM initial state matches snapshot', async () => {
   expect.assertions(1);
+
+  // HACK: Prevent the UI from progressing past the initial state by preventing
+  // the second `Promise.then` call which would normally call the Reader
+  // component's start() function. Flaky and needs a better solution!
+  const thenSpy = spyOn(Promise.prototype, 'then');
+  // @ts-expect-error - mock implementation
+  thenSpy.mockImplementation((fn) => {
+    if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
+    return Promise.resolve(() => {});
+  });
+
   await load(basicHTML);
   const rendered = render(Reader());
   await happyDOM.abort();
   expect(rendered.container.innerHTML).toMatchSnapshot();
+
+  thenSpy.mockRestore();
 });
 
 test('rendered DOM playing state matches snapshot', async () => {
@@ -74,7 +105,10 @@ test('rendered DOM playing state matches snapshot', async () => {
 
 test('rendered DOM end state matches snapshot', async () => {
   expect.assertions(1);
+  // set wpm to max possible value to speed up test
+  const restore = await load(basicHTML, { wpm: 60_000 });
   const rendered = render(Reader());
   await happyDOM.waitUntilComplete();
   expect(rendered.container.innerHTML).toMatchSnapshot();
+  restore();
 });
