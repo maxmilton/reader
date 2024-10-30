@@ -1,15 +1,15 @@
 import eslint from '@eslint/js';
 import mm from '@maxmilton/eslint-config';
 import unicorn from 'eslint-plugin-unicorn';
-import tseslint from 'typescript-eslint';
+import ts from 'typescript-eslint';
 
 const OFF = 0;
 const ERROR = 2;
 
-export default tseslint.config(
+export default ts.config(
   eslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
+  ...ts.configs.strictTypeChecked,
+  ...ts.configs.stylisticTypeChecked,
   unicorn.configs['flat/recommended'],
   mm.configs.recommended,
   {
