@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@ekscss/framework": "0.0.52",
-    "@maxmilton/html-parser": "0.0.8",
+    "@maxmilton/html-parser": "0.0.9",
     "stage1": "0.8.0-next.13",
     "trackx": "0.6.1"
   },
