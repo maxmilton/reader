@@ -27,7 +27,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@eslint/js": "9.14.0",
-    "@maxmilton/eslint-config": "0.0.4",
+    "@maxmilton/eslint-config": "0.0.5",
     "@maxmilton/stylelint-config": "0.1.2",
     "@maxmilton/test-utils": "0.0.4",
     "@playwright/test": "1.48.2",
