@@ -8,7 +8,6 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "postinstall": "mkdir -p hacks/html-parser && ln -vf ./node_modules/@maxmilton/html-parser/src/* hacks/html-parser/",
     "build": "NODE_ENV=production bun build.ts",
     "dev": "NODE_ENV=development bun build.ts",
     "lint": "bun lint:fmt && bun lint:css && bun lint:js && bun lint:ts",
@@ -21,7 +20,7 @@
   },
   "dependencies": {
     "@ekscss/framework": "0.0.52",
-    "@maxmilton/html-parser": "0.0.10",
+    "@maxmilton/html-parser": "0.0.11",
     "stage1": "0.8.0-next.15",
     "trackx": "0.6.1"
   },
