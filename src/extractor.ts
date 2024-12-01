@@ -1,14 +1,21 @@
 /* eslint-disable @typescript-eslint/prefer-for-of, unicorn/prefer-includes, unicorn/no-for-loop */
 
 // Import source for better build optimization (especially const enum inlining).
+// import {
+//   type Node,
+//   SyntaxKind,
+//   type Tag as Tag_,
+//   parse,
+//   walk,
+// } from '@maxmilton/html-parser/src';
+import { create } from 'stage1';
 import {
   type Node,
   SyntaxKind,
   type Tag as Tag_,
   parse,
   walk,
-} from '@maxmilton/html-parser/src';
-import { create } from 'stage1';
+} from '../hacks/html-parser'; // HACK: Path workaround to allow running macros in node_modules
 
 interface Tag extends Omit<Tag_, 'attributeMap'> {
   attributeMap: Record<string, string | undefined>;

@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "postinstall": "mkdir -p hacks/html-parser && ln -vf ./node_modules/@maxmilton/html-parser/src/* hacks/html-parser/",
     "build": "NODE_ENV=production bun build.ts",
     "dev": "NODE_ENV=development bun build.ts",
     "lint": "bun lint:fmt && bun lint:css && bun lint:js && bun lint:ts",
