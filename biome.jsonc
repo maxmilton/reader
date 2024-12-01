@@ -23,7 +23,7 @@
         "noUndeclaredDependencies": "warn",
         "noUndeclaredVariables": "warn",
         "noUnusedFunctionParameters": "warn",
-        "noUnusedImports": "error"
+        "noUnusedImports": { "level": "error", "fix": "none" }
       },
       "performance": {
         "noBarrelFile": "error",
@@ -114,6 +114,12 @@
         "rules": {
           "correctness": {
             "noUndeclaredDependencies": "off"
+          },
+          "style": {
+            "noNamespaceImport": "off"
+          },
+          "nursery": {
+            "noDynamicNamespaceImportAccess": "off"
           }
         }
       },
