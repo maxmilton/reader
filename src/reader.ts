@@ -1,6 +1,6 @@
 import './css/index.xcss';
 
-import { append, createFragment, setupSyntheticEvent } from 'stage1';
+import { append, fragment, setupSyntheticEvent } from 'stage1';
 import { Footer } from './components/Footer';
 import { Reader } from './components/Reader';
 
@@ -12,10 +12,10 @@ declare global {
   }
 }
 
-const frag = createFragment();
+const container = fragment();
 
-append(Reader(), frag);
-append(Footer(), frag);
-append(frag, document.body);
+append(Reader(), container);
+append(Footer(), container);
+append(container, document.body);
 
 setupSyntheticEvent('click');
