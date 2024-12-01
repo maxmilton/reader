@@ -21,7 +21,7 @@
   "dependencies": {
     "@ekscss/framework": "0.0.52",
     "@maxmilton/html-parser": "0.0.9",
-    "stage1": "0.8.0-next.13",
+    "stage1": "0.8.0-next.15",
     "trackx": "0.6.1"
   },
   "devDependencies": {
