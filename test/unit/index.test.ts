@@ -19,9 +19,7 @@ describe('dist files', () => {
     ['manifest.json', 'application/json;charset=utf-8'],
     ['reader.css', 'text/css;charset=utf-8', 2000, 4000],
     ['reader.html', 'text/html;charset=utf-8', 200, 300],
-    // TODO: Once const enum inlining support is added to bun, reduce maxBytes.
-    //  ↳ https://github.com/oven-sh/bun/issues/2945
-    ['reader.js', 'text/javascript;charset=utf-8', 8000, 14_000],
+    ['reader.js', 'text/javascript;charset=utf-8', 8000, 11_000],
   ];
 
   for (const [filename, type, minBytes, maxBytes] of distFiles) {
@@ -51,3 +49,7 @@ describe('dist files', () => {
     expect(distDir).toHaveLength(distFiles.length);
   });
 });
+
+// TODO: HTML files should be valid HTML
+// TODO: HTML files have correct title
+// TODO: HTML files have correct JS and CSS file references
