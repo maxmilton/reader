@@ -41,7 +41,7 @@
     "happy-dom": "15.11.7",
     "lightningcss": "1.28.2",
     "purgecss": "7.0.2",
-    "stylelint": "16.11.0",
+    "stylelint": "16.14.1",
     "stylelint-config-standard": "36.0.1",
     "terser": "5.36.0",
     "typescript": "5.7.2",
