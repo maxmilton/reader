@@ -55,11 +55,11 @@ export const createManifest = (
   content_security_policy: {
     extension_pages: [
       "default-src 'none'",
+      "base-uri 'none'",
       "script-src 'self'",
       "style-src 'self'",
       "font-src 'self'",
       "img-src 'none'",
-      "base-uri 'none'",
       'connect-src https://api.trackx.app',
       'report-uri https://api.trackx.app/v1/9lbe1l9le4x/report',
       '', // include trailing semicolon
