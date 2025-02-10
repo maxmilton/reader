@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import { readdir } from 'node:fs/promises';
+import { validate } from '@maxmilton/test-utils/html';
 
 describe('dist files', () => {
   // FIXME: The bun file type is just inferred from the file extension, not the
@@ -33,7 +34,7 @@ describe('dist files', () => {
         expect(file.type).toBe(type); // TODO: Keep this? Type seems to be resolved from the file extension, not the file data.
       });
 
-      if (minBytes != null && maxBytes != null) {
+      if (minBytes !== undefined && maxBytes !== undefined) {
         test('is within expected file size limits', () => {
           expect.assertions(2);
           expect(file.size).toBeGreaterThan(minBytes);
@@ -48,8 +49,17 @@ describe('dist files', () => {
     const distDir = await readdir('dist');
     expect(distDir).toHaveLength(distFiles.length);
   });
+
+  test.each(distFiles.filter(([filename]) => filename.endsWith('.html')))(
+    '%s contains valid HTML',
+    async (filename) => {
+      const file = Bun.file(`dist/${filename}`);
+      const html = await file.text();
+      const result = validate(html);
+      expect(result.valid).toBeTrue();
+    },
+  );
 });
 
-// TODO: HTML files should be valid HTML
 // TODO: HTML files have correct title
 // TODO: HTML files have correct JS and CSS file references
