@@ -12,7 +12,7 @@
     "dev": "NODE_ENV=development bun build.ts",
     "lint": "bun lint:fmt && bun lint:css && bun lint:js && bun lint:ts",
     "lint:css": "stylelint '**/*.{css,xcss}'",
-    "lint:fmt": "biome check --diagnostic-level=warn",
+    "lint:fmt": "biome check",
     "lint:js": "eslint",
     "lint:ts": "tsc --noEmit",
     "test": "bun test",
