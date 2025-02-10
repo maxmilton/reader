@@ -35,10 +35,6 @@ export default ts.config(
       /* Performance and byte savings */
       // byte savings
       'no-plusplus': OFF,
-      // forEach is often faster (in Chrome and Bun but not Firefox)
-      'unicorn/no-array-for-each': OFF,
-      // bad browser support and slower
-      'unicorn/prefer-string-replace-all': OFF,
       // byte savings (minification doesn't currently automatically remove)
       'unicorn/switch-case-braces': [ERROR, 'avoid'],
 
