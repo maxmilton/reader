@@ -1,5 +1,5 @@
 [files]
-extend-exclude = ["test/unit/fixtures/*"]
+extend-exclude = ["test/unit/__snapshots__/*", "test/unit/fixtures/*"]
 
 [default.extend-words]
 # Don't correct regex part in src/extractor.ts#77
