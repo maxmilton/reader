@@ -1,16 +1,11 @@
 import { describe, expect, test } from 'bun:test';
-
-function validateHTML(_html: string): boolean {
-  // biome-ignore lint/suspicious/noConsoleLog: FIXME:!
-  console.log(!!_html);
-  throw new Error('Not implemented');
-}
+import { validate } from '@maxmilton/test-utils/html';
 
 const fixtureFiles: [filename: string, bytes: number, valid: boolean][] = [
   ['basic.html', 145, true],
   ['broken.html', 1244, false],
-  ['wikipedia-simple.html', 53_073, true],
-  ['wikipedia.html', 430_509, true],
+  ['wikipedia-simple.html', 274_202, true],
+  ['wikipedia.html', 437_315, true],
 ];
 
 for (const [filename, bytes, valid] of fixtureFiles) {
@@ -25,20 +20,21 @@ for (const [filename, bytes, valid] of fixtureFiles) {
 
     test('code is correct length', async () => {
       expect.assertions(1);
-      expect(await file.text()).toHaveLength(bytes);
+      const html = await file.text();
+      expect(html).toHaveLength(bytes);
     });
 
     if (valid) {
-      // TODO: Don't skip once validateHTML is implemented.
-      test.skip('code is valid HTML', async () => {
+      test('code is valid HTML', async () => {
         expect.assertions(1);
-        expect(validateHTML(await file.text())).toBeTruthy();
+        const html = await file.text();
+        expect(validate(html).valid).toBeTruthy();
       });
     } else {
-      // TODO: Don't skip once validateHTML is implemented.
-      test.skip('code is intentionally not valid HTML', async () => {
+      test('code is intentionally not valid HTML', async () => {
         expect.assertions(1);
-        expect(validateHTML(await file.text())).toBeFalsy();
+        const html = await file.text();
+        expect(validate(html).valid).toBeFalsy();
       });
     }
   });
