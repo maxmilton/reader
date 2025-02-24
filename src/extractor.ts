@@ -234,14 +234,14 @@ export function extractText(html: string): string {
 // function stringify(node: Node, html: string, level = 1): string {
 //   if (node.type === SyntaxKind.Text) return node.value.replace(/\s+/g, ' ');
 //   if (node.name === '!--') return html.slice(node.start, node.end);
-
+//
 //   const attrs = node.attributes
 //     .map((attr) => html.slice(attr.start, attr.end))
 //     .join(' ');
 //   const head = `<${node.rawName}${attrs ? ` ${attrs}` : ''}>`;
-
+//
 //   if (!node.body || node.body.length === 0) return head;
-
+//
 //   /* eslint-disable prefer-template */ // template string breaks after minification
 //   return (
 //     head
