@@ -24,6 +24,8 @@ describe('initial view', () => {
       mask: [
         page.locator('footer'), // mask footer which contains version numbers
       ],
+      // TODO: Fix inconsistent fonts in CI and remove this.
+      maxDiffPixelRatio: 0.01,
     });
   });
 });
