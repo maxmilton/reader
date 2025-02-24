@@ -13,21 +13,23 @@ export const test = baseTest.extend<{
   async context({}, use) {
     const extensionPath = path.join(__dirname, '../../dist');
     const context = await chromium.launchPersistentContext('', {
+      channel: 'chromium',
       args: [
         '--headless=new', // chromium 112+
         `--disable-extensions-except=${extensionPath}`,
         `--load-extension=${extensionPath}`,
       ],
+      strictSelectors: true,
     });
     await use(context);
     await context.close();
   },
   // FIXME: Get extension ID dynamically without service worker; maybe via chrome.runtime.id
   // async extensionId({ context }, use) {
-  //   let [background] = context.serviceWorkers();
-  //   background ??= await context.waitForEvent('serviceworker');
+  //   let [sw] = context.serviceWorkers();
+  //   sw ??= await context.waitForEvent('serviceworker', { timeout: 200 }););
   //
-  //   const extensionId = background.url().split('/')[2];
+  //   const extensionId = sw.url().split('/')[2];
   //   await use(extensionId);
   // },
   // biome-ignore lint/correctness/noEmptyPattern: empty initial context
@@ -36,4 +38,4 @@ export const test = baseTest.extend<{
   },
 });
 
-export const { expect } = test;
+export const { describe, expect } = test;

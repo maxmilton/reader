@@ -16,7 +16,7 @@ export default defineConfig({
   },
   expect: {
     toHaveScreenshot: {
-      scale: 'device',
+      // scale: 'device',
       stylePath: 'test/e2e/screenshot.css',
     },
   },
