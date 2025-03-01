@@ -38,7 +38,7 @@
     "ekscss": "0.0.20",
     "eslint": "9.21.0",
     "eslint-plugin-unicorn": "57.0.0",
-    "happy-dom": "17.1.4",
+    "happy-dom": "17.1.8",
     "lightningcss": "1.29.1",
     "purgecss": "7.0.2",
     "stylelint": "16.14.1",
