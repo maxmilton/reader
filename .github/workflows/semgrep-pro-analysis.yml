@@ -1,7 +1,7 @@
-name: semgrep
+name: semgrep-pro
 on:
   push:
-    branches: [master]
+    branches: [master, next]
   pull_request: {}
   workflow_dispatch: {}
   schedule:
@@ -12,7 +12,7 @@ concurrency:
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     container:
       image: semgrep/semgrep
     permissions:
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: semgrep ci --sarif > semgrep.sarif
         env:
-          SEMGREP_RULES: p/default
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
       - uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
