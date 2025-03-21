@@ -1,5 +1,3 @@
-/* eslint-disable no-await-in-loop, no-bitwise, no-console */
-
 import { basename } from 'node:path'; // eslint-disable-line unicorn/import-style
 import type { BuildArtifact, BunPlugin } from 'bun';
 import * as csso from 'csso';
@@ -133,6 +131,7 @@ async function minifyCSS(artifacts: BuildArtifact[]) {
         filename,
         code: encoder.encode(purged[0].css),
         minify: true,
+        // eslint-disable-next-line no-bitwise
         targets: { chrome: 123 << 16 }, // matches manifest minimum_chrome_version
       });
 

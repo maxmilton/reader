@@ -3,7 +3,7 @@
 import './Reader.xcss';
 
 import { collect, h } from 'stage1';
-import { compile } from 'stage1/macro' assert { type: 'macro' };
+import { compile } from 'stage1/macro' with { type: 'macro' };
 import { extractText } from '../extractor';
 import { exec } from '../utils';
 import { ORP, type ORPComponent, indexOfORP } from './ORP';

@@ -1,4 +1,7 @@
-import pkg from './package.json' assert { type: 'json' };
+// https://developer.chrome.com/docs/extensions/mv3/manifest/
+// https://developer.chrome.com/docs/extensions/reference/
+
+import pkg from './package.json' with { type: 'json' };
 
 function gitRef() {
   return Bun.spawnSync([
@@ -13,7 +16,7 @@ function gitRef() {
     .replace(/^v/, '');
 }
 
-// FIXME: Remove these once @types/chrome is updated
+// FIXME: Remove these once @types/chrome is updated.
 // https://developer.chrome.com/docs/extensions/mv3/cross-origin-isolation/
 interface ManifestExtra {
   /** https://developer.chrome.com/docs/extensions/mv3/manifest/cross_origin_embedder_policy/ */
