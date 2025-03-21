@@ -1,4 +1,4 @@
-import './ORP.xcss';
+import './FocalPoint.xcss';
 
 import { create } from 'stage1';
 
@@ -26,13 +26,12 @@ export function indexOfORP(word: string): number {
   }
 }
 
-export type ORPComponent = HTMLSpanElement;
+export type FocalPointComponent = HTMLSpanElement;
 
 const view = create('span');
-view.id = 'orp';
+view.id = 'fp';
 
-/** Optimal recognition point. */
-export function ORP(char: string): ORPComponent {
+export function FocalPoint(char: string): FocalPointComponent {
   // Don't clone; reuse the same node.
   view.textContent = char;
   return view;

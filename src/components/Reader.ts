@@ -6,7 +6,7 @@ import { collect, h } from 'stage1';
 import { compile } from 'stage1/macro' with { type: 'macro' };
 import { extractText } from '../extractor';
 import { exec } from '../utils';
-import { ORP, type ORPComponent, indexOfORP } from './ORP';
+import { FocalPoint, type FocalPointComponent, indexOfORP } from './FocalPoint';
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
 const extractedWords = (async () => {
@@ -148,16 +148,16 @@ export function Reader(): ReaderComponent {
 
     const word = words[wordsIndex];
     const orpIndex = indexOfORP(word);
-    let orp: ORPComponent;
+    let focalPoint: FocalPointComponent;
 
     wordref.replaceChildren(
       word.slice(0, orpIndex),
-      (orp = ORP(word[orpIndex])),
+      (focalPoint = FocalPoint(word[orpIndex])),
       word.slice(orpIndex + 1),
     );
 
     wordref.style.transform = `translateX(-${
-      orp.offsetLeft + orp.offsetWidth / 2
+      focalPoint.offsetLeft + focalPoint.offsetWidth / 2
     }px)`;
     refs.progress.style.transform = `translateX(${
       (wordsIndex / words.length - 1) * 100
