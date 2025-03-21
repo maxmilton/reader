@@ -47,6 +47,13 @@ export default ts.config(
     },
   },
   {
-    ignores: ['*.bak', 'coverage/**', 'dist/**'],
+    files: ['build.ts'],
+    rules: {
+      'no-await-in-loop': OFF,
+      'no-console': OFF,
+    },
+  },
+  {
+    ignores: ['**/*.bak', 'coverage/**', 'dist/**'],
   },
 );
