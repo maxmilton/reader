@@ -13,12 +13,9 @@ export const test = baseTest.extend<{
   async context({}, use) {
     const extensionPath = path.join(__dirname, '../../dist');
     const context = await chromium.launchPersistentContext('', {
-      channel: 'chromium',
-      args: [
-        '--headless=new', // chromium 112+
-        `--disable-extensions-except=${extensionPath}`,
-        `--load-extension=${extensionPath}`,
-      ],
+      channel: 'chromium', // enables headless mode with extensions
+      args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`],
+      acceptDownloads: false,
       strictSelectors: true,
     });
     await use(context);
