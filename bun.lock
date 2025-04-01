@@ -17,7 +17,7 @@
         "@maxmilton/test-utils": "0.0.8",
         "@playwright/test": "1.51.1",
         "@types/bun": "1.2.5",
-        "@types/chrome": "0.0.310",
+        "@types/chrome": "0.0.313",
         "@types/csso": "5.0.4",
         "csso": "5.0.5",
         "ekscss": "0.0.20",
@@ -135,7 +135,7 @@
 
     "@types/bun": ["@types/bun@1.2.5", "", { "dependencies": { "bun-types": "1.2.5" } }, "sha512-w2OZTzrZTVtbnJew1pdFmgV99H0/L+Pvw+z1P67HaR18MHOzYnTYOi6qzErhK8HyT+DB782ADVPPE92Xu2/Opg=="],
 
-    "@types/chrome": ["@types/chrome@0.0.310", "", { "dependencies": { "@types/filesystem": "*", "@types/har-format": "*" } }, "sha512-2+C6NKe4DxGbT6v8noDOx5APEUtSxRL0Rzm2TVGYFkPi1fO36hiN9W1QIuGI93rdM34Qy4d+7orA+vXRZk5rjA=="],
+    "@types/chrome": ["@types/chrome@0.0.313", "", { "dependencies": { "@types/filesystem": "*", "@types/har-format": "*" } }, "sha512-9R5T7gTaYZhkxlu+Ho4wk9FL+y/werWQY2yjGWSqCuiTsqS7nL/BE5UMTP6rU7J+oIG2FRKqrEycHhJATeltVA=="],
 
     "@types/css-tree": ["@types/css-tree@2.3.10", "", {}, "sha512-WcaBazJ84RxABvRttQjjFWgTcHvZR9jGr0Y3hccPkHjFyk/a3N8EuxjKr+QfrwjoM5b1yI1Uj1i7EzOAAwBwag=="],
 
