@@ -32,7 +32,7 @@
     "@maxmilton/test-utils": "0.0.8",
     "@playwright/test": "1.51.1",
     "@types/bun": "1.2.8",
-    "@types/chrome": "0.0.313",
+    "@types/chrome": "0.0.326",
     "@types/csso": "5.0.4",
     "csso": "5.0.5",
     "ekscss": "0.0.20",
