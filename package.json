@@ -28,7 +28,7 @@
     "@biomejs/biome": "1.9.4",
     "@eslint/js": "9.23.0",
     "@maxmilton/eslint-config": "0.0.9",
-    "@maxmilton/stylelint-config": "0.2.0",
+    "@maxmilton/stylelint-config": "0.3.0",
     "@maxmilton/test-utils": "0.0.8",
     "@playwright/test": "1.51.1",
     "@types/bun": "1.2.8",
