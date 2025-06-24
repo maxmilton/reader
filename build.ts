@@ -9,8 +9,8 @@ import { PurgeCSS, type RawContent } from 'purgecss';
 import { createManifest } from './manifest.config.ts';
 import xcssConfig from './xcss.config.ts';
 
-const mode = Bun.env.NODE_ENV;
-const dev = mode === 'development';
+const env = Bun.env.NODE_ENV;
+const dev = env === 'development';
 
 function xcssPlugin(config: xcss.XCSSCompileOptions): Bun.BunPlugin {
   return {
@@ -23,14 +23,7 @@ function xcssPlugin(config: xcss.XCSSCompileOptions): Bun.BunPlugin {
           globals: config.globals,
           plugins: config.plugins,
         });
-        for (const warning of compiled.warnings) {
-          console.error('[XCSS]', warning.message);
-          if (warning.file) {
-            console.log(
-              `  at ${[warning.file, warning.line, warning.column].filter(Boolean).join(':')}`,
-            );
-          }
-        }
+        if (compiled.warnings.length > 0) console.error(compiled.warnings);
         return { contents: compiled.css, loader: 'css' };
       });
     },
@@ -46,7 +39,7 @@ function makeHTML(release: string) {
     <meta name=google value=notranslate>
     <link href=literata.woff2 rel=preload as=font type=font/woff2 crossorigin>
     <link href=reader.css rel=stylesheet>
-    <script src=health.js defer crossorigin data-key=${bugboxApiKey} data-release=${release}></script>
+    <script src=health.js defer crossorigin data-key=${bugboxApiKey} data-release=${release}${env === 'production' ? '' : ` data-env=${String(env)}`}></script>
     <script src=reader.js defer></script>
   `
     .trim()
@@ -202,7 +195,7 @@ const out1 = await Bun.build({
   format: 'iife', // must not mutate global scope
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
-    'process.env.NODE_ENV': JSON.stringify(mode),
+    'process.env.NODE_ENV': JSON.stringify(env),
   },
   minify: !dev,
   sourcemap: dev ? 'linked' : 'none',
@@ -219,7 +212,7 @@ const out2 = await Bun.build({
   external: ['literata-ext.woff2', 'literata-italic.woff2', 'literata.woff2'],
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
-    'process.env.NODE_ENV': JSON.stringify(mode),
+    'process.env.NODE_ENV': JSON.stringify(env),
   },
   loader: {
     '.svg': 'text',
