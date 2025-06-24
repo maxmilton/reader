@@ -37,17 +37,11 @@ function waitMultiplier(word: string, forceWait?: boolean) {
   // correctly again in production builds.
 
   // https://github.com/cameron/squirt/blob/03cf7bf103652857bd54fa7960a39fc27e306b31/squirt.js#L168-L187
-  // biome-ignore lint/style/useNamingConvention: temp scope
   const WAIT_AFTER_WORD = 1;
-  // biome-ignore lint/style/useNamingConvention: temp scope
   const WAIT_AFTER_SHORT_WORD = 1.2;
-  // biome-ignore lint/style/useNamingConvention: temp scope
   const WAIT_AFTER_LONG_WORD = 1.5;
-  // biome-ignore lint/style/useNamingConvention: temp scope
   const WAIT_AFTER_COMMA = 2;
-  // biome-ignore lint/style/useNamingConvention: temp scope
   const WAIT_AFTER_PERIOD = 3;
-  // biome-ignore lint/style/useNamingConvention: temp scope
   const WAIT_AFTER_PARAGRAPH = 3.5;
 
   if (forceWait) return WAIT_AFTER_PERIOD;
@@ -245,6 +239,7 @@ export function Reader(): ReaderComponent {
       start(true);
     })
     .catch((error: unknown) => {
+      // nosemgrep: javascript.browser.security.insecure-document-method.insecure-document-method
       word.innerHTML = `<div id=summary>${String(error)}</div>`;
       rewind.disabled = true;
       play.disabled = true;
