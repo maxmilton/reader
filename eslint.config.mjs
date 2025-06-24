@@ -10,7 +10,7 @@ export default ts.config(
   eslint.configs.recommended,
   ...ts.configs.strictTypeChecked,
   ...ts.configs.stylisticTypeChecked,
-  unicorn.configs['flat/recommended'],
+  unicorn.configs.recommended,
   mm.configs.recommended,
   {
     linterOptions: {
@@ -18,7 +18,6 @@ export default ts.config(
     },
     languageOptions: {
       parserOptions: {
-        project: ['tsconfig.json', 'tsconfig.node.json'],
         projectService: {
           allowDefaultProject: ['*.mjs'],
         },
@@ -26,9 +25,6 @@ export default ts.config(
       },
     },
     rules: {
-      // FIXME: Remove this once fixed upstream (incorrectly reports chrome as deprecated).
-      '@typescript-eslint/no-deprecated': OFF,
-
       // prefer to clearly separate Bun and DOM
       'unicorn/prefer-global-this': OFF,
 
@@ -46,14 +42,5 @@ export default ts.config(
       'unicorn/prefer-query-selector': OFF,
     },
   },
-  {
-    files: ['build.ts'],
-    rules: {
-      'no-await-in-loop': OFF,
-      'no-console': OFF,
-    },
-  },
-  {
-    ignores: ['**/*.bak', 'coverage/**', 'dist/**'],
-  },
+  { ignores: ['**/*.bak', 'coverage', 'dist'] },
 );
