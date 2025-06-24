@@ -18,6 +18,7 @@ const noop = () => {};
 function setupMocks(): void {
   // TODO: Decide how to handle this once macro string interpolation bug is fixed;  https://github.com/oven-sh/bun/issues/3830
   // this is normally set in build.ts
+  // @ts-expect-error - readonly once set in build
   process.env.APP_RELEASE = '1.0.0';
 
   // @ts-expect-error - noop stub

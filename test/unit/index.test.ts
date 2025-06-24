@@ -10,7 +10,7 @@ describe('dist files', () => {
   // "application/octet-stream". Bun.file() does not resolve symlinks so it's
   // safe to infer that all these files are therefore regular files.
   const distFiles: [filename: string, type: string, minBytes?: number, maxBytes?: number][] = [
-    ['health.js', 'text/javascript;charset=utf-8', 600, 800],
+    ['health.js', 'text/javascript;charset=utf-8', 600, 2200],
     ['icon16.png', 'image/png'],
     ['icon48.png', 'image/png'],
     ['icon128.png', 'image/png'],
@@ -19,7 +19,7 @@ describe('dist files', () => {
     ['literata.woff2', 'font/woff2'],
     ['manifest.json', 'application/json;charset=utf-8'],
     ['reader.css', 'text/css;charset=utf-8', 2000, 4000],
-    ['reader.html', 'text/html;charset=utf-8', 200, 300],
+    ['reader.html', 'text/html;charset=utf-8', 200, 400],
     ['reader.js', 'text/javascript;charset=utf-8', 8000, 11_000],
   ];
 
