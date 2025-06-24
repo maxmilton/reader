@@ -1,28 +1,15 @@
 /**
- * Track JS exceptions with the trackx client.
+ * Tracks JavaScript exceptions using the BugBox client.
  *
- * @fileoverview In Chrome extensions v3 running remote code is not allowed so
- * trackx via CDN would not work + loading local code is obviously much faster.
- *
- * Since the runtime environment will be modern browsers the lite client is OK.
+ * @fileoverview Chrome Extensions v3 disallow remote code execution,
+ * so loading BugBox from a CDN isn't an option. Using a local version
+ * is both faster and compliant. Since we're targeting modern browsers,
+ * the lite client is sufficient.
  */
 
-// biome-ignore lint/style/noNamespaceImport: simple case for better readability
-import * as trackx from 'trackx/lite';
-
-trackx.setup('https://api.trackx.app/v1/9lbe1l9le4x');
-trackx.meta.release = process.env.APP_RELEASE;
-
-if (process.env.NODE_ENV !== 'production') {
-  trackx.meta.NODE_ENV = process.env.NODE_ENV ?? 'NULL';
-}
+// TODO: Use bugbox/lite client once available.
+import * as bugbox from 'bugbox';
 
 chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-  trackx.meta.url = tab.url;
-});
-
-void fetch('https://api.trackx.app/v1/9lbe1l9le4x/ping', {
-  method: 'POST',
-  keepalive: true,
-  mode: 'no-cors',
+  bugbox.meta.url = tab.url;
 });
