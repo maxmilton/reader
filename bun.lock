@@ -5,7 +5,7 @@
       "name": "reader",
       "dependencies": {
         "@ekscss/framework": "0.0.52",
-        "@maxmilton/html-parser": "0.0.11",
+        "@maxmilton/html-parser": "0.0.12",
         "bugbox": "0.0.0",
         "stage1": "0.9.0",
       },
@@ -14,7 +14,7 @@
         "@eslint/js": "9.29.0",
         "@maxmilton/eslint-config": "0.2.1",
         "@maxmilton/stylelint-config": "0.3.0",
-        "@maxmilton/test-utils": "0.0.11",
+        "@maxmilton/test-utils": "0.0.12",
         "@playwright/test": "1.53.1",
         "@swc/core": "1.12.6",
         "@types/bun": "1.2.17",
@@ -114,11 +114,11 @@
 
     "@maxmilton/eslint-config": ["@maxmilton/eslint-config@0.2.1", "", { "dependencies": { "confusing-browser-globals": "^1.0.11" }, "peerDependencies": { "@eslint/js": "^9.0.0", "eslint": "^9.0.0", "eslint-plugin-unicorn": ">=56.0.0", "typescript-eslint": "^8.0.0" }, "optionalPeers": ["eslint-plugin-unicorn"] }, "sha512-wgVbw2RYgPeMNNt0iOgxbBP4WpbYCh+6FaA3hIJEKkHp3EhUavuAVKrDUbTCpno2Yx3MaUbx4R8W59WBNNIDRw=="],
 
-    "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.11", "", {}, "sha512-sY7+kPdAgnQGdrLfNQOM1ZvhgL3E67ZPRhfdW3fCrNOEkKeg68Ad3iDv1gyXo1LVRa47rcPX1BqLkzkraZBu4Q=="],
+    "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.12", "", {}, "sha512-hrmgn5evsM1OpYF+iH5IEi/Z+ZKLmYAxSTVnehxypGERNkjhhp+MDPFeXmxPNKapru5F7XfvUGCXZgjkrM2q9g=="],
 
     "@maxmilton/stylelint-config": ["@maxmilton/stylelint-config@0.3.0", "", { "dependencies": { "postcss-ekscss": "^0.0.12", "stylelint-order": "^7.0.0" }, "peerDependencies": { "stylelint": "^16.18.0" } }, "sha512-qLZcVH4Tj5JNtlNTJjHNWc4FhNcxFQt6hJtqHNhemgfz9Mp16oPA/f3g201sORTTwGG/3ap65sUFtVdHvaDFfA=="],
 
-    "@maxmilton/test-utils": ["@maxmilton/test-utils@0.0.11", "", { "dependencies": { "@maxmilton/html-parser": "^0.0.11", "@types/stylis": "^4.2.7", "stylis": "^4.3.6" }, "peerDependencies": { "happy-dom": ">=14.0.0 <18.0.0" }, "optionalPeers": ["happy-dom"] }, "sha512-dp2nn7Z6y4QvedQvO2cgr6hf0rsMIxlWxLqJx2M+g08RKfRlrJ1qr2IPRwI+NLz/ZjFl56wR0BmcooBUgkrOLQ=="],
+    "@maxmilton/test-utils": ["@maxmilton/test-utils@0.0.12", "", { "dependencies": { "@maxmilton/html-parser": "^0.0.12", "@types/stylis": "^4.2.7", "stylis": "^4.3.6" }, "peerDependencies": { "happy-dom": ">=14.0.0 <18.0.0" }, "optionalPeers": ["happy-dom"] }, "sha512-dxI0ymDu8eMVFkE2XtaGdg5qvKgGK5uNLMcLCoMYqnR7bvlKf3bemVRVBlQ0ZQpjAaOlRPcQRC6zIIIQfMp3XQ=="],
 
     "@nodelib/fs.scandir": ["@nodelib/fs.scandir@2.1.5", "", { "dependencies": { "@nodelib/fs.stat": "2.0.5", "run-parallel": "^1.1.9" } }, "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="],
 

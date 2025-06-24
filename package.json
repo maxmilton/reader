@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@ekscss/framework": "0.0.52",
-    "@maxmilton/html-parser": "0.0.11",
+    "@maxmilton/html-parser": "0.0.12",
     "bugbox": "0.0.0",
     "stage1": "0.9.0"
   },
@@ -33,7 +33,7 @@
     "@eslint/js": "9.29.0",
     "@maxmilton/eslint-config": "0.2.1",
     "@maxmilton/stylelint-config": "0.3.0",
-    "@maxmilton/test-utils": "0.0.11",
+    "@maxmilton/test-utils": "0.0.12",
     "@playwright/test": "1.53.1",
     "@swc/core": "1.12.6",
     "@types/bun": "1.2.17",
