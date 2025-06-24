@@ -8,7 +8,7 @@ import {
   type Tag as Tag_,
   walk,
 } from '@maxmilton/html-parser/src/index.ts';
-import { create } from 'stage1';
+import { create } from 'stage1/fast';
 
 interface Tag extends Omit<Tag_, 'attributeMap'> {
   attributeMap: Record<string, string | undefined>;

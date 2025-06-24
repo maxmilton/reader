@@ -2,7 +2,7 @@
 
 import './Reader.xcss';
 
-import { collect, h } from 'stage1';
+import { collect, h, ONCLICK } from 'stage1/fast';
 import { compile } from 'stage1/macro' with { type: 'macro' };
 import { extractText } from '../extractor.ts';
 import { exec } from '../utils.ts';
@@ -81,10 +81,10 @@ interface Refs {
   speed: Text;
   faster: HTMLButtonElement;
   focus: HTMLDivElement;
-  w: HTMLDivElement;
+  word: HTMLDivElement;
 }
 
-const meta = compile(`
+const meta = compile<Refs>(`
   <div>
     <div id=progress>
       <div @progress id=bar></div>
@@ -99,15 +99,23 @@ const meta = compile(`
     </div>
 
     <div @focus id=focus></div>
-    <div @w id=word></div>
+    <div @word id=word></div>
   </div>
 `);
 const view = h<ReaderComponent>(meta.html);
 
 export function Reader(): ReaderComponent {
   const root = view;
-  const refs = collect<Refs>(root, meta.k, meta.d);
-  const wordref = refs.w;
+  const refs = collect<Refs>(root, meta.d);
+  const progress = refs[meta.ref.progress];
+  const rewind = refs[meta.ref.rewind];
+  const play = refs[meta.ref.play];
+  const speed = refs[meta.ref.speed];
+  const slower = refs[meta.ref.slower];
+  const faster = refs[meta.ref.faster];
+  const focus = refs[meta.ref.focus];
+  const word = refs[meta.ref.word];
+
   let words: string[] = [];
   let wordsIndex = 0;
   /** Current target words per minute. */
@@ -120,14 +128,15 @@ export function Reader(): ReaderComponent {
   function stop() {
     clearTimeout(timer);
     timer = undefined;
-    refs.play.textContent = 'Play';
+    play.textContent = 'Play';
   }
 
   function end() {
     const time = (Date.now() - startTime) / 1000;
     stop();
 
-    wordref.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
+    // nosemgrep: javascript.browser.security.insecure-document-method.insecure-document-method
+    word.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
       // exclude intro countdown
       words.length - 4
     } words in ${
@@ -136,10 +145,10 @@ export function Reader(): ReaderComponent {
         : `${Math.trunc(time / 60)} minute${time < 120 ? '' : 's'}`
     }.</div>`;
 
-    wordref.style.cssText = '';
-    refs.progress.style.transform = 'translateX(0)';
-    refs.focus.className = '';
-    refs.play.textContent = 'Play again';
+    word.style.cssText = '';
+    progress.style.transform = 'translateX(0)';
+    focus.className = '';
+    play.textContent = 'Play again';
     wordsIndex = 0;
     startTime = 0;
   }
@@ -150,42 +159,42 @@ export function Reader(): ReaderComponent {
       return;
     }
 
-    const word = words[wordsIndex];
-    const orpIndex = indexOfORP(word);
+    const currentWord = words[wordsIndex];
+    const orpIndex = indexOfORP(currentWord);
     let focalPoint: FocalPointComponent;
 
-    wordref.replaceChildren(
-      word.slice(0, orpIndex),
-      (focalPoint = FocalPoint(word[orpIndex])),
-      word.slice(orpIndex + 1),
+    word.replaceChildren(
+      currentWord.slice(0, orpIndex),
+      (focalPoint = FocalPoint(currentWord[orpIndex])),
+      currentWord.slice(orpIndex + 1),
     );
 
-    wordref.style.transform = `translateX(-${
+    word.style.transform = `translateX(-${
       focalPoint.offsetLeft + focalPoint.offsetWidth / 2
     }px)`;
-    refs.progress.style.transform = `translateX(${
+    progress.style.transform = `translateX(${
       (wordsIndex / words.length - 1) * 100
     }%)`;
 
     timer = (setTimeout as Window['setTimeout'])(
       // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
       () => next(),
-      rate * waitMultiplier(word, forceWait),
+      rate * waitMultiplier(currentWord, forceWait),
     );
   }
 
   function start(slowStart?: boolean) {
     startTime ||= Date.now();
-    refs.focus.className = 'show';
-    refs.play.textContent = 'Pause';
+    focus.className = 'show';
+    play.textContent = 'Pause';
     next(slowStart);
   }
 
   function updateWPM(newWPM: number) {
     rate = 60_000 / newWPM;
-    refs.speed.nodeValue = `${newWPM} wpm`;
-    refs.slower.disabled = newWPM <= 60;
-    refs.faster.disabled = newWPM >= 1200;
+    speed.nodeValue = `${newWPM} wpm`;
+    slower.disabled = newWPM <= 60;
+    faster.disabled = newWPM >= 1200;
 
     // Avoid writing to storage on initial load
     if (wpm) {
@@ -195,7 +204,7 @@ export function Reader(): ReaderComponent {
     wpm = newWPM;
   }
 
-  refs.rewind.__click = () => {
+  rewind[ONCLICK] = () => {
     stop();
 
     // Go back 3 seconds worth of words
@@ -211,7 +220,7 @@ export function Reader(): ReaderComponent {
     start(true);
   };
 
-  refs.play.__click = () => {
+  play[ONCLICK] = () => {
     if (timer) {
       stop();
     } else {
@@ -220,9 +229,9 @@ export function Reader(): ReaderComponent {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
-  refs.slower.__click = () => updateWPM(wpm - 60);
+  slower[ONCLICK] = () => updateWPM(wpm - 60);
   // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
-  refs.faster.__click = () => updateWPM(wpm + 60);
+  faster[ONCLICK] = () => updateWPM(wpm + 60);
 
   chrome.storage.sync
     .get()
@@ -236,9 +245,9 @@ export function Reader(): ReaderComponent {
       start(true);
     })
     .catch((error: unknown) => {
-      wordref.innerHTML = `<div id=summary>${String(error)}</div>`;
-      refs.rewind.disabled = true;
-      refs.play.disabled = true;
+      word.innerHTML = `<div id=summary>${String(error)}</div>`;
+      rewind.disabled = true;
+      play.disabled = true;
       // eslint-disable-next-line no-console
       console.error(error);
     });
