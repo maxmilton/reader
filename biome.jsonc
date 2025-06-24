@@ -1,150 +1,47 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
-  "organizeImports": { "enabled": true },
   "formatter": {
+    "useEditorconfig": false,
     "formatWithErrors": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineEnding": "lf",
-    "lineWidth": 80
+    "indentStyle": "space"
   },
   "linter": {
     "rules": {
       "recommended": true,
-      "complexity": {
-        "noForEach": "off",
-        "noUselessStringConcat": "warn",
-        "noUselessUndefinedInitialization": "warn",
-        "useSimplifiedLogicExpression": "info",
-        "useDateNow": "error"
-      },
-      "correctness": {
-        "noUndeclaredDependencies": "warn",
-        "noUndeclaredVariables": "warn",
-        "noUnusedFunctionParameters": "warn",
-        "noUnusedImports": { "level": "error", "fix": "none" }
-      },
-      "performance": {
-        "noBarrelFile": "error",
-        "noReExportAll": "error"
-      },
       "style": {
-        "noDoneCallback": "warn",
-        "noNamespace": "error",
-        "noNamespaceImport": "warn",
-        "noNegationElse": "error",
-        "noNonNullAssertion": "off",
-        "noParameterProperties": "error",
-        "noRestrictedGlobals": "error",
-        "noShoutyConstants": "error",
-        "noYodaExpression": "warn",
-        "useCollapsedElseIf": "error",
-        "useConsistentBuiltinInstantiation": "error",
-        "useDefaultSwitchClause": "warn",
-        "useEnumInitializers": "off",
-        "useExplicitLengthCheck": "warn",
-        "useNamingConvention": {
-          "level": "error",
-          "options": { "enumMemberCase": "CONSTANT_CASE", "strictCase": false }
-        },
-        "useShorthandArrayType": "error",
-        "useShorthandAssign": "error",
-        "useSingleCaseStatement": "info",
-        "useTemplate": "off",
-        "useThrowNewError": "error",
-        "useThrowOnlyError": "warn"
+        "noNonNullAssertion": "off"
       },
       "suspicious": {
-        "noApproximativeNumericConstant": "error",
-        "noAssignInExpressions": "off",
-        "noConfusingVoidType": "off",
-        "noConsoleLog": "warn",
-        "noConstEnum": "off",
-        "noDuplicateAtImportRules": "error",
-        "noDuplicateFontNames": "error",
-        "noDuplicateSelectorsKeyframeBlock": "error",
-        "noEmptyBlock": "warn",
-        "noEvolvingTypes": "warn",
-        "noExplicitAny": "off",
-        "noFocusedTests": "error",
-        "noMisplacedAssertion": "error",
-        "noMisrefactoredShorthandAssign": "error",
-        "useErrorMessage": "warn"
-      },
-      "nursery": {
-        "noCommonJs": "error",
-        "noDuplicateElseIf": "error",
-        "noDynamicNamespaceImportAccess": "error",
-        "noEnum": "error",
-        "noExportedImports": "error",
-        // "noSecrets": "info", // TODO: Change to "error" when more stable
-        "noSubstr": "warn",
-        "noUnknownPseudoClass": "warn",
-        "noUnknownPseudoElement": "warn",
-        "useAdjacentOverloadSignatures": "error",
-        "useValidAutocomplete": "warn"
+        "noAssignInExpressions": "off"
       }
     }
   },
   "javascript": {
-    "globals": ["chrome", "Timer"],
+    "globals": ["Bun"],
     "formatter": {
-      "semicolons": "always",
-      "trailingCommas": "all",
       "quoteStyle": "single"
     }
   },
   "overrides": [
     {
-      "include": [".vscode/*.json", "tsconfig*.json"],
-      "json": {
-        "parser": {
-          "allowComments": true,
-          "allowTrailingCommas": true
-        }
-      }
-    },
-    {
-      "include": ["**/*.spec.ts", "**/*.test.ts", "test/**"],
+      "includes": ["**/*.spec.ts", "**/*.test.ts", "test/**"],
       "formatter": {
         "lineWidth": 100
       },
       "linter": {
-        "rules": {
-          "correctness": {
-            "noUndeclaredDependencies": "off"
-          },
-          "style": {
-            "noNamespaceImport": "off"
-          },
-          "nursery": {
-            "noDynamicNamespaceImportAccess": "off"
-          }
+        "domains": {
+          "test": "all"
         }
       },
       "javascript": {
-        "globals": ["$console", "Bun", "chrome", "happyDOM", "Loader"]
+        "globals": ["$console", "Bun", "happyDOM", "Loader"]
       }
     },
     {
-      "include": ["*.config.mjs", "*.config.ts", "*.d.ts", "build.ts"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUndeclaredDependencies": "off"
-          },
-          "style": {
-            "noNamespaceImport": "off",
-            "useNamingConvention": "off"
-          },
-          "suspicious": {
-            "noConsoleLog": "off"
-          }
-        }
-      },
-      "javascript": {
-        "globals": ["Bun", "chrome"]
+      "includes": ["build.ts"],
+      "formatter": {
+        "lineWidth": 100
       }
     }
   ]
