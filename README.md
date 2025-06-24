@@ -1,7 +1,10 @@
-[![Build status](https://img.shields.io/github/actions/workflow/status/maxmilton/reader/ci.yml?branch=master)](https://github.com/maxmilton/reader/actions)
-[![Coverage status](https://img.shields.io/codeclimate/coverage/maxmilton/reader)](https://codeclimate.com/github/maxmilton/reader)
-[![Chrome Web Store version](https://img.shields.io/chrome-web-store/v/ollcdfepbkpopcfilmheonkfbbnnmkbj.svg)](https://chrome.google.com/webstore/detail/reader/ollcdfepbkpopcfilmheonkfbbnnmkbj)
-[![Licence](https://img.shields.io/github/license/maxmilton/reader.svg)](https://github.com/maxmilton/reader/blob/master/LICENSE)
+[![CI status](https://badgen.net/github/checks/maxmilton/reader?label=ci)](https://github.com/maxmilton/reader/actions)
+[![Coverage %](https://badgen.net/codeclimate/coverage/maxmilton/reader)](https://codeclimate.com/github/maxmilton/reader)
+[![Chrome Web Store version](https://badgen.net/chrome-web-store/v/ollcdfepbkpopcfilmheonkfbbnnmkbj)](https://chrome.google.com/webstore/detail/reader/ollcdfepbkpopcfilmheonkfbbnnmkbj)
+[![Licence](https://badgen.net/github/license/maxmilton/reader)](./LICENSE)
+
+<!-- TODO: Migrate to badgen.net once it supports qlty.sh -->
+<!-- [![Coverage %](https://qlty.sh/badges/6bfde82e-dbab-4322-b6c7-19b667bcb173/test_coverage.svg)](https://qlty.sh/gh/maxmilton/projects/reader) -->
 
 # Reader ![](./static/icon48.png)
 
