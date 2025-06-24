@@ -1,6 +1,6 @@
 import { afterEach, expect, test } from 'bun:test';
 import { cleanup, render } from '@maxmilton/test-utils/dom';
-import { FocalPoint, type FocalPointComponent } from '../../src/components/FocalPoint';
+import { FocalPoint, type FocalPointComponent } from '../../src/components/FocalPoint.ts';
 
 afterEach(cleanup);
 

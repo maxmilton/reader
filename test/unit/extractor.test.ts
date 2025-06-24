@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { extractText } from '../../src/extractor';
+import { extractText } from '../../src/extractor.ts';
 
 const minimal = '<html><body>x</body></html>';
 const basic = await Bun.file('test/unit/fixtures/basic.html').text();

@@ -2,15 +2,15 @@
 
 import { describe, expect, test } from 'bun:test';
 import {
+  compile,
   DECLARATION,
   FONT_FACE,
-  SKIP,
-  compile,
   lookup,
   reduce,
+  SKIP,
   walk,
 } from '@maxmilton/test-utils/css';
-import xcssConfig from '../../xcss.config';
+import xcssConfig from '../../xcss.config.ts';
 
 describe('xcss config', () => {
   test('contains only expected plugins', () => {

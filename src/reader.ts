@@ -1,8 +1,8 @@
 import './css/index.xcss';
 
 import { append, fragment, setupSyntheticEvent } from 'stage1';
-import { Footer } from './components/Footer';
-import { Reader } from './components/Reader';
+import { Footer } from './components/Footer.ts';
+import { Reader } from './components/Reader.ts';
 
 declare global {
   interface HTMLElement {

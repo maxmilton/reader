@@ -4,9 +4,13 @@ import './Reader.xcss';
 
 import { collect, h } from 'stage1';
 import { compile } from 'stage1/macro' with { type: 'macro' };
-import { extractText } from '../extractor';
-import { exec } from '../utils';
-import { FocalPoint, type FocalPointComponent, indexOfORP } from './FocalPoint';
+import { extractText } from '../extractor.ts';
+import { exec } from '../utils.ts';
+import {
+  FocalPoint,
+  type FocalPointComponent,
+  indexOfORP,
+} from './FocalPoint.ts';
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
 const extractedWords = (async () => {

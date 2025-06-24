@@ -1,6 +1,6 @@
 import { expect, test } from 'bun:test';
 import dist from '../../dist/manifest.json' with { type: 'json' };
-import { createManifest } from '../../manifest.config';
+import { createManifest } from '../../manifest.config.ts';
 
 const manifest = createManifest(true);
 
@@ -158,7 +158,6 @@ const restoreCI = () => {
     // work in bun for env vars that were set before the process started.
     //  ↳ https://github.com/oven-sh/bun/issues/1559#issuecomment-1440507885
     //  ↳ May be fixed, need to investigate; https://github.com/oven-sh/bun/pull/7614
-    // biome-ignore lint/performance/noDelete: see comment above
     delete process.env.CI;
   } else {
     process.env.CI = oldCI;

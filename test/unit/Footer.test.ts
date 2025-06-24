@@ -4,7 +4,7 @@
 
 // import { afterEach, expect, test } from 'bun:test';
 // import { cleanup, render } from '@maxmilton/test-utils/dom';
-// import { Footer } from '../../src/components/Footer';
+// import { Footer } from '../../src/components/Footer.ts';
 
 // afterEach(cleanup);
 

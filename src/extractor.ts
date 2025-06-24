@@ -3,11 +3,11 @@
 // Import source for better build optimization (especially const enum inlining).
 import {
   type Node,
+  parse,
   SyntaxKind,
   type Tag as Tag_,
-  parse,
   walk,
-} from '@maxmilton/html-parser/src';
+} from '@maxmilton/html-parser/src/index.ts';
 import { create } from 'stage1';
 
 interface Tag extends Omit<Tag_, 'attributeMap'> {

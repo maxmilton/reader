@@ -1,14 +1,14 @@
 import { afterEach, expect, spyOn, test } from 'bun:test';
 import { cleanup, render } from '@maxmilton/test-utils/dom';
-import type { UserSettings } from '../../src/components/Reader';
+import type { UserSettings } from '../../src/components/Reader.ts';
 
 afterEach(cleanup);
 
 // HACK: The Reader component is designed to be rendered once (does not clone
 // its view) and mutates global state. Given the global state mutation, it's
 // vital to reset its module between tests for accurate test conditions.
-const MODULE_PATH = Bun.resolveSync('../../src/components/Reader', import.meta.dir);
-let Reader: typeof import('../../src/components/Reader').Reader;
+const MODULE_PATH = Bun.resolveSync('../../src/components/Reader.ts', import.meta.dir);
+let Reader: typeof import('../../src/components/Reader.ts').Reader;
 
 async function load(html: string, settings?: UserSettings) {
   // @ts-expect-error - stub return value
@@ -20,7 +20,7 @@ async function load(html: string, settings?: UserSettings) {
 
   Loader.registry.delete(MODULE_PATH);
   // eslint-disable-next-line unicorn/no-await-expression-member
-  Reader = (await import('../../src/components/Reader')).Reader;
+  Reader = (await import('../../src/components/Reader.ts')).Reader;
 
   return /** restore */ () => {
     chrome.storage.sync.get = () => Promise.resolve({});
