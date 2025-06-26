@@ -1,6 +1,5 @@
 {
   "biome.enabled": true,
-  // "css.validate": false,
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
