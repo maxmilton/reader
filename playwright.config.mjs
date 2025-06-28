@@ -10,14 +10,14 @@ export default defineConfig({
     acceptDownloads: false,
     contextOptions: { strictSelectors: true },
     locale: 'en-US',
-    // offline: true, // no networking necessary
     timezoneId: 'UTC',
     trace: 'on-first-retry',
   },
   expect: {
     toHaveScreenshot: {
-      // scale: 'device',
+      scale: 'device',
       stylePath: 'test/e2e/screenshot.css',
+      maxDiffPixelRatio: 0.02, // allow for font rendering variance
     },
   },
 });

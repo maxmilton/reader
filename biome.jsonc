@@ -1,12 +1,20 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "assist": {
+    "actions": {
+      "recommended": true,
+      "source": { "useSortedProperties": "on" }
+    }
+  },
   "formatter": {
-    "useEditorconfig": false,
     "formatWithErrors": true,
     "indentStyle": "space"
   },
   "linter": {
+    "domains": {
+      "project": "all"
+    },
     "rules": {
       "recommended": true,
       "style": {
@@ -14,6 +22,9 @@
       },
       "suspicious": {
         "noAssignInExpressions": "off"
+      },
+      "nursery": {
+        "noUnresolvedImports": "off" // covered by typescript
       }
     }
   },
