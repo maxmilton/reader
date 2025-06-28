@@ -1,5 +1,5 @@
 import type { ConsoleMessage } from '@playwright/test';
-import { describe, expect, test } from './fixtures';
+import { describe, expect, test } from './fixtures.ts';
 
 test('reader popup', async ({ page, extensionId }) => {
   await page.goto(`chrome-extension://${extensionId}/reader.html`);

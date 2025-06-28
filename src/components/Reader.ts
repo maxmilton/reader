@@ -47,9 +47,7 @@ function waitMultiplier(word: string, forceWait?: boolean) {
   if (forceWait) return WAIT_AFTER_PERIOD;
   // if (word === 'Dr.' || word === 'Mr.' || word === 'Mrs.' || word === 'Ms.') return 1;
 
-  // eslint-disable-next-line unicorn/prefer-at
   let lastChar = word[word.length - 1];
-  // eslint-disable-next-line unicorn/prefer-at
   if ('"”'.includes(lastChar)) lastChar = word[word.length - 2];
 
   if (lastChar === '\n') return WAIT_AFTER_PARAGRAPH;
