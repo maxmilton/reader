@@ -61,7 +61,7 @@ Report any bugs you encounter on the [GitHub issue tracker](https://github.com/m
 
 MIT license. See [LICENSE](https://github.com/maxmilton/reader/blob/master/LICENSE).
 
-The [Literata web font](https://fonts.google.com/specimen/Literata) is from [googlefonts/literata](https://github.com/googlefonts/literata) which is licensed OFL-1.1.
+The Literata font is from [googlefonts/literata](https://github.com/googlefonts/literata) which is licensed OFL-1.1.
 
 The [open book icon](https://github.com/twitter/twemoji/blob/master/assets/svg/1f4d6.svg) is from [twitter/twemoji](https://github.com/twitter/twemoji) which is licensed CC-BY 4.0.
 

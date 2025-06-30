@@ -23,7 +23,6 @@
   align-items: center;
   margin: 0.5rem 0.5rem 0;
 
-  // TODO: Measure holistic performance impact of this vs adding classes to the buttons
   & > button:nth-child(n+3) {
     #apply: .bold;
   }
@@ -62,7 +61,7 @@
   align-items: center;
   height: 134px;
   font-family: ${x.app.fontStack};
-  font-size: 48px;
+  font-size: 48px; // equal to Literata font's optimal size of 36pt
   white-space: nowrap;
   transform: translateX(-50%);
 }

@@ -22,7 +22,7 @@ describe('xcss config', () => {
   });
 });
 
-const fonts = ['literata.woff2', 'literata-ext.woff2', 'literata-italic.woff2'] as const;
+const fonts = ["literata.ttf", "literata-extended.ttf", "literata-fin.ttf"] as const;
 const css = await Bun.file('dist/reader.css').text();
 const ast = compile(css);
 
