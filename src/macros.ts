@@ -9,7 +9,7 @@ export function interpolate(text: string, values: string[]): string {
   // eslint-disable-next-line unicorn/no-array-for-each
   values.forEach((value, index) => {
     // nosemgrep: javascript.lang.security.audit.detect-non-literal-regexp.detect-non-literal-regexp
-    result = result.replace(new RegExp(`%%${String(index + 1)}%%`, 'g'), value);
+    result = result.replace(new RegExp(`%%${String(index + 1)}%%`, "g"), value);
   });
 
   return result;

@@ -1,6 +1,6 @@
-import './FocalPoint.xcss';
+import "./FocalPoint.xcss";
 
-import { create } from 'stage1/fast';
+import { create } from "stage1/fast";
 
 const NON_WORD_RE = /\W/;
 
@@ -28,8 +28,8 @@ export function indexOfORP(word: string): number {
 
 export type FocalPointComponent = HTMLSpanElement;
 
-const view = create('span');
-view.id = 'fp';
+const view = create("span");
+view.id = "fp";
 
 export function FocalPoint(char: string): FocalPointComponent {
   // Don't clone; reuse the same node.

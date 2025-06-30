@@ -1,8 +1,8 @@
-import './css/index.xcss';
+import "#css/index.xcss";
 
-import { append, fragment, handleClick } from 'stage1/fast';
-import { Footer } from './components/Footer.ts';
-import { Reader } from './components/Reader.ts';
+import { Footer } from "#components/Footer.ts";
+import { Reader } from "#components/Reader.ts";
+import { append, fragment, handleClick } from "stage1/fast";
 
 const container = fragment();
 
