@@ -74,7 +74,7 @@ const SKIP = true;
 const textarea = create("textarea");
 
 function decodeHTMLEntities(html: string) {
-  // nosemgrep: javascript.browser.security.insecure-document-method.insecure-document-method
+  // nosemgrep: insecure-document-method
   textarea.innerHTML = html;
   return textarea.value;
 }
