@@ -1,20 +1,20 @@
-declare module 'bun' {
+declare module "bun" {
   interface Env {
     readonly APP_RELEASE: string;
   }
 }
 
-declare module '*.css' {
+declare module "*.css" {
   const content: string;
   export default content;
 }
 
-declare module '*.svg' {
+declare module "*.svg" {
   const content: string;
   export default content;
 }
 
-declare module '*.xcss' {
+declare module "*.xcss" {
   const content: string;
   export default content;
 }
