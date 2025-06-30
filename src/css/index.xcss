@@ -1,8 +1,8 @@
-@import './fonts.xcss';
+@import "./fonts.xcss";
 
 // Packages
-@import '@ekscss/framework';
-@import '@ekscss/framework/addon/dark.xcss';
+@import "@ekscss/framework";
+@import "@ekscss/framework/addon/dark.xcss";
 
 // Local
-@import './global.xcss';
+@import "./global.xcss";

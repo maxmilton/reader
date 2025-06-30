@@ -1,73 +1,67 @@
 /* eslint-disable @typescript-eslint/prefer-for-of, unicorn/prefer-includes, unicorn/no-for-loop */
 
 // Import source for better build optimization (especially const enum inlining).
-import {
-  type Node,
-  parse,
-  SyntaxKind,
-  type Tag as Tag_,
-  walk,
-} from '@maxmilton/html-parser/src/index.ts';
-import { create } from 'stage1/fast';
+import { type Node, parse, SyntaxKind, type Tag as Tag_, walk } from "@maxmilton/html-parser/src/index.ts";
+import { create } from "stage1/fast";
 
-interface Tag extends Omit<Tag_, 'attributeMap'> {
+interface Tag extends Omit<Tag_, "attributeMap"> {
   attributeMap: Record<string, string | undefined>;
 }
 
 const BLOCK_ELEMENTS = new Set([
-  'address',
-  'article',
-  // 'aside',
-  'blockquote',
-  // 'canvas',
-  'dd',
-  'div',
-  'dl',
-  'fieldset',
-  // 'figcaption',
-  // 'figure',
-  'footer',
-  // 'form',
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'header',
-  'hgroup',
-  'hr',
-  'li',
-  'main',
-  // 'nav',
-  // 'noscript',
-  'ol',
-  'output',
-  'p',
-  'pre',
-  'section',
-  'table',
-  'tfoot',
-  'ul',
+  "address",
+  "article",
+  // "aside",
+  "blockquote",
+  // "canvas",
+  "dd",
+  "div",
+  "dl",
+  "fieldset",
+  // "figcaption",
+  // "figure",
+  "footer",
+  // "form",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "header",
+  "hgroup",
+  "hr",
+  "li",
+  "main",
+  // "nav",
+  // "noscript",
+  "ol",
+  "output",
+  "p",
+  "pre",
+  "section",
+  "table",
+  "tfoot",
+  "ul",
 ]);
 const EXTRANEOUS_ELEMENTS = new Set([
-  '!--',
-  'aside',
-  'button',
-  'canvas',
-  'embed',
-  'figcaption',
-  'figure',
-  'form',
-  'head',
-  'iframe',
-  'input',
-  'nav',
-  'noscript',
-  'script',
-  'style',
-  'svg',
-  'textarea',
+  "!--",
+  "aside",
+  "button",
+  "canvas",
+  "embed",
+  "figcaption",
+  "figure",
+  "form",
+  "head",
+  "iframe",
+  "input",
+  "nav",
+  "noscript",
+  "script",
+  "style",
+  "svg",
+  "textarea",
 ]);
 // FIXME: Needs more real-world testing as false positives are possible
 //  ↳ Might need some kind of scoring logic to determine confidence
@@ -77,7 +71,7 @@ const EXTRANEOUS_CLASSES =
   /comment|communit|contact|disqus|donat|extra|fundrais|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|widget/i;
 const SKIP = true;
 
-const textarea = create('textarea');
+const textarea = create("textarea");
 
 function decodeHTMLEntities(html: string) {
   // nosemgrep: javascript.browser.security.insecure-document-method.insecure-document-method
@@ -137,13 +131,13 @@ export function extractText(html: string): string {
     enter(node) {
       if (node.type === SyntaxKind.Tag) {
         switch (node.name) {
-          case 'article':
+          case "article":
             articles.push(node);
             break;
-          case 'body':
+          case "body":
             body = node;
             break;
-          case 'main':
+          case "main":
             mains.push(node);
             break;
           default:
@@ -171,17 +165,16 @@ export function extractText(html: string): string {
   //  7. Element with id = app
   //  8. Element with id = root
   //  9. <body> element (always defined)
-  const root =
-    articles.length === 1
-      ? articles[0]
-      : (tagById.article ??
-        tagById.post ??
-        tagById.content ??
-        tagById.main ??
-        (mains.length === 1
-          ? mains[0]
-          : (tagById.app ?? tagById.root ?? body!)));
-  let text = '';
+  const root = articles.length === 1
+    ? articles[0]
+    : (tagById.article
+      ?? tagById.post
+      ?? tagById.content
+      ?? tagById.main
+      ?? (mains.length === 1
+        ? mains[0]
+        : (tagById.app ?? tagById.root ?? body!)));
+  let text = "";
 
   // Second pass; clean up superfluous nodes and extract meaningful text
   walk2(
@@ -191,11 +184,11 @@ export function extractText(html: string): string {
     (node, parent) => {
       if (node.type === SyntaxKind.Tag) {
         if (
-          EXTRANEOUS_ELEMENTS.has(node.name) ||
-          (node.name === 'footer' && parent.name !== 'blockquote') ||
+          EXTRANEOUS_ELEMENTS.has(node.name)
+          || (node.name === "footer" && parent.name !== "blockquote")
           // TODO: Fix types
-          ((node as unknown as Tag).attributeMap.class &&
-            EXTRANEOUS_CLASSES.test(
+          || ((node as unknown as Tag).attributeMap.class
+            && EXTRANEOUS_CLASSES.test(
               (node as unknown as Tag).attributeMap.class!,
             ))
         ) {
@@ -204,16 +197,16 @@ export function extractText(html: string): string {
       } else {
         // Add text with consecutive whitespace collapsed
         text += (
-          node.value.indexOf('&') === -1 // eslint-disable-line @typescript-eslint/prefer-includes
+          node.value.indexOf("&") === -1 // eslint-disable-line @typescript-eslint/prefer-includes
             ? node.value
             : decodeHTMLEntities(node.value)
-        ).replace(/\s+/g, ' ');
+        ).replace(/\s+/g, " ");
       }
     },
     (node) => {
       if (node.type === SyntaxKind.Tag && BLOCK_ELEMENTS.has(node.name)) {
         // Add double space (which is turned into a newline later)
-        text += '  ';
+        text += "  ";
       }
     },
   );
@@ -225,37 +218,37 @@ export function extractText(html: string): string {
     text
       .trim()
       // ensure single consecutive \n padded with space
-      .replace(/[\n ]{2,}/g, ' \n ')
+      .replace(/[\n ]{2,}/g, " \n ")
       // fix missing space around em dashes
-      .replace(/(\S)—(\S)/g, '$1 — $2')
+      .replace(/(\S)—(\S)/g, "$1 — $2")
   );
 }
 
 // // Simple stringify AST to prettified HTML-like structure for debugging
 // function stringify(node: Node, html: string, level = 1): string {
-//   if (node.type === SyntaxKind.Text) return node.value.replace(/\s+/g, ' ');
-//   if (node.name === '!--') return html.slice(node.start, node.end);
+//   if (node.type === SyntaxKind.Text) return node.value.replace(/\s+/g, " ");
+//   if (node.name === "!--") return html.slice(node.start, node.end);
 //
 //   const attrs = node.attributes
 //     .map((attr) => html.slice(attr.start, attr.end))
-//     .join(' ');
-//   const head = `<${node.rawName}${attrs ? ` ${attrs}` : ''}>`;
+//     .join(" ");
+//   const head = `<${node.rawName}${attrs ? ` ${attrs}` : ""}>`;
 //
 //   if (!node.body || node.body.length === 0) return head;
 //
 //   /* eslint-disable prefer-template */ // template string breaks after minification
 //   return (
 //     head
-//     + '\n'
-//     + '  '.repeat(level)
+//     + "\n"
+//     + "  ".repeat(level)
 //     + node.body
-//       .filter((n) => !(n.type === SyntaxKind.Text && n.value.trim() === ''))
+//       .filter((n) => !(n.type === SyntaxKind.Text && n.value.trim() === ""))
 //       .map((n) => stringify(n, html, level + 1))
-//       .join('\n' + '  '.repeat(level))
-//     + '\n'
-//     + '  '.repeat(level - 1)
-//     + '</'
+//       .join("\n" + "  ".repeat(level))
+//     + "\n"
+//     + "  ".repeat(level - 1)
+//     + "</"
 //     + node.rawName
-//     + '>'
+//     + ">"
 //   );
 // }

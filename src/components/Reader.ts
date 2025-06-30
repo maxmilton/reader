@@ -1,35 +1,31 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
-import './Reader.xcss';
+import "./Reader.xcss";
 
-import { collect, h, ONCLICK } from 'stage1/fast';
-import { compile } from 'stage1/macro' with { type: 'macro' };
-import { extractText } from '../extractor.ts';
-import { exec } from '../utils.ts';
-import {
-  FocalPoint,
-  type FocalPointComponent,
-  indexOfORP,
-} from './FocalPoint.ts';
+import { extractText } from "#extractor.ts";
+import { exec } from "#utils.ts";
+import { collect, h, ONCLICK } from "stage1/fast";
+import { compile } from "stage1/macro" with { type: "macro" };
+import { FocalPoint, type FocalPointComponent, indexOfORP } from "./FocalPoint.ts";
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
 const extractedWords = (async () => {
-  performance.mark('Extract:Begin');
+  performance.mark("Extract:Begin");
   const html = await exec(() => {
     const selection = window.getSelection();
-    if (selection?.type === 'Range') {
+    if (selection?.type === "Range") {
       const range = selection.getRangeAt(0);
       const contents = range.cloneContents();
-      const body = document.createElement('body');
+      const body = document.createElement("body");
       body.append(contents);
       return body.outerHTML;
     }
     return document.documentElement.outerHTML;
   });
   // eslint-disable-next-line prefer-template
-  const text = ' 3. 2. 1. ' + extractText(html) + '\n';
-  performance.measure('Extract', 'Extract:Begin');
-  return text.split(' ');
+  const text = " 3. 2. 1. " + extractText(html) + "\n";
+  performance.measure("Extract", "Extract:Begin");
+  return text.split(" ");
 })();
 
 function waitMultiplier(word: string, forceWait?: boolean) {
@@ -50,9 +46,9 @@ function waitMultiplier(word: string, forceWait?: boolean) {
   let lastChar = word[word.length - 1];
   if ('"”'.includes(lastChar)) lastChar = word[word.length - 2];
 
-  if (lastChar === '\n') return WAIT_AFTER_PARAGRAPH;
-  if ('.!?…'.includes(lastChar)) return WAIT_AFTER_PERIOD;
-  if (',;:–'.includes(lastChar)) return WAIT_AFTER_COMMA;
+  if (lastChar === "\n") return WAIT_AFTER_PARAGRAPH;
+  if (".!?…".includes(lastChar)) return WAIT_AFTER_PERIOD;
+  if (",;:–".includes(lastChar)) return WAIT_AFTER_COMMA;
   if (word.length < 4) return WAIT_AFTER_SHORT_WORD;
   if (word.length > 11) return WAIT_AFTER_LONG_WORD;
   return WAIT_AFTER_WORD;
@@ -120,7 +116,7 @@ export function Reader(): ReaderComponent {
   function stop() {
     clearTimeout(timer);
     timer = undefined;
-    play.textContent = 'Play';
+    play.textContent = "Play";
   }
 
   function end() {
@@ -130,17 +126,16 @@ export function Reader(): ReaderComponent {
     // nosemgrep: javascript.browser.security.insecure-document-method.insecure-document-method
     word.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
       // exclude intro countdown
-      words.length - 4
-    } words in ${
+      words.length - 4} words in ${
       time < 60
         ? `${Math.trunc(time)} seconds`
-        : `${Math.trunc(time / 60)} minute${time < 120 ? '' : 's'}`
+        : `${Math.trunc(time / 60)} minute${time < 120 ? "" : "s"}`
     }.</div>`;
 
-    word.style.cssText = '';
-    progress.style.transform = 'translateX(0)';
-    focus.className = '';
-    play.textContent = 'Play again';
+    word.style.cssText = "";
+    progress.style.transform = "translateX(0)";
+    focus.className = "";
+    play.textContent = "Play again";
     wordsIndex = 0;
     startTime = 0;
   }
@@ -157,18 +152,14 @@ export function Reader(): ReaderComponent {
 
     word.replaceChildren(
       currentWord.slice(0, orpIndex),
-      (focalPoint = FocalPoint(currentWord[orpIndex])),
+      focalPoint = FocalPoint(currentWord[orpIndex]),
       currentWord.slice(orpIndex + 1),
     );
 
-    word.style.transform = `translateX(-${
-      focalPoint.offsetLeft + focalPoint.offsetWidth / 2
-    }px)`;
-    progress.style.transform = `translateX(${
-      (wordsIndex / words.length - 1) * 100
-    }%)`;
+    word.style.transform = `translateX(-${focalPoint.offsetLeft + focalPoint.offsetWidth / 2}px)`;
+    progress.style.transform = `translateX(${(wordsIndex / words.length - 1) * 100}%)`;
 
-    timer = (setTimeout as Window['setTimeout'])(
+    timer = (setTimeout as Window["setTimeout"])(
       // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
       () => next(),
       rate * waitMultiplier(currentWord, forceWait),
@@ -177,8 +168,8 @@ export function Reader(): ReaderComponent {
 
   function start(slowStart?: boolean) {
     startTime ||= Date.now();
-    focus.className = 'show';
-    play.textContent = 'Pause';
+    focus.className = "show";
+    play.textContent = "Pause";
     next(slowStart);
   }
 
@@ -226,13 +217,13 @@ export function Reader(): ReaderComponent {
   faster[ONCLICK] = () => updateWPM(wpm + 60);
 
   chrome.storage.sync
-    .get()
-    .then((settings: UserSettings) => {
+    .get<UserSettings>()
+    .then((settings) => {
       updateWPM(settings.wpm ?? 180);
       return extractedWords;
     })
     .then((wordList) => {
-      performance.measure('Preprocessing');
+      performance.measure("Preprocessing");
       words = wordList;
       start(true);
     })

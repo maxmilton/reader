@@ -23,10 +23,10 @@ button {
   // Override @ekscss/framework/level2/button.xcss to prevent browser repaints
   z-index: initial;
 
-  &:hover { #apply: '.button:hover'; }
+  &:hover { #apply: ".button:hover"; }
 
   &:focus,
-  &:active { #apply: '.button:focus'; }
+  &:active { #apply: ".button:focus"; }
 
   // &[disabled],
   // &[disabled]:hover,
@@ -44,3 +44,7 @@ button {
 //   // stroke-width: 2px;
 //   fill: currentcolor;
 // }
+
+* {
+  user-select: none;
+}
