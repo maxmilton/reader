@@ -123,7 +123,7 @@ export function Reader(): ReaderComponent {
     const time = (Date.now() - startTime) / 1000;
     stop();
 
-    // nosemgrep: javascript.browser.security.insecure-document-method.insecure-document-method
+    // nosemgrep: insecure-document-method
     word.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
       // exclude intro countdown
       words.length - 4} words in ${
@@ -228,7 +228,7 @@ export function Reader(): ReaderComponent {
       start(true);
     })
     .catch((error: unknown) => {
-      // nosemgrep: javascript.browser.security.insecure-document-method.insecure-document-method
+      // nosemgrep: insecure-document-method
       word.innerHTML = `<div id=summary>${String(error)}</div>`;
       rewind.disabled = true;
       play.disabled = true;

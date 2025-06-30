@@ -31,7 +31,7 @@ function xcssPlugin(config: xcss.XCSSCompileOptions): Bun.BunPlugin {
 }
 
 function makeHTML(release: string) {
-  // nosemgrep: generic.secrets.gitleaks.generic-api-key.generic-api-key
+  // nosemgrep: generic-api-key
   const bugboxApiKey = "AZczqkPBcACag7DE9p762A";
   return `
     <!doctype html>
