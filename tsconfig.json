@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -6,10 +7,10 @@
     "moduleResolution": "bundler",
     "esModuleInterop": false,
     "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "allowJs": false,
-
     "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": true,
     "noEmit": true,
 
     "strict": true,
@@ -21,7 +22,11 @@
     "noUncheckedSideEffectImports": true,
     "noUnusedLocals": false, // covered by eslint
     "noUnusedParameters": false, // covered by eslint
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+
+    "paths": {
+      "#*": ["./src/*"],
+    },
   },
   "include": [
     "*.config.mjs",
@@ -29,6 +34,6 @@
     "*.d.ts",
     "build.ts",
     "src",
-    "test"
-  ]
+    "test",
+  ],
 }
