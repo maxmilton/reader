@@ -13,7 +13,7 @@
     "dev": "NODE_ENV=development bun build.ts",
     "lint": "bun lint:fmt && bun lint:css && bun lint:js && bun lint:ts",
     "lint:css": "stylelint '**/*.{css,xcss}'",
-    "lint:fmt": "biome check",
+    "lint:fmt": "dprint check",
     "lint:js": "eslint",
     "lint:ts": "tsc --noEmit",
     "test": "bun test",
@@ -29,7 +29,6 @@
     "stage1": "0.9.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.6",
     "@eslint/js": "9.30.0",
     "@maxmilton/eslint-config": "0.2.1",
     "@maxmilton/stylelint-config": "0.4.0",
@@ -40,6 +39,7 @@
     "@types/chrome": "0.0.327",
     "@types/csso": "5.0.4",
     "csso": "5.0.5",
+    "dprint": "0.50.0",
     "ekscss": "0.0.20",
     "eslint": "9.30.0",
     "eslint-plugin-unicorn": "59.0.1",

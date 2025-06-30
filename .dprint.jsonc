@@ -1,0 +1,29 @@
+{
+  "$schema": "https://dprint.dev/schemas/v0.json",
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.95.8.wasm",
+    "https://plugins.dprint.dev/json-0.20.0.wasm",
+    "https://plugins.dprint.dev/markdown-0.19.0.wasm",
+    "https://plugins.dprint.dev/g-plane/malva-v0.12.1.wasm",
+    "https://plugins.dprint.dev/g-plane/pretty_yaml-v0.5.1.wasm",
+  ],
+  "typescript": {
+    "quoteStyle": "preferDouble",
+  },
+  "json": {
+    "jsonTrailingCommaFiles": [
+      "tsconfig.json",
+      ".vscode/*.json",
+      // TODO: Use globs once supported; https://github.com/dprint/dprint-plugin-json/issues/38
+      ".vscode/extensions.json",
+      ".vscode/launch.json",
+      ".vscode/settings.json",
+    ],
+  },
+  "markdown": {},
+  "malva": {},
+  "yaml": {},
+  "excludes": [
+    "**/*.svg",
+  ],
+}
