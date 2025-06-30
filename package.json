@@ -25,7 +25,7 @@
   "dependencies": {
     "@ekscss/framework": "0.0.52",
     "@maxmilton/html-parser": "0.0.12",
-    "bugbox": "0.0.0",
+    "bugbox": "0.0.1",
     "stage1": "0.9.0"
   },
   "devDependencies": {
@@ -36,7 +36,7 @@
     "@playwright/test": "1.53.1",
     "@swc/core": "1.12.7",
     "@types/bun": "1.2.17",
-    "@types/chrome": "0.0.327",
+    "@types/chrome": "0.0.328",
     "@types/csso": "5.0.4",
     "csso": "5.0.5",
     "dprint": "0.50.0",
