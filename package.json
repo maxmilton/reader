@@ -19,8 +19,8 @@
     "test": "bun test",
     "test:e2e": "playwright test"
   },
-  "overrides": {
-    "bugbox": "link:bugbox"
+  "imports": {
+    "#*": "./src/*"
   },
   "dependencies": {
     "@ekscss/framework": "0.0.52",
