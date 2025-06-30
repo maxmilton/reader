@@ -37,7 +37,7 @@ function makeHTML(release: string) {
     <!doctype html>
     <meta charset=utf-8>
     <meta name=google value=notranslate>
-    <link href=literata.woff2 rel=preload as=font type=font/woff2 crossorigin>
+    <link href=literata.ttf rel=preload as=font type=font/ttf crossorigin>
     <link href=reader.css rel=stylesheet>
     <script src=health.js defer crossorigin data-key=${bugboxApiKey} data-release=${release}${env === 'production' ? '' : ` data-env=${String(env)}`}></script>
     <script src=reader.js defer></script>
@@ -209,7 +209,7 @@ const out2 = await Bun.build({
   entrypoints: ['src/reader.ts'],
   outdir: 'dist',
   target: 'browser',
-  external: ['literata-ext.woff2', 'literata-italic.woff2', 'literata.woff2'],
+  external: ["*.ttf"],
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.NODE_ENV': JSON.stringify(env),
