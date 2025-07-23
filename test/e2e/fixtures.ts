@@ -1,6 +1,6 @@
 // https://playwright.dev/docs/chrome-extensions
 
-/* eslint-disable no-empty-pattern, unicorn/prefer-module */
+/* eslint-disable no-empty-pattern */
 
 import { type BrowserContext, chromium, test as baseTest } from "@playwright/test";
 import path from "node:path";
@@ -9,7 +9,6 @@ export const test = baseTest.extend<{
   context: BrowserContext;
   extensionId: string;
 }>({
-  // biome-ignore lint/correctness/noEmptyPattern: empty initial context
   async context({}, use) {
     const extensionPath = path.join(__dirname, "../../dist");
     const context = await chromium.launchPersistentContext("", {
@@ -29,7 +28,6 @@ export const test = baseTest.extend<{
   //   const extensionId = sw.url().split("/")[2];
   //   await use(extensionId);
   // },
-  // biome-ignore lint/correctness/noEmptyPattern: empty initial context
   async extensionId({}, use) {
     await use("ollcdfepbkpopcfilmheonkfbbnnmkbj");
   },

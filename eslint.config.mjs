@@ -31,7 +31,7 @@ export default ts.config(
       /* Performance and byte savings */
       // byte savings
       "no-plusplus": OFF,
-      // byte savings (minification doesn't currently automatically remove)
+      // byte savings (minification doesn't automatically remove)
       "unicorn/switch-case-braces": [ERROR, "avoid"],
 
       /* stage1 */
@@ -41,7 +41,7 @@ export default ts.config(
       "unicorn/prefer-dom-node-append": OFF,
       "unicorn/prefer-query-selector": OFF,
 
-      /* Migrate to dprint */
+      /* Migrate to dprint (formatter) */
       quotes: [ERROR, "double", { avoidEscape: true }],
     },
   },
