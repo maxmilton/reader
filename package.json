@@ -34,7 +34,7 @@
     "@maxmilton/stylelint-config": "0.4.0",
     "@maxmilton/test-utils": "0.0.12",
     "@playwright/test": "1.54.1",
-    "@swc/core": "1.13.2",
+    "@swc/core": "1.13.3",
     "@types/bun": "1.2.19",
     "@types/chrome": "0.1.1",
     "@types/csso": "5.0.4",
