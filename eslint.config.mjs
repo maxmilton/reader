@@ -23,6 +23,8 @@ export default ts.config(
       },
     },
     rules: {
+      quotes: [ERROR, "double", { avoidEscape: true }],
+
       // Bad browser support
       "unicorn/prefer-at": OFF,
       // Prefer to clearly separate Bun and DOM
@@ -35,14 +37,9 @@ export default ts.config(
       "unicorn/switch-case-braces": [ERROR, "avoid"],
 
       /* stage1 */
-      // underscores in synthetic event handler names
-      "no-underscore-dangle": OFF,
       "unicorn/prefer-add-event-listener": OFF,
       "unicorn/prefer-dom-node-append": OFF,
       "unicorn/prefer-query-selector": OFF,
-
-      /* Migrate to dprint (formatter) */
-      quotes: [ERROR, "double", { avoidEscape: true }],
     },
   },
   { ignores: ["**/*.bak", "coverage", "dist"] },

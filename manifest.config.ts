@@ -8,13 +8,13 @@ function gitRef() {
 }
 
 // TODO: Remove these once `@types/chrome` includes these types.
-/** @see https://developer.chrome.com/docs/extensions/mv3/cross-origin-isolation/ */
+/** @see https://developer.chrome.com/docs/extensions/develop/concepts/cross-origin-isolation */
 interface ManifestExtra {
-  /** @see https://developer.chrome.com/docs/extensions/mv3/manifest/cross_origin_embedder_policy/ */
+  /** @see https://developer.chrome.com/docs/extensions/reference/manifest/cross-origin-embedder-policy */
   cross_origin_embedder_policy?: {
     value: string;
   };
-  /** @see https://developer.chrome.com/docs/extensions/mv3/manifest/cross_origin_opener_policy/ */
+  /** @see https://developer.chrome.com/docs/extensions/reference/manifest/cross-origin-opener-policy */
   cross_origin_opener_policy?: {
     value: string;
   };
@@ -24,8 +24,7 @@ interface ManifestExtra {
  * Generates a browser extension manifest.
  * @param debug - Whether to include a version name for debugging.
  *
- * @see https://developer.chrome.com/docs/extensions/reference/
- * @see https://developer.chrome.com/docs/extensions/mv3/manifest/
+ * @see https://developer.chrome.com/docs/extensions/reference/manifest
  *
  * @internal
  */
@@ -47,9 +46,9 @@ export function createManifest(
       128: "icon128.png",
     },
     permissions: [
-      "activeTab", // https://developer.chrome.com/docs/extensions/mv3/manifest/activeTab/
-      "scripting", // https://developer.chrome.com/docs/extensions/reference/scripting/
-      "storage", // https://developer.chrome.com/docs/extensions/reference/storage/
+      "activeTab", // https://developer.chrome.com/docs/extensions/develop/concepts/activeTab
+      "scripting", // https://developer.chrome.com/docs/extensions/reference/api/scripting
+      "storage", // https://developer.chrome.com/docs/extensions/reference/api/storage
     ],
     action: {
       default_popup: "reader.html",
@@ -68,7 +67,7 @@ export function createManifest(
         "", // include trailing semicolon
       ].join(";"),
     },
-    // https://developer.chrome.com/docs/extensions/mv3/cross-origin-isolation/
+    // https://developer.chrome.com/docs/extensions/develop/concepts/cross-origin-isolation
     cross_origin_embedder_policy: { value: "require-corp" },
     cross_origin_opener_policy: { value: "same-origin" },
 
