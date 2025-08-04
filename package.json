@@ -34,7 +34,6 @@
     "@maxmilton/stylelint-config": "0.4.0",
     "@maxmilton/test-utils": "0.0.12",
     "@playwright/test": "1.54.2",
-    "@swc/core": "1.13.3",
     "@types/bun": "1.2.19",
     "@types/chrome": "0.1.1",
     "@types/csso": "5.0.4",
@@ -48,6 +47,7 @@
     "purgecss": "7.0.2",
     "stylelint": "16.23.0",
     "stylelint-config-standard": "39.0.0",
+    "terser": "5.43.1",
     "typescript": "5.9.2",
     "typescript-eslint": "8.38.0"
   }

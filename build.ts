@@ -1,11 +1,11 @@
 /* eslint-disable no-await-in-loop, no-console */
 
-import * as swc from "@swc/core";
 import * as csso from "csso";
 import * as xcss from "ekscss";
 import * as lightningcss from "lightningcss";
 import { basename } from "node:path"; // eslint-disable-line unicorn/import-style
 import { PurgeCSS, type RawContent } from "purgecss";
+import * as terser from "terser";
 import { createManifest } from "./manifest.config.ts";
 import xcssConfig from "./xcss.config.ts";
 
@@ -135,38 +135,25 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
   }
 }
 
-async function minifyJS(
-  artifacts: Bun.BuildArtifact[],
-  options?: Omit<swc.JsMinifyOptions, "sourceMap">,
-): Promise<void> {
+async function minifyJS(artifacts: Bun.BuildArtifact[]): Promise<void> {
   for (const artifact of artifacts) {
-    if (artifact.kind === "entry-point" || artifact.kind === "chunk") {
+    if (artifact.path.endsWith(".js") || artifact.path.endsWith(".mjs")) {
       const source = await artifact.text();
-      const result = await swc.minify(source, {
+      const result = await terser.minify(source, {
         ecma: 2020,
-        module: true,
         compress: {
           comparisons: false,
-          negate_iife: false,
           reduce_funcs: false, // prevent single-use function inlining
           hoist_funs: true,
-          passes: 2,
+          // passes: 2,
           // XXX: Comment out to keep performance markers for debugging.
           pure_funcs: ["performance.mark", "performance.measure"],
         },
         format: {
-          wrap_func_args: true,
-          wrap_iife: true,
           semicolons: false, // better debugging with near-zero overhead
         },
-        mangle: {
-          props: {
-            regex: String.raw`^\$\$`,
-          },
-        },
-        ...options,
       });
-      await Bun.write(artifact.path, result.code);
+      await Bun.write(artifact.path, result.code!);
     }
   }
 }
@@ -232,9 +219,7 @@ if (!dev) {
   console.timeEnd("minify:css");
 
   console.time("minify:js");
-  await minifyJS(out1.outputs, { module: false });
+  await minifyJS(out1.outputs);
   await minifyJS(out2.outputs);
   console.timeEnd("minify:js");
 }
-
-// console.debug(out1.outputs, out2.outputs);
