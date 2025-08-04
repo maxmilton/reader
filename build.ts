@@ -12,7 +12,7 @@ import xcssConfig from "./xcss.config.ts";
 const env = Bun.env.NODE_ENV;
 const dev = env === "development";
 
-function xcssPlugin(config: xcss.XCSSCompileOptions): Bun.BunPlugin {
+function xcssPlugin(config: xcss.CompileOptions): Bun.BunPlugin {
   return {
     name: "xcss",
     setup(build) {
@@ -39,10 +39,10 @@ function makeHTML(release: string) {
     <meta name=google value=notranslate>
     <link href=literata.ttf rel=preload as=font type=font/ttf crossorigin>
     <link href=reader.css rel=stylesheet>
-    <script src=health.js defer crossorigin data-key=${bugboxApiKey} data-release=${release}${
+    <script src=health.js crossorigin data-key=${bugboxApiKey} data-release=${release}${
     env === "production" ? "" : ` data-env=${String(env)}`
   }></script>
-    <script src=reader.js async></script>
+    <script src=reader.js defer></script>
   `
     .trim()
     .replaceAll(/\n\s+/g, "\n"); // remove leading whitespace
@@ -54,7 +54,7 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
   const encoder = new TextEncoder();
 
   for (const artifact of artifacts) {
-    if (artifact.path.endsWith(".js")) {
+    if (artifact.path.endsWith(".js") || artifact.path.endsWith(".mjs")) {
       content.push({ extension: ".js", raw: await artifact.text() });
     }
   }
@@ -176,24 +176,23 @@ await Bun.write("dist/reader.html", makeHTML(release));
 console.timeEnd("html");
 
 // Health insights (exception monitoring)
-console.time("build:js1");
+console.time("build:health");
 const out1 = await Bun.build({
   entrypoints: ["src/health.ts"],
   outdir: "dist",
   target: "browser",
-  format: "iife", // must not mutate global scope
   define: {
     "process.env.APP_RELEASE": JSON.stringify(release),
     "process.env.NODE_ENV": JSON.stringify(env),
   },
+  banner: '"use strict";',
   minify: !dev,
   sourcemap: dev ? "linked" : "none",
-  banner: '"use strict";',
 });
-console.timeEnd("build:js1");
+console.timeEnd("build:health");
 
 // Reader app JS
-console.time("build:js2");
+console.time("build:reader");
 const out2 = await Bun.build({
   entrypoints: ["src/reader.ts"],
   outdir: "dist",
@@ -203,15 +202,13 @@ const out2 = await Bun.build({
     "process.env.APP_RELEASE": JSON.stringify(release),
     "process.env.NODE_ENV": JSON.stringify(env),
   },
-  loader: {
-    ".svg": "text",
-  },
   plugins: [xcssPlugin(xcssConfig)],
+  banner: '"use strict";',
   emitDCEAnnotations: true,
   minify: !dev,
   sourcemap: dev ? "linked" : "none",
 });
-console.timeEnd("build:js2");
+console.timeEnd("build:reader");
 
 if (!dev) {
   console.time("minify:css");
