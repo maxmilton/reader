@@ -23,32 +23,32 @@
     "#*": "./src/*"
   },
   "dependencies": {
-    "@ekscss/framework": "0.0.57",
+    "@ekscss/framework": "0.0.58",
     "@maxmilton/html-parser": "0.0.12",
     "bugbox": "0.0.3",
     "stage1": "0.9.0"
   },
   "devDependencies": {
-    "@eslint/js": "9.32.0",
+    "@eslint/js": "9.33.0",
     "@maxmilton/eslint-config": "0.2.1",
     "@maxmilton/stylelint-config": "0.4.2",
     "@maxmilton/test-utils": "0.0.12",
     "@playwright/test": "1.54.2",
-    "@types/bun": "1.2.19",
-    "@types/chrome": "0.1.1",
+    "@types/bun": "1.2.20",
+    "@types/chrome": "0.1.4",
     "@types/csso": "5.0.4",
     "csso": "5.0.5",
     "dprint": "0.50.1",
     "ekscss": "0.0.21",
-    "eslint": "9.32.0",
+    "eslint": "9.33.0",
     "eslint-plugin-unicorn": "60.0.0",
     "happy-dom": "18.0.1",
     "lightningcss": "1.30.1",
     "purgecss": "7.0.2",
-    "stylelint": "16.23.0",
+    "stylelint": "16.23.1",
     "stylelint-config-standard": "39.0.0",
     "terser": "5.43.1",
     "typescript": "5.9.2",
-    "typescript-eslint": "8.38.0"
+    "typescript-eslint": "8.39.1"
   }
 }
