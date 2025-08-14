@@ -141,18 +141,20 @@ describe("end state", () => {
   test("does not call any console methods", async () => {
     expect.assertions(1);
     // set wpm to max possible value to speed up test
-    await load(basicHTML, { wpm: 60_000 });
+    const restore = await load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
     expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
+    restore();
   });
 
   test("does not call any performance methods", async () => {
     expect.hasAssertions(); // variable number of assertions
     const check = performanceSpy();
     // set wpm to max possible value to speed up test
-    await load(basicHTML, { wpm: 60_000 });
+    const restore = await load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
     check();
+    restore();
   });
 
   test("does not call fetch()", async () => {
