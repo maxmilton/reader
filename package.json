@@ -25,7 +25,7 @@
   "dependencies": {
     "@ekscss/framework": "0.0.58",
     "@maxmilton/html-parser": "0.0.12",
-    "bugbox": "0.0.3",
+    "bugbox": "0.0.4",
     "stage1": "0.9.0"
   },
   "devDependencies": {
