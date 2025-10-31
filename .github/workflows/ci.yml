@@ -1,13 +1,19 @@
 name: ci
+
 on:
   push:
-    branches: [master]
-    paths-ignore: ["**.md"]
-  pull_request: {}
-  workflow_dispatch: {}
+    branches:
+      - master
+    paths-ignore:
+      - "**.md"
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.head.label || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -28,6 +34,7 @@ jobs:
         with:
           token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: coverage/lcov.info
+
   e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -48,6 +55,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 5
