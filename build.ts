@@ -1,7 +1,7 @@
 /* eslint-disable no-await-in-loop, no-console */
 
+import { xcss } from "bun-plugin-ekscss";
 import * as csso from "csso";
-import * as xcss from "ekscss";
 import * as lightningcss from "lightningcss";
 import { basename } from "node:path"; // eslint-disable-line unicorn/import-style
 import { PurgeCSS, type RawContent } from "purgecss";
@@ -11,24 +11,6 @@ import xcssConfig from "./xcss.config.ts";
 
 const env = Bun.env.NODE_ENV;
 const dev = env === "development";
-
-function xcssPlugin(config: xcss.CompileOptions): Bun.BunPlugin {
-  return {
-    name: "xcss",
-    setup(build) {
-      build.onLoad({ filter: /\.xcss$/ }, async (args) => {
-        const source = await Bun.file(args.path).text();
-        const compiled = xcss.compile(source, {
-          from: args.path,
-          globals: config.globals,
-          plugins: config.plugins,
-        });
-        if (compiled.warnings.length > 0) console.error(compiled.warnings);
-        return { contents: compiled.css, loader: "css" };
-      });
-    },
-  };
-}
 
 function makeHTML(release: string) {
   // nosemgrep: generic-api-key
@@ -202,7 +184,7 @@ const out2 = await Bun.build({
     "process.env.APP_RELEASE": JSON.stringify(release),
     "process.env.NODE_ENV": JSON.stringify(env),
   },
-  plugins: [xcssPlugin(xcssConfig)],
+  plugins: [xcss(xcssConfig)],
   banner: '"use strict";',
   emitDCEAnnotations: true,
   minify: !dev,
