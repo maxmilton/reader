@@ -22,6 +22,7 @@ async function load(html: string, settings?: UserSettings) {
   // eslint-disable-next-line unicorn/no-await-expression-member
   Reader = (await import("#components/Reader.ts")).Reader;
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   return /** restore */ () => {
     chrome.storage.sync.get = () => Promise.resolve({});
   };

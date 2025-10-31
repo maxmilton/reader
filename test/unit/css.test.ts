@@ -37,7 +37,7 @@ test("contains @font-face rule for each font", () => {
     if (element.type === DECLARATION && element.props === "src") {
       const param = /url\(([^)]+)\)/.exec(element.children as string)?.[1];
       expect(param).toBeDefined();
-      expect(fonts).toContain(param!);
+      expect(fonts as readonly string[]).toContain(param!);
       found += 1;
     }
   });

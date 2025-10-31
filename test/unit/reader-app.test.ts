@@ -23,6 +23,7 @@ async function load(html: string, settings?: UserSettings) {
   Loader.registry.delete(MODULE_PATH);
   await import(MODULE_PATH);
 
+  // eslint-disable-next-line unicorn/consistent-function-scoping
   return /** restore */ () => {
     chrome.storage.sync.get = () => Promise.resolve({});
   };
