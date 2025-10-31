@@ -7,7 +7,7 @@
         "@ekscss/framework": "0.0.58",
         "@maxmilton/html-parser": "0.0.12",
         "bugbox": "0.0.3",
-        "stage1": "0.9.0",
+        "stage1": "0.10.0",
       },
       "devDependencies": {
         "@eslint/js": "9.33.0",
@@ -551,7 +551,7 @@
 
     "source-map-support": ["source-map-support@0.5.21", "", { "dependencies": { "buffer-from": "^1.0.0", "source-map": "^0.6.0" } }, "sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w=="],
 
-    "stage1": ["stage1@0.9.0", "", {}, "sha512-E6AZ8Mv7spMrzd97gnpcsvt11tube92pv221BZA1UCKJ01s1c2+yYiNTFQRydZq2lmLWKS4cVGWvBuMqksmnKA=="],
+    "stage1": ["stage1@0.10.0", "", {}, "sha512-qefdN/SNMowiKiIdgkdJ0O6nOLruFqXh04Y66ZymiT78p6gge/ZpZpdBJFSNiC1/zemEuA8zVBOV0Q6Ezh6wzA=="],
 
     "string-width": ["string-width@4.2.3", "", { "dependencies": { "emoji-regex": "^8.0.0", "is-fullwidth-code-point": "^3.0.0", "strip-ansi": "^6.0.1" } }, "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g=="],
 
