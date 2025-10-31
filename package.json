@@ -38,7 +38,7 @@
     "@types/chrome": "0.1.4",
     "@types/csso": "5.0.4",
     "csso": "5.0.5",
-    "dprint": "0.50.1",
+    "dprint": "0.50.2",
     "ekscss": "0.0.21",
     "eslint": "9.33.0",
     "eslint-plugin-unicorn": "60.0.0",
