@@ -23,7 +23,7 @@
     "#*": "./src/*"
   },
   "dependencies": {
-    "@ekscss/framework": "0.0.58",
+    "@ekscss/framework": "0.0.60",
     "@maxmilton/html-parser": "0.0.12",
     "bugbox": "0.0.3",
     "stage1": "0.9.0"
@@ -39,7 +39,7 @@
     "@types/csso": "5.0.4",
     "csso": "5.0.5",
     "dprint": "0.50.1",
-    "ekscss": "0.0.21",
+    "ekscss": "0.0.23",
     "eslint": "9.33.0",
     "eslint-plugin-unicorn": "60.0.0",
     "happy-dom": "18.0.1",

@@ -4,7 +4,7 @@
     "": {
       "name": "reader",
       "dependencies": {
-        "@ekscss/framework": "0.0.58",
+        "@ekscss/framework": "0.0.60",
         "@maxmilton/html-parser": "0.0.12",
         "bugbox": "0.0.3",
         "stage1": "0.9.0",
@@ -20,7 +20,7 @@
         "@types/csso": "5.0.4",
         "csso": "5.0.5",
         "dprint": "0.50.1",
-        "ekscss": "0.0.21",
+        "ekscss": "0.0.23",
         "eslint": "9.33.0",
         "eslint-plugin-unicorn": "60.0.0",
         "happy-dom": "18.0.1",
@@ -67,13 +67,13 @@
 
     "@dual-bundle/import-meta-resolve": ["@dual-bundle/import-meta-resolve@4.1.0", "", {}, "sha512-+nxncfwHM5SgAtrVzgpzJOI1ol0PkumhVo469KCf9lUi21IGcY90G98VuHm9VRrUypmAzawAHO9bs6hqeADaVg=="],
 
-    "@ekscss/framework": ["@ekscss/framework@0.0.58", "", { "dependencies": { "@ekscss/plugin-apply": "^0.0.16", "@ekscss/plugin-import": "^0.0.16", "@ekscss/plugin-prefix": "^0.0.15", "color": "^5.0.0", "cssremedy": "github:jensimmons/cssremedy#af14bf3", "dset": "^3.1.4" }, "peerDependencies": { "ekscss": "^0.0.21" }, "optionalPeers": ["ekscss"] }, "sha512-y4v2zggjyOnUznmRbfsrtcLIgM4/AYbTuA+y1abWW0XoEZHTOVPrpHsH7sVkDYU/FFReLa6V0xuWaFyQKbIwQg=="],
+    "@ekscss/framework": ["@ekscss/framework@0.0.60", "", { "dependencies": { "@ekscss/plugin-apply": "^0.0.18", "@ekscss/plugin-import": "^0.0.18", "@ekscss/plugin-prefix": "^0.0.17", "color": "^5.0.0", "cssremedy": "github:jensimmons/cssremedy#af14bf3", "dset": "^3.1.4" }, "peerDependencies": { "ekscss": "^0.0.23" }, "optionalPeers": ["ekscss"] }, "sha512-ldW6y+46x6mgtj1q5Dff+UvNsOUz6GEcGcxz2AoU0msjFoQipeDSA3kbdj5PLKe/l9hz3TfSmIlF+CpmHaVJ4Q=="],
 
-    "@ekscss/plugin-apply": ["@ekscss/plugin-apply@0.0.16", "", { "dependencies": { "stylis": "^4.3.6" }, "peerDependencies": { "ekscss": "^0.0.21" } }, "sha512-aMYEBTvoUFdqs+yIt73/Zr7JGA4JCwHA82N4R+McDJY12mUnQkRwtUYB+2j8e55PlSBL5xkqNQJF1imT5meDFg=="],
+    "@ekscss/plugin-apply": ["@ekscss/plugin-apply@0.0.18", "", { "dependencies": { "stylis": "^4.3.6" }, "peerDependencies": { "ekscss": "^0.0.23" } }, "sha512-qGP2vfSolVNvi+nk9XafQ4rSgRlUvGKSwTlvRAktt1AunUalroMWDxQ5eGu30hktuuLgeAvp1WL5eiL/irgyzA=="],
 
-    "@ekscss/plugin-import": ["@ekscss/plugin-import@0.0.16", "", { "dependencies": { "stylis": "^4.3.6" }, "peerDependencies": { "ekscss": "^0.0.21" } }, "sha512-4Yibr0Bqj70MKi4hz7VN61+gIdZqCUJQENf9GYhFAS/CoGmwc+z2K24dokB1Y+Uv6ldOzLU5umwDmDwe4QAgQw=="],
+    "@ekscss/plugin-import": ["@ekscss/plugin-import@0.0.18", "", { "dependencies": { "stylis": "^4.3.6" }, "peerDependencies": { "ekscss": "^0.0.23" } }, "sha512-btKMlDbwkVfeVXebpHmIcvZUEW2rKKX1TwNdJpfUw2auSIUbK75cMgpuGsooSdr1LvFJtA0xg5VuyghOu9ApGQ=="],
 
-    "@ekscss/plugin-prefix": ["@ekscss/plugin-prefix@0.0.15", "", { "dependencies": { "stylis": "^4.3.6" }, "peerDependencies": { "ekscss": "^0.0.21" } }, "sha512-D0VN/6qp69qSAtfWN1s7MwwKor6es8RF/wr3r4SHX0lR2xyXETa/UxBF1jG8wvOz/sEwVdC5PBf04JfupPy8hQ=="],
+    "@ekscss/plugin-prefix": ["@ekscss/plugin-prefix@0.0.17", "", { "dependencies": { "stylis": "^4.3.6" }, "peerDependencies": { "ekscss": "^0.0.23" } }, "sha512-G8EyLZVV6OBsq782YR9OYP6LEutN8Cu1/hhBuN7XFAndx/Nc44KSZunCRoolLoOqkKBNW/1qTYNGT7RhR9LJ+A=="],
 
     "@eslint-community/eslint-utils": ["@eslint-community/eslint-utils@4.7.0", "", { "dependencies": { "eslint-visitor-keys": "^3.4.3" }, "peerDependencies": { "eslint": "^6.0.0 || ^7.0.0 || >=8.0.0" } }, "sha512-dyybb3AcajC7uha6CvhdVRJqaKyn7w2YKqKyAN37NKYgZT36w+iRb0Dymmc5qEJ549c/S31cMMSFd75bteCpCw=="],
 
@@ -275,7 +275,7 @@
 
     "eastasianwidth": ["eastasianwidth@0.2.0", "", {}, "sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA=="],
 
-    "ekscss": ["ekscss@0.0.21", "", { "dependencies": { "@types/stylis": "^4.2.7", "source-map-js": "^1.2.1", "stylis": "^4.3.6" } }, "sha512-yJt5kyXM4UV14QrIo77lWT5tvB9cMW9Y9wQg0jt/TsQvWXF8HZIaLoxTr7+MacaHL34stD378qF1/2YkakWfTA=="],
+    "ekscss": ["ekscss@0.0.23", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.13", "@types/stylis": "^4.2.7", "stylis": "^4.3.6" } }, "sha512-6Xo2QRLUG/uKsVspSsTlgOZcB9IZOsc6x2kEoCH4/BLBxm5zs+NNHQGH/yi7yur8FRnFhywvlAHHtRED0DP1/g=="],
 
     "electron-to-chromium": ["electron-to-chromium@1.5.200", "", {}, "sha512-rFCxROw7aOe4uPTfIAx+rXv9cEcGx+buAF4npnhtTqCJk5KDFRnh3+KYj7rdVh6lsFt5/aPs+Irj9rZ33WMA7w=="],
 
