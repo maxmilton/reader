@@ -124,11 +124,10 @@ async function minifyJS(artifacts: Bun.BuildArtifact[]): Promise<void> {
       const result = await terser.minify(source, {
         ecma: 2020,
         compress: {
-          comparisons: false,
           reduce_funcs: false, // prevent single-use function inlining
           hoist_funs: true,
-          // passes: 2,
-          // XXX: Comment out to keep performance markers for debugging.
+          passes: 2,
+          // NOTE: Comment out to keep performance markers for debugging.
           pure_funcs: ["performance.mark", "performance.measure"],
         },
         format: {
