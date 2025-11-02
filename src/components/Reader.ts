@@ -4,7 +4,7 @@ import "./Reader.xcss";
 
 import { extractText } from "#extractor.ts";
 import { exec } from "#utils.ts";
-import { collect, h, ONCLICK } from "stage1/fast";
+import { append, collect, create, h, ONCLICK } from "stage1/fast";
 import { compile } from "stage1/macro" with { type: "macro" };
 import { FocalPoint, type FocalPointComponent, indexOfORP } from "./FocalPoint.ts";
 
@@ -41,7 +41,6 @@ function waitMultiplier(word: string, forceWait?: boolean) {
   const WAIT_AFTER_PARAGRAPH = 3.5;
 
   if (forceWait) return WAIT_AFTER_PERIOD;
-  // if (word === 'Dr.' || word === 'Mr.' || word === 'Mrs.' || word === 'Ms.') return 1;
 
   let lastChar = word[word.length - 1];
   if ('"”'.includes(lastChar)) lastChar = word[word.length - 2];
@@ -228,8 +227,11 @@ export function Reader(): ReaderComponent {
       start(true);
     })
     .catch((error: unknown) => {
-      // nosemgrep: insecure-document-method
-      word.innerHTML = `<div id=summary>${String(error)}</div>`;
+      const summary = create("div");
+      summary.id = "summary";
+      summary.textContent = String(error);
+      append(summary, word);
+
       rewind.disabled = true;
       play.disabled = true;
       // eslint-disable-next-line no-console
