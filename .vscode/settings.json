@@ -1,21 +1,34 @@
 {
-  "biome.enabled": false, // use dprint
-  "dprint.path": "./node_modules/.bin/dprint",
-  "editor.defaultFormatter": "dprint.dprint",
+  "biome.enabled": true,
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
   "eslint.enable": true,
   "files.associations": {
-    "*.xcss": "scss",
+    "*.xcss": "scss"
   },
   "git.branchProtection": ["master"],
-  "js/ts.implicitProjectConfig.checkJs": true,
-  "prettier.enable": false, // use dprint
+  "prettier.enable": false, // use biome
   "scss.validate": false,
   "stylelint.enable": true,
   "stylelint.validate": ["css", "scss"],
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.tsdk": "node_modules/typescript/lib",
   "yaml.validate": true,
+
+  "[css][graphql][html][json][jsonc][markdown]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit",
+      "source.fixAll": "explicit"
+    },
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "never",
+      "source.organizeImports.biome": "explicit",
+      "source.fixAll": "never"
+    },
+    "editor.defaultFormatter": "biomejs.biome"
+  }
 }
