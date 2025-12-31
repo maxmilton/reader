@@ -29,7 +29,7 @@
     "stage1": "0.10.0"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.1",
+    "@eslint/js": "9.39.2",
     "@maxmilton/eslint-config": "0.3.0",
     "@maxmilton/stylelint-config": "0.4.2",
     "@maxmilton/test-utils": "0.0.13",
@@ -41,7 +41,7 @@
     "csso": "5.0.5",
     "dprint": "0.50.2",
     "ekscss": "0.0.23",
-    "eslint": "9.39.1",
+    "eslint": "9.39.2",
     "eslint-plugin-unicorn": "62.0.0",
     "happy-dom": "20.0.10",
     "lightningcss": "1.30.2",
