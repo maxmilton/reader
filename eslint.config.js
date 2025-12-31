@@ -1,7 +1,7 @@
 import js from "@eslint/js";
 import mm from "@maxmilton/eslint-config";
-import unicorn from "eslint-plugin-unicorn";
 import { defineConfig } from "eslint/config";
+import unicorn from "eslint-plugin-unicorn";
 import ts from "typescript-eslint";
 
 export default defineConfig(
@@ -13,6 +13,7 @@ export default defineConfig(
   {
     linterOptions: {
       reportUnusedDisableDirectives: "error",
+      reportUnusedInlineConfigs: "error",
     },
     languageOptions: {
       parserOptions: {
