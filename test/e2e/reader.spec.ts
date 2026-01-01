@@ -1,4 +1,3 @@
-import type { ConsoleMessage } from "@playwright/test";
 import { describe, expect, test } from "./fixtures.ts";
 
 test("reader popup", async ({ page, extensionId }) => {
@@ -31,11 +30,7 @@ describe("initial view", () => {
 });
 
 test("has no console calls or unhandled errors", async ({ page, extensionId }) => {
-  const unhandledErrors: Error[] = [];
-  const consoleMessages: ConsoleMessage[] = [];
-  page.on("pageerror", (err) => unhandledErrors.push(err));
-  page.on("console", (msg) => consoleMessages.push(msg));
   await page.goto(`chrome-extension://${extensionId}/reader.html`);
-  expect(unhandledErrors).toHaveLength(0);
-  expect(consoleMessages).toHaveLength(0);
+  expect(await page.consoleMessages()).toHaveLength(0);
+  expect(await page.pageErrors()).toHaveLength(0);
 });

@@ -2,20 +2,16 @@
 
 /* eslint-disable no-empty-pattern */
 
-import { type BrowserContext, chromium, test as baseTest } from "@playwright/test";
 import path from "node:path";
+import { type BrowserContext, test as base, chromium } from "@playwright/test";
 
-export const test = baseTest.extend<{
-  context: BrowserContext;
-  extensionId: string;
-}>({
+export const test = base.extend<{ context: BrowserContext; extensionId: string }>({
+  // biome-ignore lint/correctness/noEmptyPattern: playwright setup
   async context({}, use) {
-    const extensionPath = path.join(__dirname, "../../dist");
+    const dist = path.join(import.meta.dirname, "../../dist");
     const context = await chromium.launchPersistentContext("", {
-      channel: "chromium", // enables headless mode with extensions
-      args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`],
-      acceptDownloads: false,
-      strictSelectors: true,
+      channel: "chromium",
+      args: [`--disable-extensions-except=${dist}`, `--load-extension=${dist}`],
     });
     await use(context);
     await context.close();
@@ -28,6 +24,7 @@ export const test = baseTest.extend<{
   //   const extensionId = sw.url().split("/")[2];
   //   await use(extensionId);
   // },
+  // biome-ignore lint/correctness/noEmptyPattern: playwright setup
   async extensionId({}, use) {
     await use("ollcdfepbkpopcfilmheonkfbbnnmkbj");
   },
