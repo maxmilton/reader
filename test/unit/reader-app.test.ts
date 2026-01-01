@@ -9,7 +9,6 @@ import { reset } from "../setup.ts";
 
 // Completely reset DOM and global state between tests
 afterEach(reset);
-afterEach(() => $console.log("%%RESET"));
 
 const MODULE_PATH = Bun.resolveSync("../../dist/reader.js", import.meta.dir);
 
