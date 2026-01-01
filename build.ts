@@ -18,12 +18,12 @@ function makeHTML(release: string) {
   return `
     <!doctype html>
     <meta charset=utf-8>
-    <meta name=google value=notranslate>
+    <meta name=google content=notranslate>
     <link href=literata.ttf rel=preload as=font type=font/ttf crossorigin>
     <link href=reader.css rel=stylesheet>
     <script src=health.js crossorigin data-key=${bugboxApiKey} data-release=${release}${
-    env === "production" ? "" : ` data-env=${String(env)}`
-  }></script>
+      env === "production" ? "" : ` data-env=${String(env)}`
+    }></script>
     <script src=reader.js defer></script>
   `
     .trim()
