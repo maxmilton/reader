@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - next
   pull_request:
   merge_group:
   workflow_dispatch:
@@ -12,12 +13,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.head.label || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions: {}
+
 jobs:
   typos:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - uses: crate-ci/typos@5c19779cb52ea50e151f5a10333ccd269227b5ae # v1
