@@ -1,5 +1,5 @@
-import { validate } from "@maxmilton/test-utils/html";
 import { describe, expect, test } from "bun:test";
+import { validate } from "@maxmilton/test-utils/html";
 
 const fixtureFiles: [filename: string, bytes: number, valid: boolean][] = [
   ["basic.html", 145, true],

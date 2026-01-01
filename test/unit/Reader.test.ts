@@ -1,6 +1,6 @@
-import type { UserSettings } from "#components/Reader.ts";
-import { cleanup, render } from "@maxmilton/test-utils/dom";
 import { afterEach, expect, spyOn, test } from "bun:test";
+import { cleanup, render } from "@maxmilton/test-utils/dom";
+import type { UserSettings } from "#components/Reader.ts";
 
 afterEach(cleanup);
 

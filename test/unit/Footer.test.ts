@@ -12,9 +12,9 @@
 //   expect.assertions(3);
 //   const rendered = render(Footer());
 //   expect(rendered.container.firstChild?.nodeName).toBe("FOOTER");
-//   expect(rendered.container.querySelector("a[href=\"https://maxmilton.com\"]")).toBeTruthy();
+//   expect(rendered.container.querySelector('a[href="https://maxmilton.com"]')).toBeTruthy();
 //   expect(
-//     rendered.container.querySelector("a[href=\"https://github.com/maxmilton/reader/issues\"]"),
+//     rendered.container.querySelector('a[href="https://github.com/maxmilton/reader/issues"]'),
 //   ).toBeTruthy();
 
 //   // TODO: More/better assertions

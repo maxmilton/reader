@@ -2,13 +2,13 @@ import "@maxmilton/test-utils/extend";
 
 import { setupDOM } from "@maxmilton/test-utils/dom";
 
-// Make imported .xcss files return empty to prevent test errors.
+// HACK: Make imported .xcss files return empty to prevent test errors.
 Bun.plugin({
   name: "xcss",
   setup(build) {
     build.onLoad({ filter: /\.xcss$/ }, () => ({
       contents: "",
-      // loader: 'css',
+      // loader: "css",
     }));
   },
 });
@@ -52,7 +52,9 @@ export async function reset(): Promise<void> {
     window.close();
   }
 
-  setupDOM();
+  setupDOM({
+    url: "chrome-extension://ollcdfepbkpopcfilmheonkfbbnnmkbj/",
+  });
   setupMocks();
 }
 

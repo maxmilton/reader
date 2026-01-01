@@ -1,6 +1,6 @@
-import { FocalPoint, type FocalPointComponent } from "#components/FocalPoint.ts";
-import { cleanup, render } from "@maxmilton/test-utils/dom";
 import { afterEach, expect, test } from "bun:test";
+import { cleanup, render } from "@maxmilton/test-utils/dom";
+import { FocalPoint, type FocalPointComponent } from "#components/FocalPoint.ts";
 
 afterEach(cleanup);
 
@@ -25,13 +25,13 @@ test("returns the same reused node every call", () => {
   let node1: FocalPointComponent;
   let node2: FocalPointComponent;
   let node3: FocalPointComponent;
-  const rendered1 = render(node1 = FocalPoint("1"));
+  const rendered1 = render((node1 = FocalPoint("1")));
   expect(rendered1.container.firstChild).toBeTruthy();
-  const rendered2 = render(node2 = FocalPoint("2"));
+  const rendered2 = render((node2 = FocalPoint("2")));
   // because it's the same node, it should have moved from the previous parent
   expect(rendered1.container.firstChild).toBe(null);
   expect(rendered2.container.firstChild).toBeTruthy();
-  const rendered3 = render(node3 = FocalPoint("3"));
+  const rendered3 = render((node3 = FocalPoint("3")));
   expect(rendered1.container.firstChild).toBe(null);
   expect(rendered2.container.firstChild).toBe(null);
   expect(rendered3.container.firstChild).toBeTruthy();
