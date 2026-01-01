@@ -1,13 +1,13 @@
 /* eslint-disable no-await-in-loop, no-console */
 
+import { basename } from "node:path"; // eslint-disable-line unicorn/import-style
 import { xcss } from "bun-plugin-ekscss";
 import * as csso from "csso";
 import * as lightningcss from "lightningcss";
-import { basename } from "node:path"; // eslint-disable-line unicorn/import-style
 import { PurgeCSS, type RawContent } from "purgecss";
 import * as terser from "terser";
 import { createManifest } from "./manifest.config.ts";
-import xcssConfig from "./xcss.config.ts";
+import xcssConfig from "./xcss.config.js";
 
 const env = Bun.env.NODE_ENV;
 const dev = env === "development";

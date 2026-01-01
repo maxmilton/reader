@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/prefer-for-of, unicorn/prefer-includes, unicorn/no-for-loop */
 
 // Import source for better build optimization (especially const enum inlining).
-import { type Node, parse, SyntaxKind, type Tag as Tag_, walk } from "@maxmilton/html-parser/src/index.ts";
+import {
+  type Node,
+  parse,
+  SyntaxKind,
+  type Tag as Tag_,
+  walk,
+} from "@maxmilton/html-parser/src/index.ts";
 import { create } from "stage1/fast";
 
 interface Tag extends Omit<Tag_, "attributeMap"> {
@@ -165,15 +171,14 @@ export function extractText(html: string): string {
   //  7. Element with id = app
   //  8. Element with id = root
   //  9. <body> element (always defined)
-  const root = articles.length === 1
-    ? articles[0]
-    : (tagById.article
-      ?? tagById.post
-      ?? tagById.content
-      ?? tagById.main
-      ?? (mains.length === 1
-        ? mains[0]
-        : (tagById.app ?? tagById.root ?? body!)));
+  const root =
+    articles.length === 1
+      ? articles[0]
+      : (tagById.article
+        ?? tagById.post
+        ?? tagById.content
+        ?? tagById.main
+        ?? (mains.length === 1 ? mains[0] : (tagById.app ?? tagById.root ?? body!)));
   let text = "";
 
   // Second pass; clean up superfluous nodes and extract meaningful text
@@ -184,13 +189,11 @@ export function extractText(html: string): string {
     (node, parent) => {
       if (node.type === SyntaxKind.Tag) {
         if (
+          // TODO: Fix types rather than casting to unknown.
           EXTRANEOUS_ELEMENTS.has(node.name)
           || (node.name === "footer" && parent.name !== "blockquote")
-          // TODO: Fix types
           || ((node as unknown as Tag).attributeMap.class
-            && EXTRANEOUS_CLASSES.test(
-              (node as unknown as Tag).attributeMap.class!,
-            ))
+            && EXTRANEOUS_CLASSES.test((node as unknown as Tag).attributeMap.class!))
         ) {
           return SKIP;
         }

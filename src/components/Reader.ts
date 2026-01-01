@@ -2,10 +2,10 @@
 
 import "./Reader.xcss";
 
-import { extractText } from "#extractor.ts";
-import { exec } from "#utils.ts";
 import { append, collect, create, h, ONCLICK } from "stage1/fast";
 import { compile } from "stage1/macro" with { type: "macro" };
+import { extractText } from "#extractor.ts";
+import { exec } from "#utils.ts";
 import { FocalPoint, type FocalPointComponent, indexOfORP } from "./FocalPoint.ts";
 
 // eslint-disable-next-line unicorn/prefer-top-level-await
@@ -125,7 +125,8 @@ export function Reader(): ReaderComponent {
     // nosemgrep: insecure-document-method
     word.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
       // exclude intro countdown
-      words.length - 4} words in ${
+      words.length - 4
+    } words in ${
       time < 60
         ? `${Math.trunc(time)} seconds`
         : `${Math.trunc(time / 60)} minute${time < 120 ? "" : "s"}`
@@ -151,7 +152,7 @@ export function Reader(): ReaderComponent {
 
     word.replaceChildren(
       currentWord.slice(0, orpIndex),
-      focalPoint = FocalPoint(currentWord[orpIndex]),
+      (focalPoint = FocalPoint(currentWord[orpIndex])),
       currentWord.slice(orpIndex + 1),
     );
 

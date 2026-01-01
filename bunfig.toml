@@ -1,10 +1,8 @@
-telemetry = false
-
-# [run]
-# bun = true
+"$schema" = "https://www.schemastore.org/bunfig.json"
 
 [install]
 auto = "disable"
+linker = "isolated"
 
 [test]
 preload = ["./test/setup.ts"]

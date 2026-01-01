@@ -1,4 +1,4 @@
-import pkg from "./package.json" with { type: "json" };
+import pkg from "./package.json" with { type: "jsonc" };
 
 function gitRef() {
   return Bun.spawnSync(["git", "describe", "--always", "--dirty=-dev", "--broken"])
@@ -25,19 +25,15 @@ interface ManifestExtra {
  * @param debug - Whether to include a version name for debugging.
  *
  * @see https://developer.chrome.com/docs/extensions/reference/manifest
- *
- * @internal
  */
-export function createManifest(
-  debug = !process.env.CI,
-): chrome.runtime.ManifestV3 & ManifestExtra {
+export function createManifest(debug = !process.env.CI): chrome.runtime.ManifestV3 & ManifestExtra {
   return {
     manifest_version: 3,
     name: "Reader",
     description: pkg.description,
     homepage_url: pkg.homepage,
     version: pkg.version.split("-")[0],
-    // shippable releases should not have a named version
+    // Shippable releases should not have a named version
     version_name: debug ? gitRef() : undefined,
     minimum_chrome_version: "134", // matches build
     icons: {
@@ -72,7 +68,6 @@ export function createManifest(
     cross_origin_opener_policy: { value: "same-origin" },
 
     // https://chrome.google.com/webstore/detail/reader/ollcdfepbkpopcfilmheonkfbbnnmkbj
-    key:
-      "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3xP4vEWKRlRR3tFGidLLBGM2PjvisNNH6NSJPEbXSU7PNzogC+GPXW9qN5SEyfVOY7er+SkedCp9RTydfCzGOEaZfsbc11Wt9VV5C+oPhQTx+RBJMUJjJdwn3z1x7t4ufNqNObvNEjwPKLz4OfVbMsy97Q1Rmu/Wt77STonJj0JP7+xCTpFZLNKDslRh/Ceardh6r5S42GnZnlILrQiAVFxBYSh4lmQoAFbYu2D4LS2ZBdAIBA7FqgMpYVVSVSrlffVfM2lGLRcMHzjQ9jS30hVs2othn1LctbwXaRT2VpKchAE2zX8yaOxZ4F72Kf+Y2yC6VcRJ24u4VkVcIgrkvwIDAQAB",
+    key: "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3xP4vEWKRlRR3tFGidLLBGM2PjvisNNH6NSJPEbXSU7PNzogC+GPXW9qN5SEyfVOY7er+SkedCp9RTydfCzGOEaZfsbc11Wt9VV5C+oPhQTx+RBJMUJjJdwn3z1x7t4ufNqNObvNEjwPKLz4OfVbMsy97Q1Rmu/Wt77STonJj0JP7+xCTpFZLNKDslRh/Ceardh6r5S42GnZnlILrQiAVFxBYSh4lmQoAFbYu2D4LS2ZBdAIBA7FqgMpYVVSVSrlffVfM2lGLRcMHzjQ9jS30hVs2othn1LctbwXaRT2VpKchAE2zX8yaOxZ4F72Kf+Y2yC6VcRJ24u4VkVcIgrkvwIDAQAB",
   };
 }
