@@ -17,7 +17,7 @@
         "@maxmilton/stylelint-config": "0.4.2",
         "@maxmilton/test-utils": "0.0.14",
         "@playwright/test": "1.59.1",
-        "@types/bun": "1.3.12",
+        "@types/bun": "1.3.13",
         "@types/chrome": "0.1.40",
         "@types/csso": "5.0.4",
         "bun-plugin-ekscss": "0.0.3",
@@ -149,7 +149,7 @@
 
     "@sindresorhus/merge-streams": ["@sindresorhus/merge-streams@4.0.0", "", {}, "sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ=="],
 
-    "@types/bun": ["@types/bun@1.3.12", "", { "dependencies": { "bun-types": "1.3.12" } }, "sha512-DBv81elK+/VSwXHDlnH3Qduw+KxkTIWi7TXkAeh24zpi5l0B2kUg9Ga3tb4nJaPcOFswflgi/yAvMVBPrxMB+A=="],
+    "@types/bun": ["@types/bun@1.3.13", "", { "dependencies": { "bun-types": "1.3.13" } }, "sha512-9fqXWk5YIHGGnUau9TEi+qdlTYDAnOj+xLCmSTwXfAIqXr2x4tytJb43E9uCvt09zJURKXwAtkoH4nLQfzeTXw=="],
 
     "@types/chrome": ["@types/chrome@0.1.40", "", { "dependencies": { "@types/filesystem": "*", "@types/har-format": "*" } }, "sha512-UnfyRAe8ORu9HSuTH0EqyOEUin3JrWW9Nl/gDXezNfTUrfIoxw+WRZgKOxGz0t5BnjbfXBnS2eCYfW2PxH1wcA=="],
 
@@ -227,7 +227,7 @@
 
     "bun-plugin-ekscss": ["bun-plugin-ekscss@0.0.3", "", { "dependencies": { "@ekscss/config-loader": "^0.0.3" }, "peerDependencies": { "ekscss": "^0.0.23" } }, "sha512-7nKLI6tXdS0Krf+zCGZOpyC7i2L/GTiJFbzkzvCozCWDGXDGpNBmRdjuqGavqHMqhTbNjCpG6KrKF/QgBfEoJQ=="],
 
-    "bun-types": ["bun-types@1.3.12", "", { "dependencies": { "@types/node": "*" } }, "sha512-HqOLj5PoFajAQciOMRiIZGNoKxDJSr6qigAttOX40vJuSp6DN/CxWp9s3C1Xwm4oH7ybueITwiaOcWXoYVoRkA=="],
+    "bun-types": ["bun-types@1.3.13", "", { "dependencies": { "@types/node": "*" } }, "sha512-QXKeHLlOLqQX9LgYaHJfzdBaV21T63HhFJnvuRCcjZiaUDpbs5ED1MgxbMra71CsryN/1dAoXuJJJwIv/2drVA=="],
 
     "cacheable": ["cacheable@2.3.4", "", { "dependencies": { "@cacheable/memory": "^2.0.8", "@cacheable/utils": "^2.4.0", "hookified": "^1.15.0", "keyv": "^5.6.0", "qified": "^0.9.0" } }, "sha512-djgxybDbw9fL/ZWMI3+CE8ZilNxcwFkVtDc1gJ+IlOSSWkSMPQabhV/XCHTQ6pwwN6aivXPZ43omTooZiX06Ew=="],
 
