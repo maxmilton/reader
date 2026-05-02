@@ -47,7 +47,7 @@
     "eslint-plugin-unicorn": "64.0.0",
     "happy-dom": "20.0.11",
     "lightningcss": "1.32.0",
-    "purgecss": "7.0.2",
+    "purgecss": "8.0.0",
     "stylelint": "17.9.1",
     "stylelint-config-standard": "40.0.0",
     "terser": "5.46.2",
