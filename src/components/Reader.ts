@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/restrict-template-expressions, unicorn/prefer-await */
 
 import "./Reader.xcss";
 
@@ -8,7 +8,6 @@ import { extractText } from "#extractor.ts";
 import { exec } from "#utils.ts";
 import { FocalPoint, type FocalPointComponent, indexOfORP } from "./FocalPoint.ts";
 
-// eslint-disable-next-line unicorn/prefer-top-level-await
 const extractedWords = (async () => {
   performance.mark("Extract:Begin");
   const html = await exec(() => {
@@ -29,16 +28,15 @@ const extractedWords = (async () => {
 })();
 
 function waitMultiplier(word: string, forceWait?: boolean) {
-  // TODO: Move these constants to outer scope, but only when they are inlined
-  // correctly again in production builds.
-
   // https://github.com/cameron/squirt/blob/03cf7bf103652857bd54fa7960a39fc27e306b31/squirt.js#L168-L187
+  /* eslint-disable unicorn/no-declarations-before-early-exit */
   const WAIT_AFTER_WORD = 1;
   const WAIT_AFTER_SHORT_WORD = 1.2;
   const WAIT_AFTER_LONG_WORD = 1.5;
   const WAIT_AFTER_COMMA = 2;
   const WAIT_AFTER_PERIOD = 3;
   const WAIT_AFTER_PARAGRAPH = 3.5;
+  /* eslint-enable unicorn/no-declarations-before-early-exit */
 
   if (forceWait) return WAIT_AFTER_PERIOD;
 

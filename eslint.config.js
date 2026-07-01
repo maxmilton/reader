@@ -23,6 +23,7 @@ export default defineConfig(
     },
     rules: {
       "no-plusplus": "off", // byte savings
+      "unicorn/consistent-boolean-name": "off", // too pedantic
       "unicorn/prefer-add-event-listener": "off", // stage1
       "unicorn/prefer-at": "off", // bad browser support
       "unicorn/prefer-dom-node-append": "off", // stage1

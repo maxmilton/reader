@@ -10,7 +10,7 @@ import { createManifest } from "./manifest.config.ts";
 import xcssConfig from "./xcss.config.js";
 
 const env = Bun.env.NODE_ENV;
-const dev = env === "development";
+const isDev = env === "development";
 
 function makeHTML(release: string) {
   // nosemgrep: generic-api-key
@@ -42,6 +42,7 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
   }
 
   for (const artifact of artifacts) {
+    // eslint-disable-next-line unicorn/prefer-continue
     if (artifact.path.endsWith(".css")) {
       const filename = basename(artifact.path);
       const source = await artifact.text();
@@ -119,6 +120,7 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
 
 async function minifyJS(artifacts: Bun.BuildArtifact[]): Promise<void> {
   for (const artifact of artifacts) {
+    // eslint-disable-next-line unicorn/prefer-continue
     if (artifact.path.endsWith(".js") || artifact.path.endsWith(".mjs")) {
       const source = await artifact.text();
       const result = await terser.minify(source, {
@@ -167,8 +169,8 @@ const out1 = await Bun.build({
     "process.env.NODE_ENV": JSON.stringify(env),
   },
   banner: '"use strict";',
-  minify: !dev,
-  sourcemap: dev ? "linked" : "none",
+  minify: !isDev,
+  sourcemap: isDev ? "linked" : "none",
 });
 console.timeEnd("build:health");
 
@@ -186,12 +188,12 @@ const out2 = await Bun.build({
   plugins: [xcss(xcssConfig)],
   banner: '"use strict";',
   emitDCEAnnotations: true,
-  minify: !dev,
-  sourcemap: dev ? "linked" : "none",
+  minify: !isDev,
+  sourcemap: isDev ? "linked" : "none",
 });
 console.timeEnd("build:reader");
 
-if (!dev) {
+if (!isDev) {
   console.time("minify:css");
   await minifyCSS(out2.outputs);
   console.timeEnd("minify:css");

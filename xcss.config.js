@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck - FIXME: Fix ekscss types
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-return, unicorn/no-top-level-side-effects */
 
 import framework from "@ekscss/framework/config";
 import { extend, preloadApply } from "@ekscss/framework/utils";

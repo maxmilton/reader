@@ -135,6 +135,7 @@ export function extractText(html: string): string {
   // First pass; collect references and populate attribute maps
   walk(ast, {
     enter(node) {
+      // eslint-disable-next-line unicorn/prefer-early-return
       if (node.type === SyntaxKind.Tag) {
         switch (node.name) {
           case "article":

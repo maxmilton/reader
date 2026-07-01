@@ -3,6 +3,7 @@ import "@maxmilton/test-utils/extend";
 import { setupDOM } from "@maxmilton/test-utils/dom";
 
 // HACK: Make imported .xcss files return empty to prevent test errors.
+// eslint-disable-next-line unicorn/no-top-level-side-effects
 Bun.plugin({
   name: "xcss",
   setup(build) {
@@ -26,6 +27,7 @@ function setupMocks(): void {
   // @ts-expect-error - noop stub
   global.performance.measure = noop;
 
+  // eslint-disable-next-line unicorn/no-global-object-property-assignment
   global.chrome = {
     storage: {
       // @ts-expect-error - partial mock
@@ -58,4 +60,5 @@ export async function reset(): Promise<void> {
   setupMocks();
 }
 
+// eslint-disable-next-line unicorn/no-top-level-side-effects
 await reset();

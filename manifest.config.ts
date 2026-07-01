@@ -32,7 +32,7 @@ export function createManifest(debug = !process.env.CI): chrome.runtime.Manifest
     name: "Reader",
     description: pkg.description,
     homepage_url: pkg.homepage,
-    version: pkg.version.split("-")[0],
+    version: pkg.version.split("-", 1)[0],
     // Shippable releases should not have a named version
     version_name: debug ? gitRef() : undefined,
     minimum_chrome_version: "134", // matches build

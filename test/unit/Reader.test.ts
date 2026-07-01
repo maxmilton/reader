@@ -19,7 +19,7 @@ async function load(html: string, settings?: UserSettings) {
   }
 
   Loader.registry.delete(MODULE_PATH);
-  // eslint-disable-next-line unicorn/no-await-expression-member
+  // eslint-disable-next-line unicorn/no-await-expression-member, unicorn/no-top-level-assignment-in-function
   Reader = (await import("#components/Reader.ts")).Reader;
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
