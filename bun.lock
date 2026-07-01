@@ -14,7 +14,7 @@
         "@biomejs/biome": "2.3.10",
         "@eslint/js": "10.0.1",
         "@maxmilton/eslint-config": "0.3.0",
-        "@maxmilton/stylelint-config": "0.4.2",
+        "@maxmilton/stylelint-config": "0.4.3",
         "@maxmilton/test-utils": "0.0.14",
         "@playwright/test": "1.59.1",
         "@types/bun": "1.3.13",
@@ -133,7 +133,7 @@
 
     "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.12", "", {}, "sha512-hrmgn5evsM1OpYF+iH5IEi/Z+ZKLmYAxSTVnehxypGERNkjhhp+MDPFeXmxPNKapru5F7XfvUGCXZgjkrM2q9g=="],
 
-    "@maxmilton/stylelint-config": ["@maxmilton/stylelint-config@0.4.2", "", { "dependencies": { "postcss-ekscss": "^0.0.12", "stylelint-order": "^7.0.0" }, "peerDependencies": { "stylelint": "^16.18.0" } }, "sha512-vJ/Gpbib2bdlLBSvyZyKXFIs6NkbiC33bwdS/Q8qQr8S2PriKvGTL4j+wXbwZxj0s+y9Dtjc2qP0s59pJkuEbw=="],
+    "@maxmilton/stylelint-config": ["@maxmilton/stylelint-config@0.4.3", "", { "dependencies": { "postcss-ekscss": "^0.0.15", "stylelint-order": "^8.0.0" }, "peerDependencies": { "stylelint": "^17.0.0" } }, "sha512-YUFqPrhdXgG4/DaxL4s1tuF3uoma1o8D5wNllzm/3fby/8p55lNocY9KOp+Tl6Vzk5UOV67Mv793XpCoEQb6kg=="],
 
     "@maxmilton/test-utils": ["@maxmilton/test-utils@0.0.14", "", { "dependencies": { "@maxmilton/html-parser": "^0.0.12", "@types/stylis": "^4.2.7", "stylis": "^4.3.6" }, "peerDependencies": { "happy-dom": ">=14.0.0 <21.0.0" }, "optionalPeers": ["happy-dom"] }, "sha512-qLPGiZgW6YjXVfuJaFmQKmk07ZNSHEpgQvpiV9om7XZvyrTCcPWgNBn58eCKgVFR2uQm8n2w0+WoBOPc7HdfwQ=="],
 
@@ -503,13 +503,13 @@
 
     "postcss": ["postcss@8.5.13", "", { "dependencies": { "nanoid": "^3.3.11", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-qif0+jGGZoLWdHey3UFHHWP0H7Gbmsk8T5VEqyYFbWqPr1XqvLGBbk/sl8V5exGmcYJklJOhOQq1pV9IcsiFag=="],
 
-    "postcss-ekscss": ["postcss-ekscss@0.0.12", "", { "peerDependencies": { "postcss": "^8.0.0" }, "optionalPeers": ["postcss"] }, "sha512-XYW5apq1JlD2FtBFlIaGmpS1VKCyhNRaL4u51tlSTenkFOG59QJ85oAQof2vIQkEquttjgGOzpmUxuw+GHbJZQ=="],
+    "postcss-ekscss": ["postcss-ekscss@0.0.15", "", { "peerDependencies": { "postcss": "^8.0.0" }, "optionalPeers": ["postcss"] }, "sha512-jNjVElQTM3pRm+7HAbIY1shr+03C1fAnl9gBKCkTIYpG8oZlFlkqZJyuQpWucR9uU7Dz1+lfgFh4iQIqk6bjAQ=="],
 
     "postcss-safe-parser": ["postcss-safe-parser@7.0.1", "", { "peerDependencies": { "postcss": "^8.4.31" } }, "sha512-0AioNCJZ2DPYz5ABT6bddIqlhgwhpHZ/l65YAYo0BCIn0xiDpsnTHz0gnoTGk0OXZW0JRs+cDwL8u/teRdz+8A=="],
 
     "postcss-selector-parser": ["postcss-selector-parser@6.1.2", "", { "dependencies": { "cssesc": "^3.0.0", "util-deprecate": "^1.0.2" } }, "sha512-Q8qQfPiZ+THO/3ZrOrO0cJJKfpYCagtMUkXbnEfmgUjwXg6z/WBeOyS9APBBPCTSiDV+s4SwQGu8yFsiMRIudg=="],
 
-    "postcss-sorting": ["postcss-sorting@9.1.0", "", { "peerDependencies": { "postcss": "^8.4.20" } }, "sha512-Mn8KJ45HNNG6JBpBizXcyf6LqY/qyqetGcou/nprDnFwBFBLGj0j/sNKV2lj2KMOVOwdXu14aEzqJv8CIV6e8g=="],
+    "postcss-sorting": ["postcss-sorting@10.0.0", "", { "peerDependencies": { "postcss": "^8.4.20" } }, "sha512-TXbU+h6vVRW+86c/+ewhWq9k7pr7ijASTnepVhCQiC87zAOTkvB1v2dHyWP+ggstSTX/PNvjzS+IOqzejndz9w=="],
 
     "postcss-value-parser": ["postcss-value-parser@4.2.0", "", {}, "sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ=="],
 
@@ -567,7 +567,7 @@
 
     "stylelint-config-standard": ["stylelint-config-standard@40.0.0", "", { "dependencies": { "stylelint-config-recommended": "^18.0.0" }, "peerDependencies": { "stylelint": "^17.0.0" } }, "sha512-EznGJxOUhtWck2r6dJpbgAdPATIzvpLdK9+i5qPd4Lx70es66TkBPljSg4wN3Qnc6c4h2n+WbUrUynQ3fanjHw=="],
 
-    "stylelint-order": ["stylelint-order@7.0.1", "", { "dependencies": { "postcss": "^8.5.6", "postcss-sorting": "^9.1.0" }, "peerDependencies": { "stylelint": "^16.18.0 || ^17.0.0" } }, "sha512-GWPei1zBVDDjxM+/BmcSCiOcHNd8rSqW6FUZtqQGlTRpD0Z5nSzspzWD8rtKif5KPdzUG68DApKEV/y/I9VbTw=="],
+    "stylelint-order": ["stylelint-order@8.1.1", "", { "dependencies": { "postcss": "^8.5.8", "postcss-sorting": "^10.0.0" }, "peerDependencies": { "stylelint": "^16.18.0 || ^17.0.0" } }, "sha512-LqsEB6VggJuu5v10RtkrQsBObcdwBE7GuAOlwfc/LR3VL/w8UqKX2BOLIjhyGt0Gne/njo7gRNGiJAKhfmPMNw=="],
 
     "stylis": ["stylis@4.4.0", "", {}, "sha512-5Z9ZpRzfuH6l/UAvCPAPUo3665Nk2wLaZU3x+TLHKVzIz33+sbJqbtrYoC3KD4/uVOr2Zp+L0LySezP9OHV9yA=="],
 
