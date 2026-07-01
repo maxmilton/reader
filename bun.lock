@@ -6,7 +6,7 @@
       "name": "reader",
       "dependencies": {
         "@ekscss/framework": "0.0.60",
-        "@maxmilton/html-parser": "0.0.12",
+        "@maxmilton/html-parser": "0.0.13",
         "bugbox": "0.0.4",
         "stage1": "0.10.0",
       },
@@ -131,7 +131,7 @@
 
     "@maxmilton/eslint-config": ["@maxmilton/eslint-config@0.3.0", "", { "peerDependencies": { "@eslint/js": "^9.38.0", "eslint": "^9.38.0", "eslint-plugin-unicorn": ">=62.0.0", "typescript-eslint": "^8.46.2" }, "optionalPeers": ["eslint-plugin-unicorn"] }, "sha512-aMxmJK1+G52eMffCj/nRLAvEmqcQUaIyn4HyGLXOQEwg/PtD90hz6ntl/9fPaGpoGK9JqLz4/ebdI3QpxyWPTA=="],
 
-    "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.12", "", {}, "sha512-hrmgn5evsM1OpYF+iH5IEi/Z+ZKLmYAxSTVnehxypGERNkjhhp+MDPFeXmxPNKapru5F7XfvUGCXZgjkrM2q9g=="],
+    "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.13", "", {}, "sha512-YngrbqbZF7/vyU5dyjzsrrBn6+LMwp6jN2bkNt2ZrQICkyjdZTqIh7fRbjKKKJYjZbiRX+JvKlwGRek437TtVQ=="],
 
     "@maxmilton/stylelint-config": ["@maxmilton/stylelint-config@0.4.2", "", { "dependencies": { "postcss-ekscss": "^0.0.12", "stylelint-order": "^7.0.0" }, "peerDependencies": { "stylelint": "^16.18.0" } }, "sha512-vJ/Gpbib2bdlLBSvyZyKXFIs6NkbiC33bwdS/Q8qQr8S2PriKvGTL4j+wXbwZxj0s+y9Dtjc2qP0s59pJkuEbw=="],
 
@@ -624,6 +624,8 @@
     "@eslint-community/eslint-utils/eslint-visitor-keys": ["eslint-visitor-keys@3.4.3", "", {}, "sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag=="],
 
     "@keyv/bigmap/keyv": ["keyv@5.6.0", "", { "dependencies": { "@keyv/serialize": "^1.1.1" } }, "sha512-CYDD3SOtsHtyXeEORYRx2qBtpDJFjRTGXUtmNEMGyzYOKj1TE3tycdlho7kA1Ufx9OYWZzg52QFBGALTirzDSw=="],
+
+    "@maxmilton/test-utils/@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.12", "", {}, "sha512-hrmgn5evsM1OpYF+iH5IEi/Z+ZKLmYAxSTVnehxypGERNkjhhp+MDPFeXmxPNKapru5F7XfvUGCXZgjkrM2q9g=="],
 
     "@typescript-eslint/eslint-plugin/ignore": ["ignore@7.0.5", "", {}, "sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg=="],
 
