@@ -50,7 +50,7 @@
     "purgecss": "7.0.2",
     "stylelint": "17.9.1",
     "stylelint-config-standard": "40.0.0",
-    "terser": "5.46.2",
+    "terser": "5.48.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.59.1"
   }
