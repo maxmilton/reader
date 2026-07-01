@@ -5,7 +5,6 @@
     "module": "esnext",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
-    "esModuleInterop": false,
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "skipLibCheck": true,
@@ -24,6 +23,7 @@
     "noUnusedParameters": false, // covered by linters
     "verbatimModuleSyntax": true,
 
+    "types": ["bun", "chrome", "csso"],
     "paths": {
       "#*": ["./src/*"]
     }
