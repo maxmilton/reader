@@ -8,25 +8,6 @@ import { extractText } from "#extractor.ts";
 import { exec } from "#utils.ts";
 import { FocalPoint, type FocalPointComponent, indexOfORP } from "./FocalPoint.ts";
 
-const extractedWords = (async () => {
-  performance.mark("Extract:Begin");
-  const html = await exec(() => {
-    const selection = window.getSelection();
-    if (selection?.type === "Range") {
-      const range = selection.getRangeAt(0);
-      const contents = range.cloneContents();
-      const body = document.createElement("body");
-      body.append(contents);
-      return body.outerHTML;
-    }
-    return document.documentElement.outerHTML;
-  });
-  // eslint-disable-next-line prefer-template
-  const text = " 3. 2. 1. " + extractText(html) + "\n";
-  performance.measure("Extract", "Extract:Begin");
-  return text.split(" ");
-})();
-
 function waitMultiplier(word: string, forceWait?: boolean) {
   // https://github.com/cameron/squirt/blob/03cf7bf103652857bd54fa7960a39fc27e306b31/squirt.js#L168-L187
   /* eslint-disable unicorn/no-declarations-before-early-exit */
@@ -90,6 +71,18 @@ const meta = compile<Refs>(`
 const view = h<ReaderComponent>(meta.html);
 
 export function Reader(): ReaderComponent {
+  const html = exec(() => {
+    const selection = window.getSelection();
+    if (selection?.type === "Range") {
+      const range = selection.getRangeAt(0);
+      const contents = range.cloneContents();
+      const body = document.createElement("body");
+      body.append(contents);
+      return body.outerHTML;
+    }
+    return document.documentElement.outerHTML;
+  });
+
   const root = view;
   const refs = collect<Refs>(root, meta.d);
   const progress = refs[meta.ref.progress];
@@ -218,11 +211,11 @@ export function Reader(): ReaderComponent {
     .get<UserSettings>()
     .then((settings) => {
       updateWPM(settings.wpm ?? 180);
-      return extractedWords;
+      return html;
     })
-    .then((wordList) => {
+    .then((rawHtml) => {
+      words = ` 3. 2. 1. ${extractText(rawHtml)}\n`.split(" ");
       performance.measure("Preprocessing");
-      words = wordList;
       start(true);
     })
     .catch((error: unknown) => {
