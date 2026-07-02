@@ -1,14 +1,17 @@
 {
   "name": "reader",
   "version": "0.3.0",
-  "description": "📖 Web page speed reader.",
-  "repository": "github:maxmilton/reader",
-  "bugs": "https://github.com/maxmilton/reader/issues",
-  "homepage": "https://github.com/maxmilton/reader",
-  "author": "Max Milton <max@2okki.com>",
-  "license": "MIT",
   "private": true,
+  "description": "📖 Web page speed reader.",
+  "homepage": "https://github.com/maxmilton/reader",
+  "bugs": "https://github.com/maxmilton/reader/issues",
+  "repository": "github:maxmilton/reader",
+  "license": "MIT",
+  "author": "Max Milton <max@2okki.com>",
   "type": "module",
+  "imports": {
+    "#*": "./src/*"
+  },
   "scripts": {
     "build": "NODE_ENV=production bun build.ts",
     "dev": "NODE_ENV=development bun build.ts",
@@ -20,9 +23,6 @@
     "test": "bun test --only-failures",
     "test:ci": "bun test --coverage --randomize --rerun-each=3",
     "test:e2e": "playwright test"
-  },
-  "imports": {
-    "#*": "./src/*"
   },
   "dependencies": {
     "@ekscss/framework": "0.0.60",

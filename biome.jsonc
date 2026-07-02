@@ -2,12 +2,15 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "files": {
-    "includes": ["**", "!!test/unit/fixtures/*.html"]
+    "includes": ["**", "!test/unit/fixtures/*.html"]
   },
   "assist": {
     "actions": {
       "preset": "recommended",
-      "source": { "useSortedProperties": "on" }
+      "source": {
+        "useSortedPackageJson": "on",
+        "useSortedProperties": "on"
+      }
     }
   },
   "formatter": {
