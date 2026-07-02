@@ -10,7 +10,7 @@ import { reset } from "../setup.ts";
 // Completely reset DOM and global state between tests
 afterEach(reset);
 
-const MODULE_PATH = Bun.resolveSync("../../dist/reader.js", import.meta.dir);
+const SCRIPT_PATH = Bun.resolveSync("../../dist/reader.js", import.meta.dir);
 
 async function load(html: string, settings?: UserSettings) {
   // @ts-expect-error - stub return value
@@ -20,8 +20,11 @@ async function load(html: string, settings?: UserSettings) {
     chrome.storage.sync.get = () => Promise.resolve(settings);
   }
 
-  Loader.registry.delete(MODULE_PATH);
-  await import(MODULE_PATH);
+  // HACK: Allow loading the script multiple times, along with its side effects.
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+  delete require.cache[SCRIPT_PATH];
+  // eslint-disable-next-line @typescript-eslint/no-require-imports, global-require
+  require(SCRIPT_PATH);
 
   // eslint-disable-next-line unicorn/consistent-function-scoping
   return /** restore */ () => {

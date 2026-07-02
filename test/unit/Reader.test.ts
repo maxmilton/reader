@@ -1,14 +1,8 @@
 import { afterEach, expect, spyOn, test } from "bun:test";
 import { cleanup, render } from "@maxmilton/test-utils/dom";
-import type { UserSettings } from "#components/Reader.ts";
+import { Reader, type UserSettings } from "#components/Reader.ts";
 
 afterEach(cleanup);
-
-// HACK: The Reader component is designed to be rendered once (does not clone
-// its view) and mutates global state. Given the global state mutation, it's
-// vital to reset its module between tests for accurate test conditions.
-const MODULE_PATH = Bun.resolveSync("#components/Reader.ts", import.meta.dir);
-let Reader: typeof import("#components/Reader.ts").Reader;
 
 async function load(html: string, settings?: UserSettings) {
   // @ts-expect-error - stub return value
@@ -18,18 +12,14 @@ async function load(html: string, settings?: UserSettings) {
     chrome.storage.sync.get = () => Promise.resolve(settings);
   }
 
-  Loader.registry.delete(MODULE_PATH);
-  // eslint-disable-next-line unicorn/no-await-expression-member, unicorn/no-top-level-assignment-in-function
-  Reader = (await import("#components/Reader.ts")).Reader;
-
   // eslint-disable-next-line unicorn/consistent-function-scoping
   return /** restore */ () => {
     chrome.storage.sync.get = () => Promise.resolve({});
   };
 }
 
-// const minimalHTML = '<html><body>x</body></html>';
-const basicHTML = await Bun.file("test/unit/fixtures/basic.html").text();
+const minimalHTML = "<html><body>a b c d e f</body></html>";
+// const basicHTML = await Bun.file("test/unit/fixtures/basic.html").text();
 // const brokenHTML = await Bun.file('test/unit/fixtures/broken.html').text();
 // const wikipediaSimpleHTML = await Bun.file('test/unit/fixtures/wikipedia-simple.html').text();
 // const wikipediaHTML = await Bun.file('test/unit/fixtures/wikipedia.html').text();
@@ -47,7 +37,7 @@ test("rendered DOM contains expected elements", async () => {
     return Promise.resolve(() => {});
   });
 
-  await load(basicHTML);
+  await load(minimalHTML);
   const rendered = render(Reader());
   await happyDOM.abort();
   const root = rendered.container.firstChild as HTMLDivElement;
@@ -87,7 +77,7 @@ test("rendered DOM initial state matches snapshot", async () => {
     return Promise.resolve(() => {});
   });
 
-  await load(basicHTML);
+  await load(minimalHTML);
   const rendered = render(Reader());
   await happyDOM.abort();
   expect(rendered.container.innerHTML).toMatchSnapshot();
@@ -97,7 +87,7 @@ test("rendered DOM initial state matches snapshot", async () => {
 
 test("rendered DOM playing state matches snapshot", async () => {
   expect.assertions(1);
-  await load(basicHTML);
+  await load(minimalHTML);
   const rendered = render(Reader());
   await Bun.sleep(1); // lets queued promises in Reader run first
   await happyDOM.abort();
@@ -106,8 +96,8 @@ test("rendered DOM playing state matches snapshot", async () => {
 
 test("rendered DOM end state matches snapshot", async () => {
   expect.assertions(1);
-  // set wpm to max possible value to speed up test
-  const restore = await load(basicHTML, { wpm: 60_000 });
+  // Set wpm to max possible value to speed up test
+  const restore = await load(minimalHTML, { wpm: 60_000 });
   const rendered = render(Reader());
   await happyDOM.waitUntilComplete();
   expect(rendered.container.innerHTML).toMatchSnapshot();
