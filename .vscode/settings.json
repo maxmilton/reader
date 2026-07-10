@@ -15,14 +15,14 @@
     "*.xcss": "scss"
   },
   "git.branchProtection": ["master", "next"],
+  "js/ts.tsdk.path": "node_modules/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
   "oxc.enable": true,
   "oxc.unusedDisableDirectives": "deny",
   "prettier.enable": false, // use biome
   "scss.validate": false,
   "stylelint.enable": true,
   "stylelint.validate": ["css", "scss"],
-  "js/ts.tsdk.path": "node_modules/typescript/lib",
-  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
 
   "[css]": {
     "editor.defaultFormatter": "biomejs.biome"
