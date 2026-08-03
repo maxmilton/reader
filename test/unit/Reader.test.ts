@@ -80,7 +80,7 @@ test("rendered DOM initial state matches snapshot", async () => {
   await load(minimalHTML);
   const rendered = render(Reader());
   await happyDOM.abort();
-  expect(rendered.container.innerHTML).toMatchSnapshot();
+  expect(rendered.container.getHTML()).toMatchSnapshot();
 
   thenSpy.mockRestore();
 });
@@ -91,7 +91,7 @@ test("rendered DOM playing state matches snapshot", async () => {
   const rendered = render(Reader());
   await Bun.sleep(1); // lets queued promises in Reader run first
   await happyDOM.abort();
-  expect(rendered.container.innerHTML).toMatchSnapshot();
+  expect(rendered.container.getHTML()).toMatchSnapshot();
 });
 
 test("rendered DOM end state matches snapshot", async () => {
@@ -100,6 +100,6 @@ test("rendered DOM end state matches snapshot", async () => {
   const restore = await load(minimalHTML, { wpm: 60_000 });
   const rendered = render(Reader());
   await happyDOM.waitUntilComplete();
-  expect(rendered.container.innerHTML).toMatchSnapshot();
+  expect(rendered.container.getHTML()).toMatchSnapshot();
   restore();
 });

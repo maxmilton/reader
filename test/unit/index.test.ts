@@ -48,12 +48,13 @@ describe("dist files", () => {
     expect(distDir).toHaveLength(distFiles.length);
   });
 
-  test.each(
-    distFiles.filter(([filename]) => filename.endsWith(".html")),
-  )("%s contains valid HTML", async (filename) => {
-    const file = Bun.file(`dist/${filename}`);
-    const html = await file.text();
-    const result = validate(html);
-    expect(result.valid).toBeTrue();
-  });
+  test.each(distFiles.filter(([filename]) => filename.endsWith(".html")))(
+    "%s contains valid HTML",
+    async (filename) => {
+      const file = Bun.file(`dist/${filename}`);
+      const html = await file.text();
+      const result = validate(html);
+      expect(result.valid).toBeTrue();
+    },
+  );
 });
