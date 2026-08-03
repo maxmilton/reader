@@ -17,7 +17,7 @@ test("rendered DOM contains expected elements", () => {
 test("rendered DOM matches snapshot", () => {
   expect.assertions(1);
   const rendered = render(FocalPoint("x"));
-  expect(rendered.container.innerHTML).toMatchSnapshot();
+  expect(rendered.container.getHTML()).toMatchSnapshot();
 });
 
 test("returns the same reused node every call", () => {

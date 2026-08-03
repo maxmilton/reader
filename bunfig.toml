@@ -1,10 +1,14 @@
 "$schema" = "https://www.schemastore.org/bunfig.json"
 
+[run]
+bun = true
+
 [install]
 auto = "disable"
 linker = "isolated"
 peer = false
 minimumReleaseAge = 604800 # 7 days
+minimumReleaseAgeExcludes = ["@ekscss/framework", "@maxmilton/*", "bugbox", "ekscss", "stage1"]
 
 [test]
 preload = ["./test/setup.ts"]

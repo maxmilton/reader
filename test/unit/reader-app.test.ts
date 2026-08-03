@@ -52,7 +52,7 @@ describe("initial state", () => {
 
     await load(basicHTML);
     await happyDOM.abort();
-    expect(document.body.innerHTML.length).toBeGreaterThan(400);
+    expect(document.body.getHTML().length).toBeGreaterThan(400);
     const root = document.body.firstChild as HTMLDivElement;
     expect(root).toBeInstanceOf(window.HTMLDivElement);
     expect(document.body.querySelector("#progress")).toBeTruthy();
@@ -87,7 +87,7 @@ describe("playing state", () => {
     await load(basicHTML);
     // await Bun.sleep(10);
     await happyDOM.abort();
-    expect(document.body.innerHTML.length).toBeGreaterThan(400);
+    expect(document.body.getHTML().length).toBeGreaterThan(400);
     const root = document.body.firstChild as HTMLDivElement;
     expect(root).toBeInstanceOf(window.HTMLDivElement);
     expect(document.body.querySelector("#progress")).toBeTruthy();
@@ -119,7 +119,7 @@ describe("end state", () => {
     // set wpm to max possible value to speed up test
     await load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
-    expect(document.body.innerHTML.length).toBeGreaterThan(500);
+    expect(document.body.getHTML().length).toBeGreaterThan(500);
     const root = document.body.firstChild as HTMLDivElement;
     expect(root).toBeInstanceOf(window.HTMLDivElement);
     expect(document.body.querySelector("#progress")).toBeTruthy();

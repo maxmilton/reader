@@ -7,26 +7,13 @@ function gitRef() {
     .replace(/^v/, "");
 }
 
-// TODO: Remove these once `@types/chrome` includes these types.
-/** @see https://developer.chrome.com/docs/extensions/develop/concepts/cross-origin-isolation */
-interface ManifestExtra {
-  /** @see https://developer.chrome.com/docs/extensions/reference/manifest/cross-origin-embedder-policy */
-  cross_origin_embedder_policy?: {
-    value: string;
-  };
-  /** @see https://developer.chrome.com/docs/extensions/reference/manifest/cross-origin-opener-policy */
-  cross_origin_opener_policy?: {
-    value: string;
-  };
-}
-
 /**
  * Generates a browser extension manifest.
  * @param debug - Whether to include a version name for debugging.
  *
  * @see https://developer.chrome.com/docs/extensions/reference/manifest
  */
-export function createManifest(debug = !process.env.CI): chrome.runtime.ManifestV3 & ManifestExtra {
+export function createManifest(debug = !process.env.CI): chrome.runtime.ManifestV3 {
   return {
     manifest_version: 3,
     name: "Reader",
