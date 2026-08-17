@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return */
+// oxlint-disable typescript/consistent-return
 
 import { describe, expect, test } from "bun:test";
 import {
@@ -36,14 +36,16 @@ test("contains @font-face rule for each font", () => {
   expect(css).toInclude(fonts[0]);
   expect(css).toInclude(fonts[1]);
   expect(css).toInclude(fonts[2]);
-  expect(css.match(/@font-face/g)).toHaveLength(fonts.length);
+  expect(css.match(/@font-face/gu)).toHaveLength(fonts.length);
 
   // verify the fonts appear within @font-face rules
   let found = 0;
   walk(ast, (element) => {
+    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (element.type !== FONT_FACE && element.parent?.type !== FONT_FACE) return SKIP;
+    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (element.type === DECLARATION && element.props === "src") {
-      const param = /url\(([^)]+)\)/.exec(element.children as string)?.[1];
+      const param = /url\(([^)]+)\)/u.exec(element.children as string)?.[1];
       expect(param).toBeDefined();
       expect(fonts as readonly string[]).toContain(param!);
       found += 1;

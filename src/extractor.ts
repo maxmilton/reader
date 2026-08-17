@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-for-of, unicorn/prefer-includes, unicorn/no-for-loop */
+// oxlint-disable typescript/prefer-for-of
 
 // Import source for better build optimization (especially const enum inlining).
 import {
@@ -74,7 +74,7 @@ const EXTRANEOUS_ELEMENTS = new Set([
 //  ↳ What if the user wants to read comments? Should the matching be different
 //    if the input is the user selection?
 const EXTRANEOUS_CLASSES =
-  /comment|communit|contact|disqus|donat|extra|fundrais|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|widget/i;
+  /comment|communit|contact|disqus|donat|extra|fundrais|meta|pager|pagination|popup|promo|related|remark|rss|share|shout|sidebar|sponsor|social|tags|tool|widget/iu;
 const SKIP = true;
 
 const textarea = create("textarea");
@@ -86,12 +86,10 @@ function decodeHTMLEntities(html: string) {
 }
 
 function buildAttributeMap(node: Tag_ | Tag): asserts node is Tag {
-  // eslint-disable-next-line no-param-reassign
   node.attributeMap = {};
 
   for (let index = 0; index < node.attributes.length; index++) {
     const attr = node.attributes[index];
-    // eslint-disable-next-line no-param-reassign
     node.attributeMap[attr.name.value] = attr.value?.value;
   }
 }
@@ -135,7 +133,6 @@ export function extractText(html: string): string {
   // First pass; collect references and populate attribute maps
   walk(ast, {
     enter(node) {
-      // eslint-disable-next-line unicorn/prefer-early-return
       if (node.type === SyntaxKind.Tag) {
         switch (node.name) {
           case "article":
@@ -175,36 +172,36 @@ export function extractText(html: string): string {
   const root =
     articles.length === 1
       ? articles[0]
-      : (tagById.article
-        ?? tagById.post
-        ?? tagById.content
-        ?? tagById.main
-        ?? (mains.length === 1 ? mains[0] : (tagById.app ?? tagById.root ?? body!)));
+      : (tagById.article ??
+        tagById.post ??
+        tagById.content ??
+        tagById.main ??
+        (mains.length === 1 ? mains[0] : (tagById.app ?? tagById.root ?? body!)));
   let text = "";
 
   // Second pass; clean up superfluous nodes and extract meaningful text
   walk2(
     root.body!,
     root,
-    // eslint-disable-next-line consistent-return
+    // oxlint-disable-next-line typescript/consistent-return
     (node, parent) => {
       if (node.type === SyntaxKind.Tag) {
         if (
           // TODO: Fix types rather than casting to unknown.
-          EXTRANEOUS_ELEMENTS.has(node.name)
-          || (node.name === "footer" && parent.name !== "blockquote")
-          || ((node as unknown as Tag).attributeMap.class
-            && EXTRANEOUS_CLASSES.test((node as unknown as Tag).attributeMap.class!))
+          EXTRANEOUS_ELEMENTS.has(node.name) ||
+          (node.name === "footer" && parent.name !== "blockquote") ||
+          ((node as unknown as Tag).attributeMap.class &&
+            EXTRANEOUS_CLASSES.test((node as unknown as Tag).attributeMap.class!))
         ) {
           return SKIP;
         }
       } else {
         // Add text with consecutive whitespace collapsed
         text += (
-          node.value.indexOf("&") === -1 // eslint-disable-line @typescript-eslint/prefer-includes
+          node.value.indexOf("&") === -1 // oxlint-disable-line typescript/prefer-includes
             ? node.value
             : decodeHTMLEntities(node.value)
-        ).replace(/\s+/g, " ");
+        ).replace(/\s+/gu, " ");
       }
     },
     (node) => {
@@ -222,37 +219,35 @@ export function extractText(html: string): string {
     text
       .trim()
       // ensure single consecutive \n padded with space
-      .replace(/[\n ]{2,}/g, " \n ")
+      .replace(/[\n ]{2,}/gu, " \n ")
       // fix missing space around em dashes
-      .replace(/(\S)—(\S)/g, "$1 — $2")
+      .replace(/(\S)—(\S)/gu, "$1 — $2")
   );
 }
 
 // // Simple stringify AST to prettified HTML-like structure for debugging
 // function stringify(node: Node, html: string, level = 1): string {
-//   if (node.type === SyntaxKind.Text) return node.value.replace(/\s+/g, " ");
+//   if (node.type === SyntaxKind.Text) return node.value.replace(/\s+/gu, " ");
 //   if (node.name === "!--") return html.slice(node.start, node.end);
 //
-//   const attrs = node.attributes
-//     .map((attr) => html.slice(attr.start, attr.end))
-//     .join(" ");
+//   const attrs = node.attributes.map((attr) => html.slice(attr.start, attr.end)).join(" ");
 //   const head = `<${node.rawName}${attrs ? ` ${attrs}` : ""}>`;
 //
 //   if (!node.body || node.body.length === 0) return head;
 //
-//   /* eslint-disable prefer-template */ // template string breaks after minification
 //   return (
-//     head
-//     + "\n"
-//     + "  ".repeat(level)
-//     + node.body
+//     // oxlint-disable-next-line prefer-template - template string breaks after minification
+//     head +
+//     "\n" +
+//     "  ".repeat(level) +
+//     node.body
 //       .filter((n) => !(n.type === SyntaxKind.Text && n.value.trim() === ""))
 //       .map((n) => stringify(n, html, level + 1))
-//       .join("\n" + "  ".repeat(level))
-//     + "\n"
-//     + "  ".repeat(level - 1)
-//     + "</"
-//     + node.rawName
-//     + ">"
+//       .join("\n" + "  ".repeat(level)) +
+//     "\n" +
+//     "  ".repeat(level - 1) +
+//     "</" +
+//     node.rawName +
+//     ">"
 //   );
 // }

@@ -11,7 +11,7 @@ const meta = compile(
   // where it crashes when doing string literal template interpolation. See:
   // https://github.com/oven-sh/bun/issues/3830
   interpolate(
-    `
+    /* html */ `
       <footer>
         © <a href=https://maxmilton.com class="normal muted" target=_blank>Max Milton</a> ・ v%%1%% ・ <a href=https://github.com/maxmilton/reader/issues target=_blank>report bug</a>
       </footer>

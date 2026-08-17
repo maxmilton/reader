@@ -5,9 +5,9 @@
   "description": "📖 Web page speed reader.",
   "homepage": "https://github.com/maxmilton/reader",
   "bugs": "https://github.com/maxmilton/reader/issues",
-  "repository": "github:maxmilton/reader",
   "license": "MIT",
   "author": "Max Milton <max@2okki.com>",
+  "repository": "github:maxmilton/reader",
   "type": "module",
   "imports": {
     "#*": "./src/*"

@@ -2,7 +2,7 @@ import "./FocalPoint.xcss";
 
 import { create } from "stage1/fast";
 
-const NON_WORD_RE = /\W/;
+const NON_WORD_RE = /\W/u;
 
 /**
  * Get the Optimal Recognition Point (OPR) index for a given word phrase.

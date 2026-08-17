@@ -1,6 +1,4 @@
-/* eslint-disable no-await-in-loop, no-console */
-
-import { basename } from "node:path"; // eslint-disable-line unicorn/import-style
+import { basename } from "node:path";
 import { xcss } from "bun-plugin-ekscss";
 import * as csso from "csso";
 import * as lightningcss from "lightningcss";
@@ -15,7 +13,7 @@ const isDev = env === "development";
 function makeHTML(release: string) {
   // nosemgrep: generic-api-key
   const bugboxApiKey = "AZczqkPBcACag7DE9p762A";
-  return `
+  return /* html */ `
     <!doctype html>
     <meta charset=utf-8>
     <meta name=google content=notranslate>
@@ -27,7 +25,7 @@ function makeHTML(release: string) {
     <script src=reader.js defer></script>
   `
     .trim()
-    .replaceAll(/\n\s+/g, "\n"); // remove leading whitespace
+    .replaceAll(/\n\s+/gu, "\n"); // remove leading whitespace
 }
 
 async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
@@ -42,7 +40,6 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
   }
 
   for (const artifact of artifacts) {
-    // eslint-disable-next-line unicorn/prefer-continue
     if (artifact.path.endsWith(".css")) {
       const filename = basename(artifact.path);
       const source = await artifact.text();
@@ -94,7 +91,7 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
         filename,
         code: encoder.encode(purged[0].css),
         minify: true,
-        // eslint-disable-next-line no-bitwise
+        // oxlint-disable-next-line no-bitwise
         targets: { chrome: 134 << 16 }, // matches manifest minimum_chrome_version
       });
       if (minified.warnings.length > 0) console.error(minified.warnings);
@@ -120,7 +117,6 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
 
 async function minifyJS(artifacts: Bun.BuildArtifact[]): Promise<void> {
   for (const artifact of artifacts) {
-    // eslint-disable-next-line unicorn/prefer-continue
     if (artifact.path.endsWith(".js") || artifact.path.endsWith(".mjs")) {
       const source = await artifact.text();
       const result = await terser.minify(source, {

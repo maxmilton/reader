@@ -22,8 +22,11 @@ test("rendered DOM matches snapshot", () => {
 
 test("returns the same reused node every call", () => {
   expect.assertions(10);
+  // oxlint-disable-next-line prefer-const
   let node1: FocalPointComponent;
+  // oxlint-disable-next-line prefer-const
   let node2: FocalPointComponent;
+  // oxlint-disable-next-line prefer-const
   let node3: FocalPointComponent;
   const rendered1 = render((node1 = FocalPoint("1")));
   expect(rendered1.container.firstChild).toBeTruthy();

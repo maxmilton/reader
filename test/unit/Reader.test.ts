@@ -4,7 +4,7 @@ import { Reader, type UserSettings } from "#components/Reader.ts";
 
 afterEach(cleanup);
 
-async function load(html: string, settings?: UserSettings) {
+function load(html: string, settings?: UserSettings) {
   // @ts-expect-error - stub return value
   global.chrome.scripting.executeScript = () => Promise.resolve([{ result: html }]);
 
@@ -12,13 +12,12 @@ async function load(html: string, settings?: UserSettings) {
     chrome.storage.sync.get = () => Promise.resolve(settings);
   }
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   return /** restore */ () => {
     chrome.storage.sync.get = () => Promise.resolve({});
   };
 }
 
-const minimalHTML = "<html><body>a b c d e f</body></html>";
+const minimalHTML = /* html */ "<html><body>a b c d e f</body></html>";
 // const basicHTML = await Bun.file("test/unit/fixtures/basic.html").text();
 // const brokenHTML = await Bun.file('test/unit/fixtures/broken.html').text();
 // const wikipediaSimpleHTML = await Bun.file('test/unit/fixtures/wikipedia-simple.html').text();
@@ -30,14 +29,16 @@ test("rendered DOM contains expected elements", async () => {
   // HACK: Prevent the UI from progressing past the initial state by preventing
   // the second `Promise.then` call which would normally call the Reader
   // component's start() function. Flaky and needs a better solution!
+  // oxlint-disable-next-line promise/spec-only
   const thenSpy = spyOn(Promise.prototype, "then");
   // @ts-expect-error - mock implementation
   thenSpy.mockImplementation((fn) => {
+    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
     return Promise.resolve(() => {});
   });
 
-  await load(minimalHTML);
+  load(minimalHTML);
   const rendered = render(Reader());
   await happyDOM.abort();
   const root = rendered.container.firstChild as HTMLDivElement;
@@ -70,14 +71,16 @@ test("rendered DOM initial state matches snapshot", async () => {
   // HACK: Prevent the UI from progressing past the initial state by preventing
   // the second `Promise.then` call which would normally call the Reader
   // component's start() function. Flaky and needs a better solution!
+  // oxlint-disable-next-line promise/spec-only
   const thenSpy = spyOn(Promise.prototype, "then");
   // @ts-expect-error - mock implementation
   thenSpy.mockImplementation((fn) => {
+    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
     return Promise.resolve(() => {});
   });
 
-  await load(minimalHTML);
+  load(minimalHTML);
   const rendered = render(Reader());
   await happyDOM.abort();
   expect(rendered.container.getHTML()).toMatchSnapshot();
@@ -87,7 +90,7 @@ test("rendered DOM initial state matches snapshot", async () => {
 
 test("rendered DOM playing state matches snapshot", async () => {
   expect.assertions(1);
-  await load(minimalHTML);
+  load(minimalHTML);
   const rendered = render(Reader());
   await Bun.sleep(1); // lets queued promises in Reader run first
   await happyDOM.abort();
@@ -97,7 +100,7 @@ test("rendered DOM playing state matches snapshot", async () => {
 test("rendered DOM end state matches snapshot", async () => {
   expect.assertions(1);
   // Set wpm to max possible value to speed up test
-  const restore = await load(minimalHTML, { wpm: 60_000 });
+  const restore = load(minimalHTML, { wpm: 60_000 });
   const rendered = render(Reader());
   await happyDOM.waitUntilComplete();
   expect(rendered.container.getHTML()).toMatchSnapshot();

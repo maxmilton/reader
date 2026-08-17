@@ -1,6 +1,5 @@
+// oxlint-disable no-empty-pattern
 // https://playwright.dev/docs/chrome-extensions
-
-/* eslint-disable no-empty-pattern */
 
 import path from "node:path";
 import { type BrowserContext, test as base, chromium } from "@playwright/test";

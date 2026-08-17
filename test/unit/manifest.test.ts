@@ -11,15 +11,13 @@ test("is an object", () => {
 
 test("is valid JSON", () => {
   expect.assertions(1);
-  // eslint-disable-next-line unicorn/prefer-structured-clone
+  // oxlint-disable-next-line unicorn/prefer-structured-clone
   expect(JSON.parse(JSON.stringify(manifest))).toEqual(manifest);
 });
 
 test("is equal to dist/manifest.json (excluding version_name)", () => {
   expect.assertions(1);
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { version_name: _vn1, ...restSrc } = manifest;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const { version_name: _vn2, ...restDist } = dist as ReturnType<typeof createManifest>;
   expect(restSrc).toEqual(restDist);
 });
@@ -95,7 +93,7 @@ test("does not contain any unexpected properties", () => {
     "cross_origin_opener_policy",
     "key",
   ];
-  // eslint-disable-next-line guard-for-in
+  // oxlint-disable-next-line guard-for-in
   for (const property in manifest) {
     expect(expectedProperties).toContain(property);
   }

@@ -29,7 +29,10 @@
 // test("contains the app release version number", () => {
 //   expect.assertions(1);
 //   const rendered = render(Footer());
-//   expect(rendered.container.innerHTML).toMatch(/v\d+\.\d+\.\d+/);
+//   expect(rendered.container.innerHTML).toMatch(/v\d+\.\d+\.\d+/u);
 // });
+
+// oxlint-disable-next-line unicorn/require-module-specifiers
+export {};
 
 $console.warn("FIXME: Footer tests are disabled");

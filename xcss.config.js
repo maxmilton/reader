@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// oxlint-disable typescript/no-unsafe-return
 // @ts-nocheck - FIXME: Fix ekscss types
-/* eslint-disable @typescript-eslint/no-unsafe-return, unicorn/no-top-level-side-effects */
 
 import framework from "@ekscss/framework/config";
 import { extend, preloadApply } from "@ekscss/framework/utils";
@@ -37,6 +36,7 @@ const config = extend(framework, {
       disabledBorder: (x) => x.color.dark3,
     },
 
+    // oxlint-disable-next-line id-length
     media: { ns: "", m: "", l: "" }, // not a responsive app
     textSize: null, // removes styles from @ekscss/framework
     fontStack: null, // removes styles from @ekscss/framework

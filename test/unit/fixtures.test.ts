@@ -8,34 +8,32 @@ const fixtureFiles: [filename: string, bytes: number, valid: boolean][] = [
   ["wikipedia.html", 437_315, true],
 ];
 
-for (const [filename, bytes, valid] of fixtureFiles) {
-  describe(filename, () => {
-    const file = Bun.file(`test/unit/fixtures/${filename}`);
+describe.each(fixtureFiles)("%s", (filename, bytes, valid) => {
+  const file = Bun.file(`test/unit/fixtures/${filename}`);
 
-    test("file exists", () => {
-      expect.assertions(2);
-      expect(file.exists()).resolves.toBeTruthy();
-      expect(file.size).toBeGreaterThan(0);
-    });
+  test("file exists", () => {
+    expect.assertions(2);
+    expect(file.exists()).resolves.toBeTruthy();
+    expect(file.size).toBeGreaterThan(0);
+  });
 
-    test("code is correct length", async () => {
+  test("code is correct length", async () => {
+    expect.assertions(1);
+    const html = await file.text();
+    expect(html).toHaveLength(bytes);
+  });
+
+  if (valid) {
+    test("code is valid HTML", async () => {
       expect.assertions(1);
       const html = await file.text();
-      expect(html).toHaveLength(bytes);
+      expect(validate(html).valid).toBeTruthy();
     });
-
-    if (valid) {
-      test("code is valid HTML", async () => {
-        expect.assertions(1);
-        const html = await file.text();
-        expect(validate(html).valid).toBeTruthy();
-      });
-    } else {
-      test("code is intentionally not valid HTML", async () => {
-        expect.assertions(1);
-        const html = await file.text();
-        expect(validate(html).valid).toBeFalsy();
-      });
-    }
-  });
-}
+  } else {
+    test("code is intentionally not valid HTML", async () => {
+      expect.assertions(1);
+      const html = await file.text();
+      expect(validate(html).valid).toBeFalsy();
+    });
+  }
+});

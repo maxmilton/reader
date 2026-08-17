@@ -12,7 +12,7 @@ afterEach(reset);
 
 const SCRIPT_PATH = Bun.resolveSync("../../dist/reader.js", import.meta.dir);
 
-async function load(html: string, settings?: UserSettings) {
+function load(html: string, settings?: UserSettings) {
   // @ts-expect-error - stub return value
   global.chrome.scripting.executeScript = () => Promise.resolve([{ result: html }]);
 
@@ -21,12 +21,11 @@ async function load(html: string, settings?: UserSettings) {
   }
 
   // HACK: Allow loading the script multiple times, along with its side effects.
-  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+  // oxlint-disable-next-line typescript/no-dynamic-delete unicorn/prefer-module
   delete require.cache[SCRIPT_PATH];
-  // eslint-disable-next-line @typescript-eslint/no-require-imports, global-require
+  // oxlint-disable-next-line import/no-dynamic-require node/global-require typescript/no-require-imports unicorn/prefer-module
   require(SCRIPT_PATH);
 
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   return /** restore */ () => {
     chrome.storage.sync.get = () => Promise.resolve({});
   };
@@ -43,14 +42,16 @@ describe("initial state", () => {
     // HACK: Prevent the UI from progressing past the initial state by preventing
     // the second `Promise.then` call which would normally call the Reader
     // component's start() function. Flaky and needs a better solution!
+    // oxlint-disable-next-line promise/spec-only
     const thenSpy = spyOn(Promise.prototype, "then");
     // @ts-expect-error - mock implementation
     thenSpy.mockImplementation((fn) => {
+      // oxlint-disable-next-line vitest/no-conditional-in-test
       if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
       return Promise.resolve(() => {});
     });
 
-    await load(basicHTML);
+    load(basicHTML);
     await happyDOM.abort();
     expect(document.body.getHTML().length).toBeGreaterThan(400);
     const root = document.body.firstChild as HTMLDivElement;
@@ -84,7 +85,7 @@ describe("playing state", () => {
   // FIXME: Implement a more robust way of rendering the app multiple times.
   test.skip("renders reader app", async () => {
     expect.assertions(19);
-    await load(basicHTML);
+    load(basicHTML);
     // await Bun.sleep(10);
     await happyDOM.abort();
     expect(document.body.getHTML().length).toBeGreaterThan(400);
@@ -117,7 +118,7 @@ describe("end state", () => {
   test("renders reader app", async () => {
     expect.assertions(19);
     // set wpm to max possible value to speed up test
-    await load(basicHTML, { wpm: 60_000 });
+    load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
     expect(document.body.getHTML().length).toBeGreaterThan(500);
     const root = document.body.firstChild as HTMLDivElement;
@@ -147,7 +148,7 @@ describe("end state", () => {
   test("does not call any console methods", async () => {
     expect.assertions(1);
     // set wpm to max possible value to speed up test
-    const restore = await load(basicHTML, { wpm: 60_000 });
+    const restore = load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
     expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
     restore();
@@ -157,7 +158,7 @@ describe("end state", () => {
     expect.hasAssertions(); // variable number of assertions
     const check = performanceSpy();
     // set wpm to max possible value to speed up test
-    const restore = await load(basicHTML, { wpm: 60_000 });
+    const restore = load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
     check();
     restore();
@@ -167,7 +168,7 @@ describe("end state", () => {
     expect.assertions(1);
     const spy = spyOn(global, "fetch");
     // set wpm to max possible value to speed up test
-    const restore = await load(basicHTML, { wpm: 60_000 });
+    const restore = load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
     expect(spy).not.toHaveBeenCalled();
     restore();
@@ -178,7 +179,7 @@ describe("error state", () => {
   test("renders reader app", async () => {
     expect.assertions(9);
     const consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
-    await load(brokenHTML);
+    load(brokenHTML);
     // await Bun.sleep(1); // lets queued promises in Reader run first
     await happyDOM.abort();
     expect(document.body.querySelector("#summary")).toBeTruthy();

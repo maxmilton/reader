@@ -3,11 +3,11 @@ import "@maxmilton/test-utils/extend";
 import { setupDOM } from "@maxmilton/test-utils/dom";
 
 // HACK: Make imported .xcss files return empty to prevent test errors.
-// eslint-disable-next-line unicorn/no-top-level-side-effects
+// oxlint-disable-next-line vitest/require-hook
 Bun.plugin({
   name: "xcss",
   setup(build) {
-    build.onLoad({ filter: /\.xcss$/ }, () => ({
+    build.onLoad({ filter: /\.xcss$/u }, () => ({
       contents: "",
       // loader: "css",
     }));
@@ -27,7 +27,6 @@ function setupMocks(): void {
   // @ts-expect-error - noop stub
   global.performance.measure = noop;
 
-  // eslint-disable-next-line unicorn/no-global-object-property-assignment
   global.chrome = {
     storage: {
       // @ts-expect-error - partial mock
@@ -48,7 +47,7 @@ function setupMocks(): void {
 }
 
 export async function reset(): Promise<void> {
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line typescript/no-unnecessary-condition
   if (global.happyDOM) {
     await happyDOM.abort();
     window.close();
@@ -60,5 +59,4 @@ export async function reset(): Promise<void> {
   setupMocks();
 }
 
-// eslint-disable-next-line unicorn/no-top-level-side-effects
 await reset();

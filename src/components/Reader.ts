@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions, unicorn/prefer-await */
-
 import "./Reader.xcss";
 
 import { append, collect, create, h, ONCLICK } from "stage1/fast";
@@ -10,14 +8,12 @@ import { FocalPoint, type FocalPointComponent, indexOfORP } from "./FocalPoint.t
 
 function waitMultiplier(word: string, forceWait?: boolean) {
   // https://github.com/cameron/squirt/blob/03cf7bf103652857bd54fa7960a39fc27e306b31/squirt.js#L168-L187
-  /* eslint-disable unicorn/no-declarations-before-early-exit */
   const WAIT_AFTER_WORD = 1;
   const WAIT_AFTER_SHORT_WORD = 1.2;
   const WAIT_AFTER_LONG_WORD = 1.5;
   const WAIT_AFTER_COMMA = 2;
   const WAIT_AFTER_PERIOD = 3;
   const WAIT_AFTER_PARAGRAPH = 3.5;
-  /* eslint-enable unicorn/no-declarations-before-early-exit */
 
   if (forceWait) return WAIT_AFTER_PERIOD;
 
@@ -50,7 +46,7 @@ interface Refs {
   word: HTMLDivElement;
 }
 
-const meta = compile<Refs>(`
+const meta = compile<Refs>(/* html */ `
   <div>
     <div id=progress>
       <div @progress id=bar></div>
@@ -114,7 +110,7 @@ export function Reader(): ReaderComponent {
     stop();
 
     // nosemgrep: insecure-document-method
-    word.innerHTML = `<div id=summary><em>ﬁn.</em><br>You read ${
+    word.innerHTML = /* html */ `<div id=summary><em>ﬁn.</em><br>You read ${
       // exclude intro countdown
       words.length - 4
     } words in ${
@@ -139,6 +135,7 @@ export function Reader(): ReaderComponent {
 
     const currentWord = words[wordsIndex];
     const orpIndex = indexOfORP(currentWord);
+    // oxlint-disable-next-line prefer-const
     let focalPoint: FocalPointComponent;
 
     word.replaceChildren(
@@ -151,7 +148,6 @@ export function Reader(): ReaderComponent {
     progress.style.transform = `translateX(${(wordsIndex / words.length - 1) * 100}%)`;
 
     timer = (setTimeout as Window["setTimeout"])(
-      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
       () => next(),
       rate * waitMultiplier(currentWord, forceWait),
     );
@@ -188,7 +184,7 @@ export function Reader(): ReaderComponent {
       wordsIndex = 0;
     } else {
       // Set index to start of the sentence
-      while (wordsIndex-- && !/[!.?…]$/.test(words[wordsIndex]));
+      while (wordsIndex-- && !/[!.?…]$/u.test(words[wordsIndex]));
     }
 
     start(true);
@@ -202,11 +198,10 @@ export function Reader(): ReaderComponent {
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
   slower[ONCLICK] = () => updateWPM(wpm - 60);
-  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
   faster[ONCLICK] = () => updateWPM(wpm + 60);
 
+  // oxlint-disable promise/prefer-await-to-callbacks promise/prefer-await-to-then
   chrome.storage.sync
     .get<UserSettings>()
     .then((settings) => {
@@ -226,7 +221,7 @@ export function Reader(): ReaderComponent {
 
       rewind.disabled = true;
       play.disabled = true;
-      // eslint-disable-next-line no-console
+      // oxlint-disable-next-line no-console
       console.error(error);
     });
 
