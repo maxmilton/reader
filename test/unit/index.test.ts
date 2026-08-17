@@ -42,10 +42,11 @@ describe("dist files", () => {
     }
   });
 
-  test("contains no extra files", async () => {
+  test("contains no unexpected files", () => {
     expect.assertions(1);
-    const distDir = await readdir("dist");
-    expect(distDir).toHaveLength(distFiles.length);
+    const expectedFiles = new Set(distFiles.map(([filename]) => filename));
+    const actualFiles = new Set(new Bun.Glob("**").scanSync({ cwd: "dist" }));
+    expect(actualFiles.difference(expectedFiles)).toBeEmpty();
   });
 
   test.each(distFiles.filter(([filename]) => filename.endsWith(".html")))(
