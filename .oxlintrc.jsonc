@@ -1,0 +1,66 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": [
+    "./node_modules/@maxmilton/oxlint-config/recommended.json",
+    "./node_modules/@maxmilton/oxlint-config/stage1.json",
+  ],
+  "options": {
+    "maxWarnings": 100,
+    "reportUnusedDisableDirectives": "error",
+    "respectEslintDisableDirectives": false,
+    "typeAware": true,
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "warn",
+    "perf": "error",
+    "style": "warn",
+    "restriction": "error",
+    "nursery": "warn",
+  },
+  // https://github.com/oxc-project/javascript-globals/blob/main/src/lib.rs
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "webextensions": true,
+    "es2025": true,
+    "es2026": true,
+  },
+  "globals": {
+    "Bun": "readonly",
+    "process": "readonly",
+  },
+  "rules": {
+    "eslint/no-plusplus": "off", // byte savings
+    "eslint/prefer-named-capture-group": "off",
+    "node/no-sync": "off",
+    "typescript/no-unsafe-type-assertion": "off", // TODO: re-enable when we can fix all the issues
+    "typescript/promise-function-async": "off",
+    "typescript/strict-boolean-expressions": "off", // too pedantic
+    "unicorn/prefer-at": "off", // bad browser support
+    "unicorn/switch-case-braces": ["error", "avoid"], // byte savings (minification doesn't automatically remove)
+  },
+  "overrides": [
+    {
+      "files": ["test/unit/**", "test/setup.ts"],
+      "globals": {
+        "$console": "readonly",
+        "happyDOM": "readonly",
+      },
+    },
+    {
+      "files": ["test/e2e/**"],
+      "plugins": ["vitest"],
+      "rules": {
+        "vitest/consistent-test-filename": ["error", { "pattern": ".*\\.spec\\.ts$" }],
+      },
+    },
+    {
+      "files": ["test/**/*.test.ts", "test/**/*.spec.ts"],
+      "rules": {
+        "unicorn/consistent-function-scoping": "off", // tests may define scoped helpers
+      },
+    },
+  ],
+}
