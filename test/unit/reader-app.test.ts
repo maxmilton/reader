@@ -43,7 +43,7 @@ describe("initial state", () => {
     // the second `Promise.then` call which would normally call the Reader
     // component's start() function. Flaky and needs a better solution!
     // oxlint-disable-next-line promise/spec-only
-    const thenSpy = spyOn(Promise.prototype, "then");
+    using thenSpy = spyOn(Promise.prototype, "then");
     // @ts-expect-error - mock implementation
     thenSpy.mockImplementation((fn) => {
       // oxlint-disable-next-line vitest/no-conditional-in-test
@@ -76,8 +76,6 @@ describe("initial state", () => {
     expect(buttons[2].textContent).toBe("−");
     expect(buttons[3].textContent).toBe("+");
     expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
-
-    thenSpy.mockRestore();
   });
 });
 
@@ -166,7 +164,7 @@ describe("end state", () => {
 
   test("does not call fetch()", async () => {
     expect.assertions(1);
-    const spy = spyOn(global, "fetch");
+    using spy = spyOn(global, "fetch");
     // set wpm to max possible value to speed up test
     const restore = load(basicHTML, { wpm: 60_000 });
     await happyDOM.waitUntilComplete();
@@ -178,7 +176,7 @@ describe("end state", () => {
 describe("error state", () => {
   test("renders reader app", async () => {
     expect.assertions(9);
-    const consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
+    using consoleErrorSpy = spyOn(console, "error").mockImplementation(() => {});
     load(brokenHTML);
     // await Bun.sleep(1); // lets queued promises in Reader run first
     await happyDOM.abort();
@@ -191,7 +189,6 @@ describe("error state", () => {
     expect(buttons[1].disabled).toBe(true);
     expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
     expect(consoleErrorSpy).toHaveBeenCalledWith(expect.any(TypeError));
-    consoleErrorSpy.mockReset();
     expect(happyDOM.virtualConsolePrinter.read()).toBeArrayOfSize(0);
   });
 });

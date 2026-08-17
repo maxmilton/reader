@@ -30,7 +30,7 @@ test("rendered DOM contains expected elements", async () => {
   // the second `Promise.then` call which would normally call the Reader
   // component's start() function. Flaky and needs a better solution!
   // oxlint-disable-next-line promise/spec-only
-  const thenSpy = spyOn(Promise.prototype, "then");
+  using thenSpy = spyOn(Promise.prototype, "then");
   // @ts-expect-error - mock implementation
   thenSpy.mockImplementation((fn) => {
     // oxlint-disable-next-line vitest/no-conditional-in-test
@@ -61,8 +61,6 @@ test("rendered DOM contains expected elements", async () => {
   expect(buttons[1].textContent).toBe("Play"); // starts as "Play" then changes to "Pause" after load
   expect(buttons[2].textContent).toBe("−");
   expect(buttons[3].textContent).toBe("+");
-
-  thenSpy.mockRestore();
 });
 
 test("rendered DOM initial state matches snapshot", async () => {
@@ -72,7 +70,7 @@ test("rendered DOM initial state matches snapshot", async () => {
   // the second `Promise.then` call which would normally call the Reader
   // component's start() function. Flaky and needs a better solution!
   // oxlint-disable-next-line promise/spec-only
-  const thenSpy = spyOn(Promise.prototype, "then");
+  using thenSpy = spyOn(Promise.prototype, "then");
   // @ts-expect-error - mock implementation
   thenSpy.mockImplementation((fn) => {
     // oxlint-disable-next-line vitest/no-conditional-in-test
@@ -84,8 +82,6 @@ test("rendered DOM initial state matches snapshot", async () => {
   const rendered = render(Reader());
   await happyDOM.abort();
   expect(rendered.container.getHTML()).toMatchSnapshot();
-
-  thenSpy.mockRestore();
 });
 
 test("rendered DOM playing state matches snapshot", async () => {
