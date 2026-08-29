@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "bierner.comment-tagged-templates",
     "ms-playwright.playwright",
     "oven.bun-vscode",
     "oxc.oxc-vscode",

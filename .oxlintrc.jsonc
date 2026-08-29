@@ -22,10 +22,12 @@
   // https://github.com/oxc-project/javascript-globals/blob/main/src/lib.rs
   "env": {
     "builtin": true,
-    "browser": true,
-    "webextensions": true,
     "es2025": true,
     "es2026": true,
+    // TODO: Use "bun" instead of "globals" once supported: https://github.com/oxc-project/javascript-globals/issues/274
+    "bun": true,
+    "browser": true,
+    "webextensions": true,
   },
   "globals": {
     "Bun": "readonly",
@@ -39,9 +41,17 @@
     "typescript/promise-function-async": "off",
     "typescript/strict-boolean-expressions": "off", // too pedantic
     "unicorn/prefer-at": "off", // bad browser support
-    "unicorn/switch-case-braces": ["error", "avoid"], // byte savings (minification doesn't automatically remove)
+
+    // TODO: These are buggy. Remove after future oxlint updates.
+    "typescript/prefer-readonly-parameter-types": "off",
   },
   "overrides": [
+    {
+      "files": ["test/**/*.test.ts", "test/**/*.spec.ts"],
+      "rules": {
+        "unicorn/consistent-function-scoping": "off", // tests may define scoped helpers
+      },
+    },
     {
       "files": ["test/unit/**", "test/setup.ts"],
       "globals": {
@@ -54,12 +64,6 @@
       "plugins": ["vitest"],
       "rules": {
         "vitest/consistent-test-filename": ["error", { "pattern": ".*\\.spec\\.ts$" }],
-      },
-    },
-    {
-      "files": ["test/**/*.test.ts", "test/**/*.spec.ts"],
-      "rules": {
-        "unicorn/consistent-function-scoping": "off", // tests may define scoped helpers
       },
     },
   ],
