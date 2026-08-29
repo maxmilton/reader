@@ -1,5 +1,4 @@
 import "./FocalPoint.xcss";
-
 import { create } from "stage1/fast";
 
 const NON_WORD_RE = /\W/u;

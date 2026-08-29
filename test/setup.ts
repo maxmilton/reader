@@ -1,5 +1,4 @@
 import "@maxmilton/test-utils/extend";
-
 import { setupDOM } from "@maxmilton/test-utils/dom";
 
 // HACK: Make imported .xcss files return empty to prevent test errors.

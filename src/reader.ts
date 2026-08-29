@@ -1,5 +1,4 @@
 import "#css/index.xcss";
-
 import { append, fragment, handleClick } from "stage1/fast";
 import { Footer } from "#components/Footer.ts";
 import { Reader } from "#components/Reader.ts";

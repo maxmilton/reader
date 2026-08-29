@@ -1,5 +1,4 @@
 import "./Reader.xcss";
-
 import { append, collect, create, h, ONCLICK } from "stage1/fast";
 import { compile } from "stage1/macro" with { type: "macro" };
 import { extractText } from "#extractor.ts";
