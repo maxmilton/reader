@@ -43,7 +43,7 @@
     "ekscss": "0.0.24-next.0",
     "happy-dom": "20.11.2",
     "lightningcss": "1.33.0",
-    "oxfmt": "0.62.0",
+    "oxfmt": "0.65.0",
     "oxlint": "1.77.0",
     "oxlint-tsgolint": "7.0.2001",
     "purgecss": "8.0.0",
