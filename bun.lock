@@ -6,7 +6,7 @@
       "name": "reader",
       "dependencies": {
         "@ekscss/framework": "0.0.61-next.0",
-        "@maxmilton/html-parser": "0.0.13",
+        "@maxmilton/html-parser": "0.0.14",
         "bugbox": "0.0.4",
         "stage1": "0.10.0",
       },
@@ -83,7 +83,7 @@
 
     "@keyv/serialize": ["@keyv/serialize@1.1.1", "", {}, "sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA=="],
 
-    "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.13", "", {}, "sha512-YngrbqbZF7/vyU5dyjzsrrBn6+LMwp6jN2bkNt2ZrQICkyjdZTqIh7fRbjKKKJYjZbiRX+JvKlwGRek437TtVQ=="],
+    "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.14", "", {}, "sha512-cxWhGdrB9e/FlVMYQ7Kf5GCSwwv9G819LQFsxEOjpYgl+sL6REK4KoTeEe+VFRwHjZ8/0mXUdZZTBX3/XD9YWQ=="],
 
     "@maxmilton/oxlint-config": ["@maxmilton/oxlint-config@0.0.8", "", { "peerDependencies": { "oxlint": "^1.76.0" } }, "sha512-mA1IZLKO7l4bLjhk9w+IEZF9xjkSf8oKQ+esYtL5sST7CgfFQyRNXY55/WkhGwfKJGmxPDr9aSkfOmqL/5JJ4Q=="],
 
