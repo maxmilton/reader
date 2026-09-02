@@ -36,7 +36,7 @@
     "@maxmilton/test-utils": "0.0.15",
     "@playwright/test": "1.62.1",
     "@types/bun": "1.3.14",
-    "@types/chrome": "0.2.5",
+    "@types/chrome": "0.2.7",
     "@types/csso": "5.0.5",
     "bun-plugin-ekscss": "0.0.4-next.0",
     "csso": "5.0.5",
