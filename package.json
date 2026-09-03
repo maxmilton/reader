@@ -31,7 +31,7 @@
     "stage1": "0.10.0"
   },
   "devDependencies": {
-    "@maxmilton/oxlint-config": "0.0.13",
+    "@maxmilton/oxlint-config": "0.0.14",
     "@maxmilton/stylelint-config": "0.4.4",
     "@maxmilton/test-utils": "0.0.18",
     "@playwright/test": "1.62.1",
@@ -41,15 +41,16 @@
     "bun-plugin-ekscss": "0.0.4-next.0",
     "csso": "5.0.5",
     "ekscss": "0.0.24-next.0",
-    "happy-dom": "20.11.6",
+    "happy-dom": "20.11.8",
     "lightningcss": "1.33.0",
-    "oxfmt": "0.64.0",
-    "oxlint": "1.79.0",
+    "oxclippy": "0.2.0",
+    "oxfmt": "0.65.0",
+    "oxlint": "1.80.0",
     "oxlint-tsgolint": "7.0.2001",
     "purgecss": "8.0.0",
     "stylelint": "17.14.1",
     "stylelint-config-standard": "40.0.0",
-    "terser": "5.50.0",
+    "terser": "5.51.1",
     "typescript": "7.0.2"
   }
 }
