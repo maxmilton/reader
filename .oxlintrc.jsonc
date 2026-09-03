@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "jsPlugins": ["oxclippy"],
   "extends": [
+    "./node_modules/oxclippy/presets/all.json",
     "./node_modules/@maxmilton/oxlint-config/recommended.json",
     "./node_modules/@maxmilton/oxlint-config/stage1.json",
   ],
@@ -22,25 +24,22 @@
   // https://github.com/oxc-project/javascript-globals/blob/main/src/lib.rs
   "env": {
     "builtin": true,
-    "es2025": true,
-    "es2026": true,
-    // TODO: Use "bun" instead of "globals" once supported: https://github.com/oxc-project/javascript-globals/issues/274
+    "es2026": true, // TODO: es2027 once in oxc.
     "bun": true,
+    "commonjs": false,
     "browser": true,
     "webextensions": true,
-  },
-  "globals": {
-    "Bun": "readonly",
-    "process": "readonly",
   },
   "rules": {
     "eslint/no-plusplus": "off", // byte savings
     "eslint/prefer-named-capture-group": "off",
     "node/no-sync": "off",
-    "typescript/no-unsafe-type-assertion": "off", // TODO: re-enable when we can fix all the issues
     "typescript/promise-function-async": "off",
     "typescript/strict-boolean-expressions": "off", // too pedantic
     "unicorn/prefer-at": "off", // bad browser support
+
+    // TODO: Remove when we can fix all the issues.
+    "typescript/no-unsafe-type-assertion": "warn",
 
     // TODO: These are buggy. Remove after future oxlint updates.
     "typescript/prefer-readonly-parameter-types": "off",
