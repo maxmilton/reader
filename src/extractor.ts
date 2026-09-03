@@ -172,11 +172,11 @@ export function extractText(html: string): string {
   const root =
     articles.length === 1
       ? articles[0]
-      : (tagById.article ??
-        tagById.post ??
-        tagById.content ??
-        tagById.main ??
-        (mains.length === 1 ? mains[0] : (tagById.app ?? tagById.root ?? body!)));
+      : (tagById["article"] ??
+        tagById["post"] ??
+        tagById["content"] ??
+        tagById["main"] ??
+        (mains.length === 1 ? mains[0] : (tagById["app"] ?? tagById["root"] ?? body!)));
   let text = "";
 
   // Second pass; clean up superfluous nodes and extract meaningful text

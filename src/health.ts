@@ -9,5 +9,5 @@
 import { meta } from "bugbox/micro";
 
 chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
-  meta.url = tab.url;
+  meta["url"] = tab.url;
 });
