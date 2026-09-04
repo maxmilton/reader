@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test";
-import { readdir } from "node:fs/promises";
 import { validate } from "@maxmilton/test-utils/html";
 
 describe("dist files", () => {

@@ -77,7 +77,7 @@ function decodeHTMLEntities(html: string) {
 
 // oxlint-disable-next-line typescript/consistent-return
 function attributeValue(node: Tag, name: string): string | undefined {
-  for (let index = node.attributes.length - 1; index >= 0; index--) {
+  for (let index = 0; index < node.attributes.length; index++) {
     const attr = node.attributes[index];
     if (attr.name.value === name) return attr.value?.value;
   }

@@ -34,6 +34,14 @@ describe("attributes", () => {
     );
     expect(result).toBe("Keep");
   });
+
+  test("selects the first duplicate attribute", () => {
+    expect.assertions(1);
+    const result = extractText(
+      '<body><div id="article" id="other" class="keep" class="comment">Keep</div><p>Outside</p></body>',
+    );
+    expect(result).toBe("Keep");
+  });
 });
 
 describe("basic.html", () => {
