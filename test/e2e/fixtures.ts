@@ -5,7 +5,6 @@ import path from "node:path";
 import { type BrowserContext, test as base, chromium } from "@playwright/test";
 
 export const test = base.extend<{ context: BrowserContext; extensionId: string }>({
-  // biome-ignore lint/correctness/noEmptyPattern: playwright setup
   async context({}, use) {
     const dist = path.join(import.meta.dirname, "../../dist");
     const context = await chromium.launchPersistentContext("", {
@@ -23,7 +22,6 @@ export const test = base.extend<{ context: BrowserContext; extensionId: string }
   //   const extensionId = sw.url().split("/")[2];
   //   await use(extensionId);
   // },
-  // biome-ignore lint/correctness/noEmptyPattern: playwright setup
   async extensionId({}, use) {
     await use("ollcdfepbkpopcfilmheonkfbbnnmkbj");
   },
