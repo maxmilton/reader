@@ -6,12 +6,12 @@
       "name": "reader",
       "dependencies": {
         "@ekscss/framework": "0.0.61-next.0",
-        "@maxmilton/html-parser": "0.0.14",
+        "@maxmilton/html-parser": "0.0.15",
         "bugbox": "0.0.4",
         "stage1": "0.10.0",
       },
       "devDependencies": {
-        "@maxmilton/oxlint-config": "0.0.14",
+        "@maxmilton/oxlint-config": "0.0.15",
         "@maxmilton/stylelint-config": "0.4.4",
         "@maxmilton/test-utils": "0.0.18",
         "@playwright/test": "1.62.1",
@@ -75,7 +75,7 @@
 
     "@jridgewell/source-map": ["@jridgewell/source-map@0.3.11", "", { "dependencies": { "@jridgewell/gen-mapping": "^0.3.5", "@jridgewell/trace-mapping": "^0.3.25" } }, "sha512-ZMp1V8ZFcPG5dIWnQLr3NSI1MiCU7UETdS/A0G8V/XWHvJv3ZsFqutJn1Y5RPmAPX6F3BiE397OqveU/9NCuIA=="],
 
-    "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.5.5", "", {}, "sha512-cYQ9310grqxueWbl+WuIUIaiUaDcj7WOq5fVhEljNVgRfOUhY9fy2zTvfoqWsnebh8Sl70VScFbICvJnLKB0Og=="],
+    "@jridgewell/sourcemap-codec": ["@jridgewell/sourcemap-codec@1.6.0", "", {}, "sha512-T7jf+5zgsZHwNJ4lvQ7/aezbyk0nNX+zJVWpmHA7VYsEx7a7qr5Rg5IbtJFqkgze5Y2sruq1RUY8Q837Od7iFw=="],
 
     "@jridgewell/trace-mapping": ["@jridgewell/trace-mapping@0.3.31", "", { "dependencies": { "@jridgewell/resolve-uri": "^3.1.0", "@jridgewell/sourcemap-codec": "^1.4.14" } }, "sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw=="],
 
@@ -83,9 +83,9 @@
 
     "@keyv/serialize": ["@keyv/serialize@1.1.1", "", {}, "sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA=="],
 
-    "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.14", "", {}, "sha512-cxWhGdrB9e/FlVMYQ7Kf5GCSwwv9G819LQFsxEOjpYgl+sL6REK4KoTeEe+VFRwHjZ8/0mXUdZZTBX3/XD9YWQ=="],
+    "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.15", "", {}, "sha512-KQZd0Il+CDBDE7/6Ex9S+WYaBEiSi9bH2yQzZSihmCQ9ZAOJAiz77kuNyMNIB0m89W68SJavJLLBy9u4VM9gKw=="],
 
-    "@maxmilton/oxlint-config": ["@maxmilton/oxlint-config@0.0.14", "", { "peerDependencies": { "oxlint": "^1.78.0" } }, "sha512-lWTfFHQajeRu+guMf4U511k4AjajA3bvuZWf12BS26vSAtJoo3eOw6A3/UF2tByzfoVHk953DmApNRDFvTYtJg=="],
+    "@maxmilton/oxlint-config": ["@maxmilton/oxlint-config@0.0.15", "", { "peerDependencies": { "oxlint": "^1.79.0" } }, "sha512-Rj9IqAf42erCu9yJZg8O+G4q0JnDdctolgCmGOrGPmlt3sNnrws6e7Ngi+cgRTEch8AdMCVyyQGCzJTC2wk4Gg=="],
 
     "@maxmilton/stylelint-config": ["@maxmilton/stylelint-config@0.4.4", "", { "dependencies": { "postcss-ekscss": "^0.0.15", "stylelint-order": "^8.0.0" }, "peerDependencies": { "stylelint": "^17.0.0" } }, "sha512-kOd6CRbUTofWMPVBUMM6NHJcOUQ9p+kTcg9URQlQKSSfKTPjZfUEM5KaUnjy+ZmoQd4jmtJQJoUokIMItx2pOA=="],
 

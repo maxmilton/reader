@@ -9,7 +9,14 @@ auto = "disable"
 linker = "isolated"
 peer = false
 minimumReleaseAge = 604800 # 7 days
-minimumReleaseAgeExcludes = ["@ekscss/framework", "@maxmilton/*", "bugbox", "ekscss", "stage1"]
+minimumReleaseAgeExcludes = [
+  "@ekscss/framework",
+  "@maxmilton/*",
+  "bugbox",
+  "ekscss",
+  "stage1",
+  "@maxmilton/html-parser", # TODO: Remove this once bun supports wildcards
+]
 
 [test]
 preload = ["./test/setup.ts"]

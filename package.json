@@ -26,12 +26,12 @@
   },
   "dependencies": {
     "@ekscss/framework": "0.0.61-next.0",
-    "@maxmilton/html-parser": "0.0.14",
+    "@maxmilton/html-parser": "0.0.15",
     "bugbox": "0.0.4",
     "stage1": "0.10.0"
   },
   "devDependencies": {
-    "@maxmilton/oxlint-config": "0.0.14",
+    "@maxmilton/oxlint-config": "0.0.15",
     "@maxmilton/stylelint-config": "0.4.4",
     "@maxmilton/test-utils": "0.0.18",
     "@playwright/test": "1.62.1",
