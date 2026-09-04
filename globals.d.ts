@@ -3,7 +3,8 @@ import type { ONCLICK } from "stage1/fast";
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      readonly CI?: string;
+      readonly APP_RELEASE: string;
+      CI?: string; // GitHub Actions
     }
   }
 
