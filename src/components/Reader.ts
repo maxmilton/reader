@@ -63,7 +63,6 @@ const meta = compile<Refs>(/* html */ `
     <div @word id=word></div>
   </div>
 `);
-const view = h<ReaderComponent>(meta.html);
 
 export function Reader(): ReaderComponent {
   const html = exec(() => {
@@ -78,7 +77,7 @@ export function Reader(): ReaderComponent {
     return document.documentElement.outerHTML;
   });
 
-  const root = view;
+  const root = h<ReaderComponent>(meta.html);
   const refs = collect<Refs>(root, meta.d);
   const progress = refs[meta.ref.progress];
   const rewind = refs[meta.ref.rewind];
