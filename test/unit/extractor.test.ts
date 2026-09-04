@@ -26,6 +26,16 @@ test("returns a string", () => {
   expect(result).toBeString();
 });
 
+describe("attributes", () => {
+  test("selects IDs and ignores extraneous classes", () => {
+    expect.assertions(1);
+    const result = extractText(
+      '<body><div id="article"><p>Keep</p><p class="comment">Skip</p></div><p>Outside</p></body>',
+    );
+    expect(result).toBe("Keep");
+  });
+});
+
 describe("basic.html", () => {
   test("returns expected text", () => {
     expect.assertions(1);

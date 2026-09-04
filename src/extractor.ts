@@ -1,18 +1,8 @@
 // oxlint-disable typescript/prefer-for-of
 
 // Import source for better build optimization (especially const enum inlining).
-import {
-  type Node,
-  parse,
-  SyntaxKind,
-  type Tag as Tag_,
-  walk,
-} from "@maxmilton/html-parser/src/index.ts";
+import { type Node, parse, SyntaxKind, type Tag } from "@maxmilton/html-parser/src/index.ts";
 import { create } from "stage1/fast";
-
-interface Tag extends Omit<Tag_, "attributeMap"> {
-  attributeMap: Record<string, string | undefined>;
-}
 
 const BLOCK_ELEMENTS = new Set([
   "address",
@@ -85,33 +75,31 @@ function decodeHTMLEntities(html: string) {
   return textarea.value;
 }
 
-function buildAttributeMap(node: Tag_ | Tag): asserts node is Tag {
-  node.attributeMap = {};
-
-  for (let index = 0; index < node.attributes.length; index++) {
+// oxlint-disable-next-line typescript/consistent-return
+function attributeValue(node: Tag, name: string): string | undefined {
+  for (let index = node.attributes.length - 1; index >= 0; index--) {
     const attr = node.attributes[index];
-    node.attributeMap[attr.name.value] = attr.value?.value;
+    if (attr.name.value === name) return attr.value?.value;
   }
 }
 
-// Custom AST walker that can skip over subtrees
-// https://github.com/lukeed/astray/blob/017484ce67402224304836e7d1a2fe2e116c3ae9/src/index.js
-function walk2(
-  node: Node[] | Node,
-  parent: Tag_,
-  enter: (node: Node, parent: Tag_) => undefined | typeof SKIP,
-  leave: (node: Node) => void,
+function walk(
+  nodes: Node[],
+  parent: Tag | undefined,
+  enter: (node: Node, parent: Tag | undefined) => undefined | typeof SKIP,
+  leave?: (node: Node) => void,
 ) {
-  if (Array.isArray(node)) {
-    for (let index = 0; index < node.length; index++) {
-      walk2(node[index], parent, enter, leave);
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+
+    if (enter(node, parent) === SKIP) continue;
+
+    if (node.type === SyntaxKind.Tag) {
+      const body = node.body;
+      if (body?.length) walk(body, node, enter, leave);
     }
-  } else {
-    if (enter(node, parent) === SKIP) return;
-    if (node.type === SyntaxKind.Tag && node.body) {
-      walk2(node.body, node, enter, leave);
-    }
-    leave(node);
+
+    leave?.(node);
   }
 }
 
@@ -125,38 +113,33 @@ function walk2(
 export function extractText(html: string): string {
   const ast = parse(html);
 
-  const tagById: Record<string, Tag_ | undefined> = {};
-  const articles: Tag_[] = [];
-  const mains: Tag_[] = [];
-  let body: Tag_;
+  const tagById: Record<string, Tag | undefined> = {};
+  const articles: Tag[] = [];
+  const mains: Tag[] = [];
+  let body: Tag | undefined;
 
-  // First pass; collect references and populate attribute maps
-  walk(ast, {
-    enter(node) {
-      if (node.type === SyntaxKind.Tag) {
-        switch (node.name) {
-          case "article":
-            articles.push(node);
-            break;
-          case "body":
-            body = node;
-            break;
-          case "main":
-            mains.push(node);
-            break;
-          default:
-            break;
-        }
-
-        buildAttributeMap(node);
-
-        // TODO: Fix the types rather than casting
-        const attrId = node.attributeMap.id as string | undefined;
-        if (attrId) {
-          tagById[attrId] = node;
-        }
+  // First pass; collect references
+  walk(ast, undefined, (node) => {
+    if (node.type === SyntaxKind.Tag) {
+      switch (node.name) {
+        case "article":
+          articles.push(node);
+          break;
+        case "body":
+          body = node;
+          break;
+        case "main":
+          mains.push(node);
+          break;
+        default:
+          break;
       }
-    },
+
+      const attrId = attributeValue(node, "id");
+      if (attrId) {
+        tagById[attrId] = node;
+      }
+    }
   });
 
   // Choose the best root node:
@@ -180,18 +163,16 @@ export function extractText(html: string): string {
   let text = "";
 
   // Second pass; clean up superfluous nodes and extract meaningful text
-  walk2(
+  walk(
     root.body!,
     root,
     // oxlint-disable-next-line typescript/consistent-return
     (node, parent) => {
       if (node.type === SyntaxKind.Tag) {
         if (
-          // TODO: Fix types rather than casting to unknown.
           EXTRANEOUS_ELEMENTS.has(node.name) ||
-          (node.name === "footer" && parent.name !== "blockquote") ||
-          ((node as unknown as Tag).attributeMap.class &&
-            EXTRANEOUS_CLASSES.test((node as unknown as Tag).attributeMap.class!))
+          (node.name === "footer" && parent?.name !== "blockquote") ||
+          EXTRANEOUS_CLASSES.test(attributeValue(node, "class") ?? "")
         ) {
           return SKIP;
         }
