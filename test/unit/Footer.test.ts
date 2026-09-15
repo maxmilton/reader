@@ -2,6 +2,8 @@
 //  ↳ https://github.com/oven-sh/bun/issues/3641
 //  ↳ https://github.com/oven-sh/bun/issues/3832
 
+// oxlint-disable vitest/no-commented-out-tests
+
 // import { afterEach, expect, test } from "bun:test";
 // import { cleanup, render } from "@maxmilton/test-utils/dom";
 // import { Footer } from "#components/Footer.ts";
@@ -35,4 +37,5 @@
 // oxlint-disable-next-line unicorn/require-module-specifiers
 export {};
 
+// oxlint-disable-next-line vitest/require-hook
 $console.warn("FIXME: Footer tests are disabled");

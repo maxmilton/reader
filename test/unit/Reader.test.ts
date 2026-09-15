@@ -33,7 +33,6 @@ test("rendered DOM contains expected elements", async () => {
   using thenSpy = spyOn(Promise.prototype, "then");
   // @ts-expect-error - mock implementation
   thenSpy.mockImplementation((fn) => {
-    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
     return Promise.resolve(() => {});
   });
@@ -73,7 +72,6 @@ test("rendered DOM initial state matches snapshot", async () => {
   using thenSpy = spyOn(Promise.prototype, "then");
   // @ts-expect-error - mock implementation
   thenSpy.mockImplementation((fn) => {
-    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
     return Promise.resolve(() => {});
   });

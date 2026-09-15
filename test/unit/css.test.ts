@@ -41,12 +41,11 @@ test("contains @font-face rule for each font", () => {
   // verify the fonts appear within @font-face rules
   let found = 0;
   walk(ast, (element) => {
-    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (element.type !== FONT_FACE && element.parent?.type !== FONT_FACE) return SKIP;
-    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (element.type === DECLARATION && element.props === "src") {
       const param = /url\(([^)]+)\)/u.exec(element.children as string)?.[1];
       expect(param).toBeDefined();
+      // oxlint-disable-next-line typescript/no-non-null-assertion
       expect(fonts as readonly string[]).toContain(param!);
       found += 1;
     }
@@ -78,6 +77,7 @@ test("<html> has width of 600px", () => {
   expect(elements).toBeArray();
   expect(elements?.length).toBeGreaterThan(0);
   expect(elements?.[0].props).toContain("html");
+  // oxlint-disable-next-line typescript/no-non-null-assertion
   const styles = reduce(elements!);
   expect(styles).toHaveProperty("width", "600px");
 });
@@ -88,6 +88,7 @@ test("<body> has width of 600px", () => {
   expect(elements).toBeArray();
   expect(elements?.length).toBeGreaterThan(0);
   expect(elements?.[0].props).toContain("body");
+  // oxlint-disable-next-line typescript/no-non-null-assertion
   const styles = reduce(elements!);
   expect(styles).toHaveProperty("width", "600px");
 });

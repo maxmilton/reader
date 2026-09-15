@@ -24,6 +24,7 @@ export async function exec<T, A extends unknown[] = []>(
   const tab = await getCurrentTab();
 
   const [{ result }] = await chrome.scripting.executeScript({
+    // oxlint-disable-next-line typescript/no-non-null-assertion
     target: { tabId: tab.id! },
     func,
     args,

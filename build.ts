@@ -48,7 +48,7 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
         css: [{ raw: source }],
         safelist: ["html", "body"],
         blocklist: [
-          // XXX: Remember to remove if actually using the element tag
+          // XXX: Remember to remove if actually using the element tag.
           "article",
           "aside",
           "blockquote",
@@ -132,7 +132,7 @@ async function minifyJS(artifacts: Bun.BuildArtifact[]): Promise<void> {
           semicolons: false, // better debugging with near-zero overhead
         },
       });
-      await Bun.write(artifact.path, result.code!);
+      await Bun.write(artifact.path, result.code ?? "");
     }
   }
 }

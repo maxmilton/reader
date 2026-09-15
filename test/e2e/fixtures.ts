@@ -1,10 +1,10 @@
-// oxlint-disable no-empty-pattern
 // https://playwright.dev/docs/chrome-extensions
 
 import path from "node:path";
-import { type BrowserContext, test as base, chromium } from "@playwright/test";
+import { test as base, type BrowserContext, chromium } from "@playwright/test";
 
 export const test = base.extend<{ context: BrowserContext; extensionId: string }>({
+  // oxlint-disable-next-line no-empty-pattern
   async context({}, use) {
     const dist = path.join(import.meta.dirname, "../../dist");
     const context = await chromium.launchPersistentContext("", {
@@ -14,7 +14,7 @@ export const test = base.extend<{ context: BrowserContext; extensionId: string }
     await use(context);
     await context.close();
   },
-  // FIXME: Get extension ID dynamically without service worker; maybe via chrome.runtime.id
+  // TODO: Get extension ID dynamically without service worker; maybe via chrome.runtime.id
   // async extensionId({ context }, use) {
   //   let [sw] = context.serviceWorkers();
   //   sw ??= await context.waitForEvent("serviceworker", { timeout: 200 }););
@@ -22,6 +22,7 @@ export const test = base.extend<{ context: BrowserContext; extensionId: string }
   //   const extensionId = sw.url().split("/")[2];
   //   await use(extensionId);
   // },
+  // oxlint-disable-next-line no-empty-pattern
   async extensionId({}, use) {
     await use("ollcdfepbkpopcfilmheonkfbbnnmkbj");
   },

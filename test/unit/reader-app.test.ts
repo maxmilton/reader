@@ -5,7 +5,7 @@
 import { afterEach, describe, expect, spyOn, test } from "bun:test";
 import { performanceSpy } from "@maxmilton/test-utils/spy";
 import type { UserSettings } from "#components/Reader.ts";
-import { reset } from "../setup.ts";
+import { reset } from "./setup.ts";
 
 // Completely reset DOM and global state between tests
 afterEach(reset);
@@ -46,7 +46,6 @@ describe("initial state", () => {
     using thenSpy = spyOn(Promise.prototype, "then");
     // @ts-expect-error - mock implementation
     thenSpy.mockImplementation((fn) => {
-      // oxlint-disable-next-line vitest/no-conditional-in-test
       if (thenSpy.mock.calls.length < 2) return Promise.resolve(fn);
       return Promise.resolve(() => {});
     });

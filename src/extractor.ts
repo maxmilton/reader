@@ -92,9 +92,11 @@ function walk(
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes[i];
 
+    // oxlint-disable-next-line no-continue
     if (enter(node, parent) === SKIP) continue;
 
     if (node.type === SyntaxKind.Tag) {
+      // oxlint-disable-next-line prefer-destructuring
       const body = node.body;
       if (body?.length) walk(body, node, enter, leave);
     }
@@ -159,11 +161,13 @@ export function extractText(html: string): string {
         tagById["post"] ??
         tagById["content"] ??
         tagById["main"] ??
+        // oxlint-disable-next-line typescript/no-non-null-assertion
         (mains.length === 1 ? mains[0] : (tagById["app"] ?? tagById["root"] ?? body!)));
   let text = "";
 
   // Second pass; clean up superfluous nodes and extract meaningful text
   walk(
+    // oxlint-disable-next-line typescript/no-non-null-assertion
     root.body!,
     root,
     // oxlint-disable-next-line typescript/consistent-return
