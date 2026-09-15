@@ -61,10 +61,6 @@
     },
     {
       "files": ["test/e2e/**"],
-      "env": {
-        "browser": false,
-        "webextensions": false,
-      },
       "plugins": ["vitest"],
       "rules": {
         "vitest/consistent-test-filename": ["error", { "pattern": ".*\\.spec\\.ts$" }],

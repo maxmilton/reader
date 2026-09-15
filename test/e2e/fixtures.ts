@@ -14,16 +14,10 @@ export const test = base.extend<{ context: BrowserContext; extensionId: string }
     await use(context);
     await context.close();
   },
-  // TODO: Get extension ID dynamically without service worker; maybe via chrome.runtime.id
-  // async extensionId({ context }, use) {
-  //   let [sw] = context.serviceWorkers();
-  //   sw ??= await context.waitForEvent("serviceworker", { timeout: 200 }););
-  //
-  //   const extensionId = sw.url().split("/")[2];
-  //   await use(extensionId);
-  // },
   // oxlint-disable-next-line no-empty-pattern
   async extensionId({}, use) {
+    // Hardcoded because we have no way to get it dynamically without an
+    // extension service worker. It's stable due to "key" in manifest.json.
     await use("ollcdfepbkpopcfilmheonkfbbnnmkbj");
   },
 });
