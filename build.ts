@@ -92,7 +92,7 @@ async function minifyCSS(artifacts: Bun.BuildArtifact[]) {
         code: encoder.encode(purged[0].css),
         minify: true,
         // oxlint-disable-next-line no-bitwise
-        targets: { chrome: 134 << 16 }, // matches manifest minimum_chrome_version
+        targets: { chrome: 95 << 16 }, // matches manifest minimum_chrome_version
       });
       if (minified.warnings.length > 0) console.error(minified.warnings);
 

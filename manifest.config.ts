@@ -22,7 +22,7 @@ export function createManifest(debug = !process.env.CI): chrome.runtime.Manifest
     version: pkg.version.split("-", 1)[0],
     // Shippable releases should not have a named version
     version_name: debug ? gitRef() : undefined,
-    minimum_chrome_version: "134", // matches build
+    minimum_chrome_version: "95", // matches build
     icons: {
       16: "icon16.png",
       48: "icon48.png",
