@@ -19,5 +19,5 @@ minimumReleaseAgeExcludes = [
 ]
 
 [test]
-preload = ["./test/setup.ts"]
+preload = ["./test/unit/setup.ts"]
 root = "./test/unit"
