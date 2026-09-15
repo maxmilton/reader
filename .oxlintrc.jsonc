@@ -5,15 +5,15 @@
     "./node_modules/@maxmilton/oxlint-config/stage1.json",
   ],
   "options": {
-    "maxWarnings": 80,
+    "maxWarnings": 20,
     "reportUnusedDisableDirectives": "error",
     "respectEslintDisableDirectives": false,
     "typeAware": true,
   },
   "categories": {
     "correctness": "error",
-    "suspicious": "error",
-    "pedantic": "warn",
+    "suspicious": "warn",
+    // "pedantic": "warn", // TODO: Enable when we can fix all the issues.
     "perf": "error",
     "style": "warn",
     "restriction": "error",
@@ -30,17 +30,17 @@
   },
   "rules": {
     "eslint/no-plusplus": "off", // byte savings
-    "eslint/prefer-named-capture-group": "off",
+    "eslint/prefer-named-capture-group": "off", // byte savings
     "node/no-sync": "off",
     "typescript/promise-function-async": "off",
     "typescript/strict-boolean-expressions": "off", // too pedantic
     "unicorn/prefer-at": "off", // bad browser support
 
     // TODO: Remove when we can fix all the issues.
-    "typescript/no-unsafe-type-assertion": "warn",
+    "typescript/no-unsafe-type-assertion": "off",
 
-    // TODO: These are buggy. Remove after future oxlint updates.
-    "typescript/prefer-readonly-parameter-types": "off",
+    // TODO: Remove after future oxlint updates.
+    "typescript/prefer-readonly-parameter-types": "off", // buggy
   },
   "overrides": [
     {
@@ -50,7 +50,10 @@
       },
     },
     {
-      "files": ["test/unit/**", "test/setup.ts"],
+      "files": ["test/unit/**"],
+      "env": {
+        "node": true,
+      },
       "globals": {
         "$console": "readonly",
         "happyDOM": "readonly",

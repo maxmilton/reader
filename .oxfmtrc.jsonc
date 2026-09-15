@@ -1,17 +1,7 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": ["test/unit/fixtures/", "CLAUDE.md"],
+  "ignorePatterns": ["test/unit/fixtures/"],
   "sortImports": { "newlinesBetween": false },
-  "sortPackageJson": true,
+  "sortPackageJson": { "sortScripts": true },
   "sortTailwindcss": true,
-  "overrides": [
-    // FIXME: It still doesn't add trailing commas to *.json files.
-    {
-      "files": [".vscode/*.json", "tsconfig.json"],
-      "options": {
-        // "parser": "jsonc",
-        "trailingComma": "all",
-      },
-    },
-  ],
 }
