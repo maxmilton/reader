@@ -3,7 +3,7 @@
 // FIXME: This is a convoluted workaround for a bug in the bun macro system,
 // where it crashes when doing string literal template interpolation. See:
 // https://github.com/oven-sh/bun/issues/3641
-export function interpolate(text: string, values: string[]): string {
+export function interpolate(text: string, values: readonly string[]): string {
   let result = text;
 
   // oxlint-disable-next-line unicorn/no-array-for-each

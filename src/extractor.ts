@@ -4,7 +4,7 @@
 import { type Node, parse, SyntaxKind, type Tag } from "@maxmilton/html-parser/src/index.ts";
 import { create } from "stage1/fast";
 
-const BLOCK_ELEMENTS = new Set([
+const BLOCK_ELEMENTS: ReadonlySet<string> = new Set([
   "address",
   "article",
   // "aside",
@@ -40,7 +40,7 @@ const BLOCK_ELEMENTS = new Set([
   "tfoot",
   "ul",
 ]);
-const EXTRANEOUS_ELEMENTS = new Set([
+const EXTRANEOUS_ELEMENTS: ReadonlySet<string> = new Set([
   "!--",
   "aside",
   "button",
@@ -84,7 +84,7 @@ function attributeValue(node: Tag, name: string): string | undefined {
 }
 
 function walk(
-  nodes: Node[],
+  nodes: readonly Node[],
   parent: Tag | undefined,
   enter: (node: Node, parent: Tag | undefined) => undefined | typeof SKIP,
   leave?: (node: Node) => void,
