@@ -1,7 +1,9 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": ["test/unit/fixtures/"],
+  "ignorePatterns": ["/test/unit/fixtures/"],
+  "jsdoc": { "lineWrappingStyle": "balance" },
   "sortImports": { "newlinesBetween": false },
   "sortPackageJson": { "sortScripts": true },
   "sortTailwindcss": true,
+  "experimentalOperatorPosition": "start",
 }
