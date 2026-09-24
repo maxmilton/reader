@@ -19,7 +19,7 @@
     "restriction": "error",
     "nursery": "warn",
   },
-  // https://github.com/oxc-project/javascript-globals/blob/main/src/lib.rs
+  // https://github.com/oxc-project/javascript-globals/blob/main/src/generated/mod.rs#L213
   "env": {
     "builtin": true,
     "es2026": true, // TODO: es2027 once in oxc.
@@ -50,7 +50,7 @@
       },
     },
     {
-      "files": ["test/unit/**"],
+      "files": ["test/unit/**", "test/setup.ts"],
       "env": {
         "node": true,
       },

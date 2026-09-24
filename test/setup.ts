@@ -13,8 +13,6 @@ Bun.plugin({
   },
 });
 
-const noop = () => {};
-
 function setupMocks(): void {
   // TODO: Decide how to handle this once macro string interpolation bug is fixed;  https://github.com/oven-sh/bun/issues/3830
   // this is normally set in build.ts
@@ -22,9 +20,9 @@ function setupMocks(): void {
   process.env.APP_RELEASE = "1.0.0";
 
   // @ts-expect-error - noop stub
-  global.performance.mark = noop;
+  global.performance.mark = () => {};
   // @ts-expect-error - noop stub
-  global.performance.measure = noop;
+  global.performance.measure = () => {};
 
   global.chrome = {
     storage: {
@@ -52,9 +50,7 @@ export async function reset(): Promise<void> {
     window.close();
   }
 
-  setupDOM({
-    url: "chrome-extension://ollcdfepbkpopcfilmheonkfbbnnmkbj/",
-  });
+  setupDOM({ url: "chrome-extension://ollcdfepbkpopcfilmheonkfbbnnmkbj/" });
   setupMocks();
 }
 
