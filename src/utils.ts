@@ -12,7 +12,6 @@ export async function getCurrentTab(): Promise<chrome.tabs.Tab> {
  *
  * @param func - Function to run in page. Must be self-contained.
  * @param args - Arguments to pass to function. Must be JSON-serializable.
- *
  * @see https://developer.chrome.com/docs/extensions/reference/scripting/#method-executeScript
  * @see https://developer.chrome.com/docs/extensions/reference/scripting/#type-ScriptInjection
  * @see https://developer.chrome.com/en/blog/crx-scripting-api/#injecting-a-function-with-arguments

@@ -12,7 +12,7 @@ function load(html: string, settings?: UserSettings) {
     chrome.storage.sync.get = () => Promise.resolve(settings);
   }
 
-  return /** restore */ () => {
+  return /** Restore */ () => {
     chrome.storage.sync.get = () => Promise.resolve({});
   };
 }

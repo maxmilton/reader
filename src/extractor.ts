@@ -109,7 +109,7 @@ function walk(
  * Attempt to extract the main content of a given HTML document.
  *
  * @param html - HTML markup. This should come from the browser after the page
- * is rendered to guaranty the markup is well-formed and safe.
+ *   is rendered to guaranty the markup is well-formed and safe.
  * @returns The main content of the document.
  */
 export function extractText(html: string): string {
@@ -157,12 +157,12 @@ export function extractText(html: string): string {
   const root =
     articles.length === 1
       ? articles[0]
-      : (tagById["article"] ??
-        tagById["post"] ??
-        tagById["content"] ??
-        tagById["main"] ??
+      : (tagById["article"]
+        ?? tagById["post"]
+        ?? tagById["content"]
+        ?? tagById["main"]
         // oxlint-disable-next-line typescript/no-non-null-assertion
-        (mains.length === 1 ? mains[0] : (tagById["app"] ?? tagById["root"] ?? body!)));
+        ?? (mains.length === 1 ? mains[0] : (tagById["app"] ?? tagById["root"] ?? body!)));
   let text = "";
 
   // Second pass; clean up superfluous nodes and extract meaningful text
@@ -174,9 +174,9 @@ export function extractText(html: string): string {
     (node, parent) => {
       if (node.type === SyntaxKind.Tag) {
         if (
-          EXTRANEOUS_ELEMENTS.has(node.name) ||
-          (node.name === "footer" && parent?.name !== "blockquote") ||
-          EXTRANEOUS_CLASSES.test(attributeValue(node, "class") ?? "")
+          EXTRANEOUS_ELEMENTS.has(node.name)
+          || (node.name === "footer" && parent?.name !== "blockquote")
+          || EXTRANEOUS_CLASSES.test(attributeValue(node, "class") ?? "")
         ) {
           return SKIP;
         }
