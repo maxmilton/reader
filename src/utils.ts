@@ -17,7 +17,7 @@ export async function getCurrentTab(): Promise<chrome.tabs.Tab> {
  * @see https://developer.chrome.com/en/blog/crx-scripting-api/#injecting-a-function-with-arguments
  */
 export async function exec<T, A extends unknown[] = []>(
-  func: (..._args: A) => T,
+  func: (...args: A) => T,
   args?: A,
 ): Promise<T> {
   const tab = await getCurrentTab();
