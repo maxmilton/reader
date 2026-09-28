@@ -13,6 +13,24 @@ Bun.plugin({
   },
 });
 
+function asyncReturn<T>(value: T) {
+  function call(...args: [...unknown[], (result: T) => void]): void;
+  function call(...args: unknown[]): Promise<T>;
+  function call(...args: unknown[]): Promise<T> | undefined {
+    const callback = args.at(-1);
+
+    if (typeof callback === "function") {
+      // oxlint-disable-next-line promise/prefer-await-to-callbacks
+      (callback as (result: T) => void)(value);
+      return;
+    }
+
+    return Promise.resolve(value);
+  }
+
+  return call;
+}
+
 function setupMocks(): void {
   // TODO: Decide how to handle this once macro string interpolation bug is fixed;  https://github.com/oven-sh/bun/issues/3830
   // this is normally set in build.ts
@@ -28,17 +46,17 @@ function setupMocks(): void {
     storage: {
       // @ts-expect-error - partial mock
       sync: {
-        get: () => Promise.resolve({}),
-        set: () => Promise.resolve(),
+        get: asyncReturn({}),
+        set: asyncReturn(undefined),
       },
     },
     scripting: {
       // @ts-expect-error - partial mock
-      executeScript: () => Promise.resolve([{ result: undefined }]),
+      executeScript: asyncReturn([{ result: undefined }]),
     },
     tabs: {
       // @ts-expect-error - partial mock
-      query: () => Promise.resolve([{ id: 123 }]),
+      query: asyncReturn([{ id: 123 }]),
     },
   };
 }
