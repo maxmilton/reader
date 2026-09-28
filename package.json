@@ -45,7 +45,7 @@
     "lightningcss": "1.33.0",
     "oxfmt": "0.68.0",
     "oxlint": "1.83.0",
-    "oxlint-tsgolint": "7.0.2001",
+    "oxlint-tsgolint": "7.0.2002",
     "purgecss": "8.0.0",
     "stylelint": "17.15.0",
     "stylelint-config-standard": "40.0.0",
