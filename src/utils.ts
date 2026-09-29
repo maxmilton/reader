@@ -29,5 +29,6 @@ export async function exec<T, A extends unknown[] = []>(
     args,
   });
 
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   return result as T;
 }

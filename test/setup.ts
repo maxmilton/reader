@@ -20,7 +20,7 @@ function asyncReturn<T>(value: T) {
     const callback = args.at(-1);
 
     if (typeof callback === "function") {
-      // oxlint-disable-next-line promise/prefer-await-to-callbacks
+      // oxlint-disable-next-line promise/prefer-await-to-callbacks typescript/no-unsafe-type-assertion
       (callback as (result: T) => void)(value);
       return;
     }

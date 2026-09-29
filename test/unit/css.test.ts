@@ -43,7 +43,7 @@ test("contains @font-face rule for each font", () => {
   walk(ast, (element) => {
     if (element.type !== FONT_FACE && element.parent?.type !== FONT_FACE) return SKIP;
     if (element.type === DECLARATION && element.props === "src") {
-      const param = /url\(([^)]+)\)/u.exec(element.children as string)?.[1];
+      const param = /url\((?<param>[^)]+)\)/u.exec(element.children as string)?.[1];
       expect(param).toBeDefined();
       // oxlint-disable-next-line typescript/no-non-null-assertion
       expect(fonts as readonly string[]).toContain(param!);
