@@ -27,7 +27,7 @@
 
     "types": ["bun", "chrome", "csso"],
     "paths": {
-      "#*": ["./src/*"]
+      "#/*": ["./src/*"]
     }
   },
   "include": ["*.config.js", "*.ts", "src", "test"]

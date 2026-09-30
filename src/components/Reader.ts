@@ -1,8 +1,8 @@
 import "./Reader.xcss";
 import { append, collect, create, h, ONCLICK } from "stage1/fast";
 import { compile } from "stage1/macro" with { type: "macro" };
-import { extractText } from "#extractor.ts";
-import { exec } from "#utils.ts";
+import { extractText } from "#/extractor.ts";
+import { exec } from "#/utils.ts";
 import { FocalPoint, type FocalPointComponent, indexOfORP } from "./FocalPoint.ts";
 
 function waitMultiplier(word: string, forceWait?: boolean) {

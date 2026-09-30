@@ -4,7 +4,7 @@
 
 import { afterEach, describe, expect, spyOn, test } from "bun:test";
 import { performanceSpy } from "@maxmilton/test-utils/spy";
-import type { UserSettings } from "#components/Reader.ts";
+import type { UserSettings } from "#/components/Reader.ts";
 import { reset } from "../setup.ts";
 
 // Completely reset DOM and global state between tests
