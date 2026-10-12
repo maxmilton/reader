@@ -133,7 +133,6 @@ export function Reader(): ReaderComponent {
 
     const currentWord = words[wordsIndex];
     const orpIndex = indexOfORP(currentWord);
-    // oxlint-disable-next-line prefer-const
     let focalPoint: FocalPointComponent;
 
     word.replaceChildren(
