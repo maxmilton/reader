@@ -160,6 +160,7 @@ const out1 = await Bun.build({
   entrypoints: ["src/health.ts"],
   outdir: "dist",
   target: "browser",
+  allowUnresolved: [],
   define: {
     "process.env.APP_RELEASE": JSON.stringify(release),
     "process.env.NODE_ENV": JSON.stringify(env),
@@ -177,6 +178,7 @@ const out2 = await Bun.build({
   outdir: "dist",
   target: "browser",
   external: ["*.ttf"],
+  allowUnresolved: [],
   define: {
     "process.env.APP_RELEASE": JSON.stringify(release),
     "process.env.NODE_ENV": JSON.stringify(env),
