@@ -6,7 +6,8 @@
     "oxc.oxc-vscode",
     "stylelint.vscode-stylelint",
     "tekumara.typos-vscode",
-    "typescriptteam.native-preview"
+    "typescriptteam.native-preview",
+    "zizmor.zizmor-vscode"
   ],
   "unwantedRecommendations": [
     "biomejs.biome",
