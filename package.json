@@ -25,23 +25,23 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@ekscss/framework": "0.0.61-next.0",
+    "@ekscss/framework": "0.0.61",
     "@maxmilton/html-parser": "0.0.15",
     "bugbox": "0.0.4",
-    "stage1": "0.11.0-next.0"
+    "stage1": "0.11.0"
   },
   "devDependencies": {
     "@maxmilton/oxlint-config": "0.0.22",
     "@maxmilton/stylelint-config": "0.4.4",
     "@maxmilton/test-utils": "0.0.18",
-    "@playwright/test": "1.63.0",
+    "@playwright/test": "1.64.0",
     "@types/bun": "1.4.2",
     "@types/chrome": "0.3.4",
     "@types/csso": "5.0.5",
-    "bun-plugin-ekscss": "0.0.4-next.0",
+    "bun-plugin-ekscss": "0.0.4",
     "csso": "5.0.5",
-    "ekscss": "0.0.24-next.0",
-    "happy-dom": "20.14.5",
+    "ekscss": "0.0.24",
+    "happy-dom": "20.14.6",
     "lightningcss": "1.33.0",
     "oxfmt": "0.72.0",
     "oxlint": "1.87.0",
