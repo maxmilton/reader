@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { validate } from "@maxmilton/test-utils/html";
+import pkg from "../../package.json" with { type: "json" };
 
 describe("dist files", () => {
   // TODO: Remove the file MIME type checks? Bun inferrs it from the file
@@ -27,7 +28,7 @@ describe("dist files", () => {
 
     test("exists with correct MIME type", () => {
       expect.assertions(3);
-      expect(file.exists()).resolves.toBeTruthy();
+      expect(file.exists()).resolves.toBeTrue();
       expect(file.size).toBeGreaterThan(0);
       expect(file.type).toBe(type);
     });
@@ -53,10 +54,37 @@ describe("dist files", () => {
   test.each(distFiles.filter(([filename]) => filename.endsWith(".html")))(
     "%s contains valid HTML",
     async (filename) => {
+      expect.assertions(1);
       const file = Bun.file(`dist/${filename}`);
       const html = await file.text();
       const result = validate(html);
       expect(result.valid).toBeTrue();
     },
   );
+});
+
+describe("package.json", () => {
+  const file = Bun.file("package.json");
+
+  test("exists with correct MIME type", () => {
+    expect.assertions(2);
+    expect(file.exists()).resolves.toBeTrue();
+    expect(file.type).toBe("application/json;charset=utf-8");
+  });
+
+  test("contains valid JSON", async () => {
+    expect.assertions(1);
+    const text = await file.text();
+    expect(JSON.parse(text)).toBePlainObject();
+  });
+
+  test("contains properties used in manifest", () => {
+    expect.assertions(6);
+    expect(pkg).toHaveProperty("description", expect.any(String));
+    expect(pkg).toHaveProperty("version", expect.any(String));
+    expect(pkg).toHaveProperty("homepage", expect.any(String));
+    expect(pkg.description.length).toBeGreaterThan(0);
+    expect(pkg.version.length).toBeGreaterThan(0);
+    expect(pkg.homepage.length).toBeGreaterThan(0);
+  });
 });
