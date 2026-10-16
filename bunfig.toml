@@ -6,21 +6,31 @@ noOrphans = true
 
 [install]
 auto = "disable"
-linker = "isolated"
-hoistPattern = ["@csstools/*", "postcss*"] # no phantom dependencies
 peer = false
+ignoreScripts = true
+linker = "isolated"
 minimumReleaseAge = 604800 # 7 days
 minimumReleaseAgeExcludes = [
+  "@ekscss/config-loader",
   "@ekscss/framework",
-  "@maxmilton/*",
-  "bugbox",
-  "ekscss",
-  "stage1",
-  # TODO: Remove this once bun supports wildcards
+  "@ekscss/plugin-apply",
+  "@ekscss/plugin-import",
+  "@ekscss/plugin-prefix",
   "@maxmilton/html-parser",
   "@maxmilton/oxlint-config",
   "@maxmilton/stylelint-config",
   "@maxmilton/test-utils",
+  "bugbox",
+  "bun-plugin-ekscss",
+  "ekscss",
+  "stage1",
+]
+hoistPattern = [ # no surprise phantom dependencies
+  "@csstools/css-parser-algorithms",
+  "@csstools/css-tokenizer",
+  "postcss",
+  "postcss-ekscss",
+  "postcss-selector-parser",
 ]
 
 [test]
