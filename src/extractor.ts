@@ -210,7 +210,7 @@ export function extractText(html: string): string {
   );
 }
 
-// // Simple stringify AST to prettified HTML-like structure for debugging
+// /** Simple stringify AST to prettified HTML-like structure for debugging. */
 // function stringify(node: Node, html: string, level = 1): string {
 //   if (node.type === SyntaxKind.Text) return node.value.replace(/\s+/gu, " ");
 //   if (node.name === "!--") return html.slice(node.start, node.end);
@@ -222,17 +222,17 @@ export function extractText(html: string): string {
 //
 //   return (
 //     // oxlint-disable-next-line prefer-template - template string breaks after minification
-//     head +
-//     "\n" +
-//     "  ".repeat(level) +
-//     node.body
+//     head
+//     + "\n"
+//     + "  ".repeat(level)
+//     + node.body
 //       .filter((n) => !(n.type === SyntaxKind.Text && n.value.trim() === ""))
 //       .map((n) => stringify(n, html, level + 1))
-//       .join("\n" + "  ".repeat(level)) +
-//     "\n" +
-//     "  ".repeat(level - 1) +
-//     "</" +
-//     node.rawName +
-//     ">"
+//       .join("\n" + "  ".repeat(level))
+//     + "\n"
+//     + "  ".repeat(level - 1)
+//     + "</"
+//     + node.rawName
+//     + ">"
 //   );
 // }

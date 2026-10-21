@@ -38,8 +38,8 @@ interface Refs {
   progress: HTMLDivElement;
   rewind: HTMLButtonElement;
   play: HTMLButtonElement;
-  slower: HTMLButtonElement;
   speed: Text;
+  slower: HTMLButtonElement;
   faster: HTMLButtonElement;
   focus: HTMLDivElement;
   word: HTMLDivElement;
@@ -78,7 +78,7 @@ export function Reader(): ReaderComponent {
   });
 
   const root = h<ReaderComponent>(meta.html);
-  const refs = collect<Refs>(root, meta.d);
+  const refs = collect(root, meta.d);
   const progress = refs[meta.ref.progress];
   const rewind = refs[meta.ref.rewind];
   const play = refs[meta.ref.play];
