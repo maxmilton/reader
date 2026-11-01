@@ -11,7 +11,7 @@
         "stage1": "0.12.1",
       },
       "devDependencies": {
-        "@maxmilton/oxlint-config": "0.0.22",
+        "@maxmilton/oxlint-config": "0.0.23",
         "@maxmilton/stylelint-config": "0.4.4",
         "@maxmilton/test-utils": "0.0.18",
         "@playwright/test": "1.64.0",
@@ -85,7 +85,7 @@
 
     "@maxmilton/html-parser": ["@maxmilton/html-parser@0.0.15", "", {}, "sha512-KQZd0Il+CDBDE7/6Ex9S+WYaBEiSi9bH2yQzZSihmCQ9ZAOJAiz77kuNyMNIB0m89W68SJavJLLBy9u4VM9gKw=="],
 
-    "@maxmilton/oxlint-config": ["@maxmilton/oxlint-config@0.0.22", "", { "peerDependencies": { "oxlint": "^1.86.0" } }, "sha512-E2M6nU0ypGHZgp6VojOEIh8AonnyMwRizmhocbl8MnZMT5eZ01MDs2Jh+4hQow0jXVo3GNR3Hg9NYyviICCYKw=="],
+    "@maxmilton/oxlint-config": ["@maxmilton/oxlint-config@0.0.23", "", { "optionalDependencies": { "oxlint": "*" } }, "sha512-toGah1sSd3k48My/q1eEIE8Q9kiqjPAHs9hmYWWPJwoStsl8AY0eFtcFIb9X/DmlzTAZds8SdmCftB4bTPsyqQ=="],
 
     "@maxmilton/stylelint-config": ["@maxmilton/stylelint-config@0.4.4", "", { "dependencies": { "postcss-ekscss": "^0.0.15", "stylelint-order": "^8.0.0" }, "peerDependencies": { "stylelint": "^17.0.0" } }, "sha512-kOd6CRbUTofWMPVBUMM6NHJcOUQ9p+kTcg9URQlQKSSfKTPjZfUEM5KaUnjy+ZmoQd4jmtJQJoUokIMItx2pOA=="],
 
